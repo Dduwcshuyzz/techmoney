@@ -294,6 +294,55 @@ body.light .card{
 body{
     transition:background 0.4s ease, color 0.4s ease;
 }
+/* FIX MENU MOBILE */
+@media (max-width:768px){
+
+header{
+flex-direction:column;
+align-items:center;
+gap:10px;
+}
+
+nav{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+}
+
+nav a{
+font-size:14px;
+padding:6px 10px;
+}
+
+.auth-buttons{
+display:flex;
+gap:8px;
+}
+
+.auth-buttons a{
+padding:6px 10px;
+font-size:13px;
+}
+
+} 
+@media (max-width:768px){
+
+.logo{
+font-size:20px;
+text-align:center;
+}
+
+.hero h1{
+font-size:26px;
+}
+
+.hero h2{
+font-size:18px;
+}
+
+}
+
 </style>
 </head>
 
