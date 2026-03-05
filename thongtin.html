@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECHMONEY - Thông tin cá nhân</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+display:flex;
+height:100vh;
+background:#0f172a;
+color:white;
+transition:.3s;
+}
+
+body.light{
+background:#f1f5f9;
+color:#0f172a;
+}
+
+.sidebar{
+width:240px;
+background:#111827;
+padding:20px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.logo{
+font-size:20px;
+font-weight:700;
+margin-bottom:25px;
+}
+
+.menu a{
+display:block;
+padding:12px;
+margin-bottom:10px;
+border-radius:8px;
+text-decoration:none;
+color:white;
+background:rgba(255,255,255,0.05);
+transition:.3s;
+}
+
+.menu a:hover{
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+}
+
+.main{
+flex:1;
+padding:30px;
+overflow:auto;
+position:relative;
+}
+
+/* TOPBAR FIX CHUẨN */
+.topbar{
+position:relative;
+margin-bottom:20px;
+}
+
+/* NÚT ĐĂNG XUẤT GIỐNG TRANG KHÁC */
+.logout{
+position:absolute;
+right:0;
+top:0;
+background:#dc2626;
+border:none;
+padding:8px 18px;
+border-radius:8px;
+color:white;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+.logout:hover{
+background:#b91c1c;
+transform:scale(1.05);
+}
+
+.theme-toggle{
+position:absolute;
+right:130px;
+top:5px;
+cursor:pointer;
+font-size:18px;
+}
+
+.layout{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:20px;
+}
+
+.form-box{
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:12px;
+}
+
+.warning{
+background:#3b1d1d;
+border:1px solid #ef4444;
+padding:20px;
+border-radius:12px;
+}
+
+input{
+width:100%;
+padding:10px;
+border-radius:6px;
+border:none;
+margin-top:8px;
+margin-bottom:15px;
+}
+
+button{
+padding:10px;
+border:none;
+border-radius:6px;
+background:#2563eb;
+color:white;
+cursor:pointer;
+width:100%;
+}
+
+.avatar-box{
+text-align:center;
+margin-bottom:20px;
+}
+
+.avatar-box img{
+width:120px;
+height:120px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #2563eb;
+margin-bottom:10px;
+}
+
+#successBox{
+display:none;
+margin-top:15px;
+background:#065f46;
+padding:10px;
+border-radius:8px;
+}
+
+@media(max-width:900px){
+.sidebar{display:none;}
+.layout{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<div>
+<div class="logo">TECHMONEY</div>
+<div class="menu">
+<a href="home.html">🏠 Trang chủ</a>
+<a href="naptien.html">💰 Nạp tiền</a>
+<a href="vayip.html">📱 Vay iCloud iPhone</a>
+<a href="rutvi.html">💳 Rút ví trả sau</a>
+<a href="thongtin.html">👤 Thông tin cá nhân</a>
+</div>
+</div>
+</div>
+
+<div class="main">
+
+<div class="topbar">
+<span class="theme-toggle" onclick="toggleTheme()">🌙</span>
+<button class="logout" onclick="logout()">Đăng xuất</button>
+</div>
+
+<div class="layout">
+
+<div class="form-box">
+
+<div class="avatar-box">
+<img id="avatarPreview" src="https://i.pravatar.cc/150?img=3">
+<input type="file" onchange="previewAvatar(event)">
+</div>
+
+<label>Họ và tên</label>
+<input type="text" id="fullname">
+
+<label>Số CCCD</label>
+<input type="text" id="cccd">
+
+<label>Ngày cấp CCCD</label>
+<input type="date" id="ngaycap">
+
+<label>Quê quán</label>
+<input type="text" id="quequan">
+
+<label>Dân tộc</label>
+<input type="text" id="dantoc">
+
+<label>Thường trú</label>
+<input type="text" id="thuongtru">
+
+<label>Số điện thoại</label>
+<input type="text" id="phone">
+
+<button onclick="saveInfo()">Cập nhật thông tin</button>
+
+<div id="successBox"></div>
+
+</div>
+
+<div class="warning">
+<h3>⚠ Chú ý quan trọng</h3>
+<ul>
+<li>Thông tin phải chính xác và trùng khớp CCCD.</li>
+<li>Cung cấp sai thông tin có thể bị khóa tài khoản.</li>
+<li>Không chia sẻ tài khoản cho người khác.</li>
+<li>Hệ thống bảo mật thông tin khách hàng tuyệt đối.</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<script>
+
+let user = localStorage.getItem("currentUser");
+if(!user){
+window.location.href="index.html";
+}
+
+function logout(){
+localStorage.removeItem("currentUser");
+window.location.href="index.html";
+}
+
+function toggleTheme(){
+document.body.classList.toggle("light");
+}
+
+function previewAvatar(event){
+let reader = new FileReader();
+reader.onload = function(){
+document.getElementById("avatarPreview").src = reader.result;
+}
+reader.readAsDataURL(event.target.files[0]);
+}
+
+function saveInfo(){
+let data = {
+fullname: document.getElementById("fullname").value,
+cccd: document.getElementById("cccd").value,
+ngaycap: document.getElementById("ngaycap").value,
+quequan: document.getElementById("quequan").value,
+dantoc: document.getElementById("dantoc").value,
+thuongtru: document.getElementById("thuongtru").value,
+phone: document.getElementById("phone").value
+};
+
+localStorage.setItem("userInfo", JSON.stringify(data));
+
+let box = document.getElementById("successBox");
+box.style.display="block";
+box.innerHTML="✅ Thông tin đã được cập nhật thành công!";
+}
+
+</script>
+
+</body>
+</html>

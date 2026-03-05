@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giới Thiệu Dịch Vụ - TECHMONEY</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+    transition:0.3s;
+}
+
+body.light{
+    background:#f4f6fb;
+    color:#111;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 60px;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    color:#4da6ff;
+}
+
+nav a{
+    margin-left:20px;
+    text-decoration:none;
+    color:inherit;
+}
+
+.theme-toggle{
+    background:none;
+    border:none;
+    font-size:20px;
+    cursor:pointer;
+    margin-left:20px;
+}
+
+.hero{
+    text-align:center;
+    padding:80px 20px;
+}
+
+.hero h1{
+    font-size:38px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    max-width:700px;
+    margin:0 auto 30px;
+    opacity:0.85;
+    line-height:1.6;
+}
+
+.section{
+    padding:60px 80px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:30px;
+    border-radius:15px;
+    backdrop-filter: blur(10px);
+    transition:0.3s;
+}
+
+body.light .card{
+    background:white;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.card:hover{
+    transform:translateY(-6px);
+}
+
+.card h3{
+    margin-bottom:15px;
+    color:#4da6ff;
+}
+
+.cta{
+    text-align:center;
+    padding:60px 20px;
+}
+
+.cta a{
+    display:inline-block;
+    padding:12px 30px;
+    background:#4da6ff;
+    color:white;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.cta a:hover{
+    opacity:0.85;
+}
+
+.footer{
+    text-align:center;
+    padding:30px;
+    opacity:0.7;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">TECHMONEY</div>
+    <nav>
+        <a href="index.html">Trang chủ</a>
+        <a href="login.html">Đăng nhập</a>
+        <button id="themeToggle" class="theme-toggle">🌙</button>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Dịch Vụ Tài Chính Nhanh – Uy Tín – Bảo Mật</h1>
+    <p>
+        TECHMONEY chuyên cung cấp dịch vụ vay nhanh, hỗ trợ vay qua iCloud iPhone,
+        rút ví trả sau và các giải pháp tài chính linh hoạt.
+        Thủ tục đơn giản – giải ngân nhanh trong ngày.
+    </p>
+</section>
+
+<section class="section">
+
+    <div class="card">
+        <h3>⚡ Vay Nhanh 24/7</h3>
+        <p>Hỗ trợ vay nhanh chỉ cần CCCD. Xét duyệt nhanh, nhận tiền trong ngày.</p>
+    </div>
+
+    <div class="card">
+        <h3>📱 Vay Qua iCloud iPhone</h3>
+        <p>Hỗ trợ tài chính thông qua thiết bị iPhone. Quy trình rõ ràng, minh bạch.</p>
+    </div>
+
+    <div class="card">
+        <h3>💳 Rút Ví Trả Sau</h3>
+        <p>Hỗ trợ rút tiền từ ví trả sau với mức phí hợp lý và xử lý nhanh chóng.</p>
+    </div>
+
+    <div class="card">
+        <h3>🔐 Bảo Mật Thông Tin</h3>
+        <p>Mọi dữ liệu khách hàng được bảo mật tuyệt đối theo tiêu chuẩn an toàn.</p>
+    </div>
+
+</section>
+
+<section class="cta">
+    <h2 style="margin-bottom:20px;">Cần hỗ trợ tài chính ngay?</h2>
+    <a href="login.html">Đăng Ký Tư Vấn Ngay</a>
+</section>
+
+<div class="footer">
+    © 2026 TECHMONEY - Dịch vụ tài chính nhanh và uy tín.
+</div>
+
+</body>
+</html>

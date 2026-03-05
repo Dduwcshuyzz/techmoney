@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECHMONEY - Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+display:flex;
+height:100vh;
+background:#0f172a;
+color:white;
+transition:0.3s;
+}
+
+body.light{
+background:#f1f5f9;
+color:#0f172a;
+}
+
+.sidebar{
+width:250px;
+background:#111827;
+padding:20px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+body.light .sidebar{
+background:#ffffff;
+}
+
+.logo{
+font-size:20px;
+font-weight:700;
+margin-bottom:30px;
+}
+
+.menu a{
+display:block;
+padding:12px;
+margin-bottom:10px;
+border-radius:8px;
+text-decoration:none;
+color:white;
+background:rgba(255,255,255,0.05);
+transition:0.3s;
+}
+
+.menu a:hover{
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+}
+
+body.light .menu a{
+color:#0f172a;
+}
+
+.bottom-box{
+background:linear-gradient(135deg,#2563eb,#3b82f6);
+padding:15px;
+border-radius:10px;
+text-align:center;
+}
+
+.main{
+flex:1;
+padding:30px;
+overflow:auto;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.toggle{
+cursor:pointer;
+font-size:20px;
+margin-right:20px;
+}
+
+.logout{
+background:#ef4444;
+border:none;
+padding:8px 15px;
+border-radius:6px;
+color:white;
+cursor:pointer;
+}
+
+.card{
+background:linear-gradient(135deg,#1e3a8a,#2563eb);
+padding:30px;
+border-radius:15px;
+}
+
+@media(max-width:900px){
+.sidebar{display:none;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<div>
+<div class="logo">TECHMONEY</div>
+
+<div class="menu">
+<a href="vayip.html">🏦 Vay iCloud iPhone</a>
+<a href="rutvi.html">💳 Rút ví trả sau</a>
+<a href="#">🔄 ĐH thẻ tín dụng</a>
+<a href="#">📱 Gạch thẻ cào</a>
+<a href="#">👥 Giới thiệu bạn bè</a>
+<a href="naptien.html">💰 Nạp tiền</a>
+<hr style="margin:15px 0;border-color:rgba(255,255,255,0.1);">
+
+<a href="thongtin.html">👤 Thông tin cá nhân</a>
+<a href="#">👤 Lịch sử hoạt động</a>
+</div>
+</div>
+
+<div class="bottom-box">
+Xin chào<br>
+<b id="userDisplay"></b><br><br>
+Số dư: 0đ
+</div>
+</div>
+
+<div class="main">
+
+<div class="topbar">
+<div>
+<span class="toggle" onclick="toggleTheme()">🌙</span>
+</div>
+<button class="logout" onclick="logout()">Đăng xuất</button>
+</div>
+
+<div class="card">
+<h2>Chào mừng đến TECHMONEY</h2>
+<p>Hệ thống dịch vụ tài chính nhanh - bảo mật - uy tín.</p>
+</div>
+
+</div>
+
+<script>
+
+// Kiểm tra đăng nhập
+let user = localStorage.getItem("currentUser");
+if(!user){
+window.location.href="index.html";
+}
+document.getElementById("userDisplay").innerText = user;
+
+// Dark Light
+function toggleTheme(){
+document.body.classList.toggle("light");
+}
+
+// Logout
+function logout(){
+localStorage.removeItem("currentUser");
+window.location.href="index.html";
+}
+
+</script>
+
+</body>
+</html>

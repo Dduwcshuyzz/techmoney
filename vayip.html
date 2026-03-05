@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECHMONEY - Vay iCloud iPhone</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+display:flex;
+height:100vh;
+background:#0f172a;
+color:white;
+transition:.3s;
+}
+
+body.light{
+background:#f1f5f9;
+color:#0f172a;
+}
+
+.sidebar{
+width:240px;
+background:#111827;
+padding:20px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.logo{
+font-size:20px;
+font-weight:700;
+margin-bottom:25px;
+}
+
+.menu a{
+display:block;
+padding:12px;
+margin-bottom:10px;
+border-radius:8px;
+text-decoration:none;
+color:white;
+background:rgba(255,255,255,0.05);
+transition:.3s;
+}
+
+.menu a:hover{
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+}
+
+.main{
+flex:1;
+padding:30px;
+overflow:auto;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.logout{
+background:#ef4444;
+border:none;
+padding:8px 15px;
+border-radius:6px;
+color:white;
+cursor:pointer;
+}
+
+.promo{
+background:#1e3a8a;
+padding:15px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.loan-layout{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:20px;
+}
+
+.form-box{
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:12px;
+}
+
+input,select{
+width:100%;
+padding:10px;
+border-radius:6px;
+border:none;
+margin-top:8px;
+margin-bottom:15px;
+}
+
+.result{
+background:#0f5132;
+padding:15px;
+border-radius:10px;
+margin-top:10px;
+}
+
+.warning{
+background:#3b1d1d;
+border:1px solid #ef4444;
+padding:20px;
+border-radius:12px;
+}
+
+button{
+    padding:10px;
+    border:none;
+    border-radius:6px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.form-box button{
+    width:100%;
+}
+
+.logout{
+    background:#ef4444;
+    border:none;
+    padding:8px 15px;
+    border-radius:6px;
+    color:white;
+    cursor:pointer;
+    width:auto;
+}
+
+@media(max-width:900px){
+.sidebar{display:none;}
+.loan-layout{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<div>
+<div class="logo">TECHMONEY</div>
+<div class="menu">
+<a href="home.html">🏠 Trang chủ</a>
+<a href="naptien.html">💰 Nạp tiền</a>
+<a href="vayip.html">📱 Vay iCloud iPhone</a>
+<a href="#">👤 Thông tin cá nhân</a>
+</div>
+</div>
+</div>
+
+<div class="main">
+
+<div class="topbar">
+<span onclick="toggleTheme()" style="cursor:pointer;">🌙</span>
+<button class="logout" onclick="logout()">Đăng xuất</button>
+</div>
+
+<div class="promo">
+📱 Hỗ trợ vay tối đa <b>60% giá trị máy</b> – duyệt nhanh trong ngày
+</div>
+
+<div class="loan-layout">
+
+<div class="form-box">
+
+<label>Chọn dòng iPhone</label>
+<select id="iphone">
+<option value="5000000">iPhone X</option>
+<option value="6000000">iPhone XR</option>
+<option value="6500000">iPhone XS</option>
+<option value="7500000">iPhone 11</option>
+<option value="9000000">iPhone 11 Pro</option>
+<option value="10000000">iPhone 12</option>
+<option value="12000000">iPhone 12 Pro</option>
+<option value="14000000">iPhone 13</option>
+<option value="16000000">iPhone 13 Pro</option>
+<option value="18000000">iPhone 14</option>
+<option value="20000000">iPhone 14 Pro</option>
+<option value="22000000">iPhone 15</option>
+<option value="25000000">iPhone 15 Pro Max</option>
+<option value="27000000">iPhone 16</option>
+<option value="29000000">iPhone 16 Pro Max</option>
+<option value="30000000">iPhone 17 Pro Max</option>
+</select>
+
+<label>Thời gian vay</label>
+<select id="month">
+<option value="1">1 tháng</option>
+<option value="3">3 tháng</option>
+<option value="6">6 tháng</option>
+<option value="12">12 tháng</option>
+<option value="24">24 tháng</option>
+<option value="36">36 tháng</option>
+</select>
+
+<button onclick="calculate()">Ước tính khoản vay</button>
+
+<div class="result" id="result" style="display:none;"></div>
+
+<button onclick="sendRequest()">Gửi yêu cầu vay</button>
+
+</div>
+
+<div class="warning">
+<h3>⚠ Lưu ý quan trọng</h3>
+<ul>
+<li>IP không dính iCloud ẩn</li>
+<li>Máy hoạt động bình thường</li>
+<li>Giá vay thực tế có thể thấp hơn dự kiến</li>
+<li>Phụ thuộc vào tình trạng máy khi kiểm tra</li>
+</ul>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let user = localStorage.getItem("currentUser");
+if(!user){
+window.location.href="index.html";
+}
+
+function logout(){
+localStorage.removeItem("currentUser");
+window.location.href="index.html";
+}
+
+function toggleTheme(){
+document.body.classList.toggle("light");
+}
+
+function calculate(){
+let value = parseInt(document.getElementById("iphone").value);
+let month = parseInt(document.getElementById("month").value);
+
+let loan = value * 0.6;
+let interestRate = 0.02;
+let interest = loan * interestRate * month;
+let total = loan + interest;
+
+let box = document.getElementById("result");
+box.style.display="block";
+box.innerHTML = `
+<b>Số tiền có thể vay:</b> ${loan.toLocaleString()} VNĐ<br>
+<b>Lãi suất:</b> 2% / tháng<br>
+<b>Tổng lãi:</b> ${interest.toLocaleString()} VNĐ<br>
+<b>Tổng phải trả:</b> ${total.toLocaleString()} VNĐ
+`;
+}
+
+function sendRequest(){
+alert("Yêu cầu vay đã được gửi. Nhân viên sẽ liên hệ bạn.");
+}
+
+</script>
+
+</body>
+</html>

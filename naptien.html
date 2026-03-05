@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECHMONEY - Nạp tiền</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+display:flex;
+height:100vh;
+background:#0f172a;
+color:white;
+transition:.3s;
+}
+
+body.light{
+background:#f1f5f9;
+color:#0f172a;
+}
+
+.sidebar{
+width:240px;
+background:#111827;
+padding:20px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.logo{
+font-size:20px;
+font-weight:700;
+margin-bottom:25px;
+}
+
+.menu a{
+display:block;
+padding:12px;
+margin-bottom:10px;
+border-radius:8px;
+text-decoration:none;
+color:white;
+background:rgba(255,255,255,0.05);
+transition:.3s;
+}
+
+.menu a:hover{
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+}
+
+.main{
+flex:1;
+padding:30px;
+overflow:auto;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.logout{
+background:#ef4444;
+border:none;
+padding:8px 15px;
+border-radius:6px;
+color:white;
+cursor:pointer;
+}
+
+.promo{
+background:#4b2e0f;
+border:1px solid orange;
+padding:15px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.tabs{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+.tab{
+padding:10px 15px;
+background:rgba(255,255,255,0.05);
+border-radius:8px;
+cursor:pointer;
+}
+
+.tab.active{
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+}
+
+.deposit-layout{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:20px;
+}
+
+.bank-box{
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:12px;
+}
+
+.bank-info{
+background:linear-gradient(135deg,#8a090e,#881809);
+padding:15px;
+border-radius:10px;
+margin-bottom:15px;
+}
+
+.bank-info input{
+width:100%;
+padding:8px;
+border-radius:6px;
+border:none;
+margin-top:5px;
+}
+
+.qr-box{
+background:#1e3a8a;
+padding:15px;
+border-radius:10px;
+text-align:center;
+}
+
+.qr-box img{
+width:150px;
+margin-top:10px;
+}
+
+.warning{
+background:#3b1d1d;
+border:1px solid #ef4444;
+padding:20px;
+border-radius:12px;
+}
+
+button{
+margin-top:10px;
+padding:6px 10px;
+border:none;
+border-radius:6px;
+background:#2563eb;
+color:white;
+cursor:pointer;
+}
+
+@media(max-width:900px){
+.sidebar{display:none;}
+.deposit-layout{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+<div>
+<div class="logo">TECHMONEY</div>
+<div class="menu">
+<a href="home.html">🏠 Trang chủ</a>
+<a href="naptien.html">💰 Nạp tiền</a>
+<a href="#">👤 Thông tin cá nhân</a>
+</div>
+</div>
+</div>
+
+<div class="main">
+
+<div class="topbar">
+<span onclick="toggleTheme()" style="cursor:pointer;">🌙</span>
+<button class="logout" onclick="logout()">Đăng xuất</button>
+</div>
+
+<div class="promo">
+⭐ <b>Đang có chương trình khuyến mãi nạp tiền!</b><br>
+Nhận thêm <b>+10%</b> giá trị khi nạp trong hôm nay.
+</div>
+
+<div class="tabs">
+<div class="tab active">🏦 Chuyển khoản ngân hàng</div>
+<div class="tab">💎 Chuyển USDT</div>
+</div>
+
+<div class="deposit-layout">
+
+<div class="bank-box">
+
+<div class="bank-info">
+<b>TCB-Ngân hàng Thương mại cổ phần Kỹ Thương Việt Nam</b><br><br>
+
+Chủ tài khoản
+<input value="LE DUC HUY" readonly>
+
+Số tài khoản
+<input value="999920052005" readonly>
+
+Nội dung chuyển khoản
+<input id="transferContent" readonly>
+
+<button onclick="copyContent()">Sao chép nội dung</button>
+</div>
+
+<div style="background:#1e293b;padding:15px;border-radius:10px;">
+<b>Hướng dẫn:</b>
+<ol>
+<li>Chuyển đúng số tài khoản trên</li>
+<li>Nhập chính xác nội dung chuyển khoản</li>
+<li>Tiền tự động cộng sau 1-5 phút</li>
+</ol>
+</div>
+
+</div>
+
+<div class="warning">
+<h3>⚠ Lưu ý quan trọng</h3>
+<ul>
+<li> Mỗi tài khoản có nội dung chuyển khoản riêng.</li>
+<li> Không chuyển sai nội dung.</li>
+<li> Liên hệ admin nếu chưa được cộng tiền.</li>
+</ul>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let user = localStorage.getItem("currentUser");
+if(!user){
+window.location.href="index.html";
+}
+
+document.getElementById("transferContent").value = "techmoney_" + user;
+
+function logout(){
+localStorage.removeItem("currentUser");
+window.location.href="index.html";
+}
+
+function toggleTheme(){
+document.body.classList.toggle("light");
+}
+
+function copyContent(){
+let text = document.getElementById("transferContent");
+text.select();
+document.execCommand("copy");
+alert("Đã sao chép nội dung!");
+}
+
+</script>
+
+</body>
+</html>

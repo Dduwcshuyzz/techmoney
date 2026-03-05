@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECHMONEY - Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+height:100vh;
+display:flex;
+background:#0f172a;
+color:white;
+transition:0.3s;
+}
+
+body.light{
+background:#f1f5f9;
+color:#0f172a;
+}
+
+body.light .right{
+background:#ffffff;
+}
+
+body.light input{
+background:#e2e8f0;
+color:#0f172a;
+}
+
+.left{
+width:50%;
+background:linear-gradient(135deg,#1e3a8a,#2563eb);
+color:white;
+padding:60px;
+position:relative;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.logo{
+position:absolute;
+top:30px;
+left:40px;
+font-weight:700;
+font-size:20px;
+}
+
+.left h2{
+font-size:30px;
+margin-bottom:30px;
+}
+
+.feature{
+background:rgba(255,255,255,0.1);
+padding:15px;
+border-radius:10px;
+margin-bottom:15px;
+}
+
+.right{
+width:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+position:relative;
+background:#0f172a;
+}
+
+.theme-toggle{
+position:absolute;
+top:20px;
+right:80px;
+background:none;
+border:none;
+font-size:18px;
+color:white;
+cursor:pointer;
+}
+
+.form-box{
+width:350px;
+}
+
+.form-box h2{
+margin-bottom:5px;
+}
+
+.form-box p{
+font-size:13px;
+color:#aaa;
+margin-bottom:20px;
+}
+
+.input-group{
+margin-bottom:15px;
+position:relative;
+}
+
+input{
+width:100%;
+padding:12px;
+border-radius:6px;
+border:1px solid #334155;
+background:#1e293b;
+color:white;
+outline:none;
+}
+
+input:focus{
+border-color:#2563eb;
+}
+
+.show-pass{
+position:absolute;
+right:10px;
+top:12px;
+cursor:pointer;
+font-size:14px;
+opacity:0.7;
+}
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:6px;
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+color:white;
+font-weight:600;
+cursor:pointer;
+margin-top:10px;
+}
+
+.links{
+margin-top:15px;
+font-size:13px;
+}
+
+.links a{
+color:#3b82f6;
+cursor:pointer;
+text-decoration:none;
+}
+
+.back{
+margin-top:10px;
+font-size:12px;
+}
+
+.contact-fixed{
+position:fixed;
+right:20px;
+top:50%;
+transform:translateY(-50%);
+display:flex;
+flex-direction:column;
+gap:15px;
+z-index:999;
+}
+
+.contact-btn{
+width:50px;
+height:50px;
+background:linear-gradient(135deg,#1e3a8a,#2563eb);
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 0 15px rgba(37,99,235,0.5);
+transition:0.3s;
+}
+
+.contact-btn img{width:24px;}
+
+.contact-btn:hover{
+transform:scale(1.15);
+}
+
+@media(max-width:900px){
+.left{display:none;}
+.right{width:100%;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="contact-fixed">
+<a href="#" class="contact-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
+<a href="#" class="contact-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"></a>
+<a href="#" class="contact-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"></a>
+<a href="#" class="contact-btn"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png"></a>
+</div>
+
+<div class="left">
+<div class="logo">TECHMONEY</div>
+<h2>Tại Sao Chọn Chúng Tôi?</h2>
+<div class="feature">Giải ngân nhanh trong ngày</div>
+<div class="feature">Bảo mật thông tin khách hàng</div>
+<div class="feature">Hỗ trợ 24/7</div>
+</div>
+
+<div class="right">
+
+<button class="theme-toggle" id="themeToggle">🌙</button>
+
+<div class="form-box">
+
+<!-- LOGIN -->
+<div id="loginForm">
+<h2>Chào Mừng Trở Lại</h2>
+<p>Đăng nhập để tiếp tục</p>
+
+<div class="input-group">
+<input type="text" id="loginUser" placeholder="Tên đăng nhập">
+</div>
+
+<div class="input-group">
+<input type="password" id="loginPass" placeholder="Mật khẩu">
+<span class="show-pass" onclick="togglePass('loginPass')">👁</span>
+</div>
+
+<button onclick="login()">Đăng nhập →</button>
+
+<div class="links">
+Chưa có tài khoản? <a onclick="showRegister()">Đăng ký ngay</a>
+<div class="back">
+← <a href="index.html">Quay lại trang chủ</a>
+</div>
+</div>
+</div>
+
+<!-- REGISTER -->
+<div id="registerForm" style="display:none;">
+<h2>Tạo Tài Khoản</h2>
+<p>Đăng ký để bắt đầu</p>
+
+<div class="input-group">
+<input type="text" id="regUser" placeholder="Tên đăng nhập">
+</div>
+
+<div class="input-group">
+<input type="password" id="regPass" placeholder="Mật khẩu">
+<span class="show-pass" onclick="togglePass('regPass')">👁</span>
+</div>
+
+<div class="input-group">
+<input type="password" id="regConfirm" placeholder="Xác nhận mật khẩu">
+<span class="show-pass" onclick="togglePass('regConfirm')">👁</span>
+</div>
+
+<button onclick="register()">Đăng ký →</button>
+
+<div class="links">
+Đã có tài khoản? <a onclick="showLogin()">Đăng nhập</a>
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+function showRegister(){
+document.getElementById("loginForm").style.display="none";
+document.getElementById("registerForm").style.display="block";
+}
+
+function showLogin(){
+document.getElementById("loginForm").style.display="block";
+document.getElementById("registerForm").style.display="none";
+}
+
+function togglePass(id){
+let input=document.getElementById(id);
+input.type=input.type==="password"?"text":"password";
+}
+
+// DARK LIGHT
+const toggleBtn=document.getElementById("themeToggle");
+
+if(localStorage.getItem("theme")==="light"){
+document.body.classList.add("light");
+toggleBtn.textContent="☀️";
+}
+
+toggleBtn.onclick=function(){
+document.body.classList.toggle("light");
+if(document.body.classList.contains("light")){
+toggleBtn.textContent="☀️";
+localStorage.setItem("theme","light");
+}else{
+toggleBtn.textContent="🌙";
+localStorage.setItem("theme","dark");
+}
+}
+
+// REGISTER
+function register(){
+const username=document.getElementById("regUser").value;
+const password=document.getElementById("regPass").value;
+const confirm=document.getElementById("regConfirm").value;
+
+if(username===""||password===""||confirm===""){
+alert("Vui lòng nhập đầy đủ!");
+return;
+}
+
+if(password!==confirm){
+alert("Mật khẩu không khớp!");
+return;
+}
+
+let users=JSON.parse(localStorage.getItem("users"))||[];
+
+if(users.find(u=>u.username===username)){
+alert("Tài khoản đã tồn tại!");
+return;
+}
+
+users.push({username,password});
+localStorage.setItem("users",JSON.stringify(users));
+
+alert("Đăng ký thành công!");
+showLogin();
+}
+
+// LOGIN
+function login(){
+const username=document.getElementById("loginUser").value;
+const password=document.getElementById("loginPass").value;
+
+let users=JSON.parse(localStorage.getItem("users"))||[];
+
+const valid=users.find(u=>u.username===username&&u.password===password);
+
+if(valid){
+localStorage.setItem("currentUser",username);
+window.location.href="home.html";
+}else{
+alert("Sai tài khoản hoặc mật khẩu!");
+}
+}
+</script>
+
+</body>
+</html>
