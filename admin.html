@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TECHMONEY - Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;font-family:Poppins,sans-serif}
+    body{margin:0;background:#0f172a;color:#fff;padding:16px}
+    .wrap{max-width:1100px;margin:auto}
+    .top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .pill{padding:6px 10px;border-radius:999px;background:rgba(59,130,246,.18);border:1px solid rgba(59,130,246,.25)}
+    .btn{border:0;border-radius:10px;padding:10px 12px;color:#fff;cursor:pointer;font-weight:700}
+    .btn-red{background:#ef4444}
+    .btn-blue{background:#2563eb}
+    .btn-gray{background:rgba(255,255,255,.10)}
+    .card{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-top:12px}
+    h2,h3{margin:0 0 10px}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap}
+    .tabs button{background:rgba(255,255,255,.08)}
+    .tabs button.active{background:#2563eb}
+    table{width:100%;border-collapse:collapse;margin-top:8px}
+    th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;font-size:13px}
+    .row-actions{display:flex;gap:8px;flex-wrap:wrap}
+    input,textarea,select{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#0b1220;color:#fff}
+    textarea{min-height:90px;resize:vertical}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media(max-width:800px){ .grid{grid-template-columns:1fr} }
+    .tag{padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.08);display:inline-block}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="pill" id="me">Đang tải...</div>
+      <div class="tabs">
+        <button class="btn btn-gray active" id="tabUsers" onclick="showTab('users')">👥 Users</button>
+        <button class="btn btn-gray" id="tabTopups" onclick="showTab('topups')">💰 Nạp tiền</button>
+        <button class="btn btn-gray" id="tabLoans" onclick="showTab('loans')">📱 Vay iCloud</button>
+        <button class="btn btn-gray" id="tabNews" onclick="showTab('news')">📢 Thông báo</button>
+      </div>
+      <button class="btn btn-red" onclick="logout()">Đăng xuất</button>
+    </div>
+
+    <div class="card" id="panelUsers">
+      <h3>Danh sách tài khoản</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th><th>Tên</th><th>Role</th><th>Status</th><th>Số dư</th><th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="usersRows"></tbody>
+      </table>
+    </div>
+
+    <div class="card" id="panelTopups" style="display:none">
+      <h3>Yêu cầu nạp tiền</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>User</th><th>Số tiền</th><th>Ghi chú</th><th>Trạng thái</th><th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="topupRows"></tbody>
+      </table>
+    </div>
+
+    <div class="card" id="panelLoans" style="display:none">
+      <h3>Yêu cầu vay iCloud</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>User</th><th>Máy</th><th>Tháng</th><th>Ước tính vay</th><th>Trạng thái</th><th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="loanRows"></tbody>
+      </table>
+    </div>
+
+    <div class="card" id="panelNews" style="display:none">
+      <h3>Tạo thông báo mới</h3>
+      <div class="grid">
+        <div>
+          <label>Tiêu đề</label>
+          <input id="newsTitle" placeholder="VD: Cập nhật hệ thống 06/03" />
+        </div>
+        <div>
+          <label>Ghim lên đầu</label>
+          <select id="newsPinned">
+            <option value="false">Không</option>
+            <option value="true">Có</option>
+          </select>
+        </div>
+      </div>
+      <label style="display:block;margin-top:10px">Nội dung</label>
+      <textarea id="newsContent" placeholder="Nội dung thông báo..."></textarea>
+      <button class="btn btn-blue" style="margin-top:10px" onclick="createNews()">Đăng thông báo</button>
+
+      <h3 style="margin-top:18px">Danh sách thông báo</h3>
+      <div id="newsList"></div>
+    </div>
+  </div>
+
+  <script src="supabase.js"></script>
+  <script>
+    let ADMIN_ID = null;
+
+    function showTab(name){
+      const map = {users:"panelUsers", topups:"panelTopups", loans:"panelLoans", news:"panelNews"};
+      for(const k in map){
+        document.getElementById(map[k]).style.display = (k===name) ? "block" : "none";
+        document.getElementById("tab"+k.charAt(0).toUpperCase()+k.slice(1)).classList.toggle("active", k===name);
+      }
+    }
+
+    async function guardAdmin(){
+      const { data: { user } } = await sb.auth.getUser();
+      if(!user) return location.href="login.html";
+      ADMIN_ID = user.id;
+
+      const { data: prof, error } = await sb.from("profiles").select("role,email").eq("id", user.id).single();
+      if(error) return alert(error.message);
+
+      document.getElementById("me").textContent = prof.email + " (" + prof.role + ")";
+      if(prof.role !== "admin"){
+        alert("Bạn không có quyền admin!");
+        return location.href="home.html";
+      }
+
+      await loadUsers();
+      await loadTopups();
+      await loadLoans();
+      await loadNews();
+    }
+
+    async function logout(){
+      await sb.auth.signOut();
+      location.href="login.html";
+    }
+
+    // ===== USERS =====
+    async function loadUsers(){
+      const { data, error } = await sb.from("profiles")
+        .select("id,email,full_name,role,status,balance,created_at")
+        .order("created_at",{ascending:false});
+      if(error) return alert(error.message);
+
+      const rows = data.map(u => `
+        <tr>
+          <td>${u.email||""}</td>
+          <td>${u.full_name||""}</td>
+          <td><span class="tag">${u.role}</span></td>
+          <td><span class="tag">${u.status}</span></td>
+          <td>${Number(u.balance||0).toLocaleString()} đ</td>
+          <td>
+            <div class="row-actions">
+              <button class="btn btn-gray" onclick="toggleBan('${u.id}','${u.status}')">${u.status==='banned'?'Mở khóa':'Khóa'}</button>
+              <button class="btn btn-blue" onclick="addBalance('${u.id}')">+ Số dư</button>
+            </div>
+          </td>
+        </tr>
+      `).join("");
+
+      document.getElementById("usersRows").innerHTML = rows || `<tr><td colspan="6">Chưa có user</td></tr>`;
+    }
+
+    async function toggleBan(userId, currentStatus){
+      const next = currentStatus === "banned" ? "active" : "banned";
+      // admin update: cách đơn giản nhất là dùng Supabase Dashboard sửa,
+      // còn muốn update bằng web thì cần policy update_admin (mình sẽ thêm ở dưới nếu bạn muốn).
+      alert("Tính năng Khóa/Mở qua giao diện web cần policy admin update. Nói mình để mình thêm policy + code update an toàn.");
+    }
+
+    async function addBalance(userId){
+      const amount = prompt("Nhập số tiền cộng (vd 100000):");
+      if(!amount) return;
+      alert("Cộng số dư bằng web cũng cần policy admin update + log. Nói mình để mình bật full luôn.");
+    }
+
+    // ===== TOPUPS =====
+    async function loadTopups(){
+      const { data, error } = await sb.from("topups")
+        .select("id,amount,note,status,created_at,user_id, profiles!topups_user_id_fkey(email)")
+        .order("created_at",{ascending:false});
+      if(error) return alert(error.message);
+
+      const rows = data.map(t => `
+        <tr>
+          <td>${t.profiles?.email || t.user_id}</td>
+          <td>${Number(t.amount).toLocaleString()} đ</td>
+          <td>${t.note||""}</td>
+          <td><span class="tag">${t.status}</span></td>
+          <td>
+            <div class="row-actions">
+              <button class="btn btn-blue" onclick="approveTopup(${t.id})">Duyệt</button>
+              <button class="btn btn-red" onclick="rejectTopup(${t.id})">Từ chối</button>
+            </div>
+          </td>
+        </tr>
+      `).join("");
+
+      document.getElementById("topupRows").innerHTML = rows || `<tr><td colspan="5">Chưa có yêu cầu</td></tr>`;
+    }
+
+    async function approveTopup(id){
+      alert("Duyệt nạp tiền chuẩn cần 'admin action' (cộng số dư + đổi status + log) nên phải dùng Supabase Edge Function để an toàn. Nói mình để mình viết luôn.");
+    }
+    async function rejectTopup(id){
+      alert("Từ chối nạp tiền cũng nên làm bằng Edge Function để an toàn. Nói mình để mình viết luôn.");
+    }
+
+    // ===== LOANS =====
+    async function loadLoans(){
+      const { data, error } = await sb.from("loans")
+        .select("id,iphone_model,months,estimated_loan,status,created_at,user_id, profiles!loans_user_id_fkey(email)")
+        .order("created_at",{ascending:false});
+      if(error) return alert(error.message);
+
+      const rows = data.map(l => `
+        <tr>
+          <td>${l.profiles?.email || l.user_id}</td>
+          <td>${l.iphone_model}</td>
+          <td>${l.months}</td>
+          <td>${Number(l.estimated_loan).toLocaleString()} đ</td>
+          <td><span class="tag">${l.status}</span></td>
+          <td>
+            <div class="row-actions">
+              <button class="btn btn-blue" onclick="approveLoan(${l.id})">Duyệt</button>
+              <button class="btn btn-red" onclick="rejectLoan(${l.id})">Từ chối</button>
+            </div>
+          </td>
+        </tr>
+      `).join("");
+
+      document.getElementById("loanRows").innerHTML = rows || `<tr><td colspan="6">Chưa có yêu cầu</td></tr>`;
+    }
+
+    async function approveLoan(id){
+      alert("Duyệt vay nên làm bằng Edge Function để set status + log. Nói mình để mình viết luôn.");
+    }
+    async function rejectLoan(id){
+      alert("Từ chối vay nên làm bằng Edge Function. Nói mình để mình viết luôn.");
+    }
+
+    // ===== NEWS =====
+    async function createNews(){
+      const title = document.getElementById("newsTitle").value.trim();
+      const content = document.getElementById("newsContent").value.trim();
+      const pinned = document.getElementById("newsPinned").value === "true";
+      if(!title || !content) return alert("Nhập đủ tiêu đề + nội dung");
+
+      const { error } = await sb.from("announcements").insert({
+        title, content, is_pinned: pinned, created_by: ADMIN_ID
+      });
+      if(error) return alert(error.message);
+
+      document.getElementById("newsTitle").value="";
+      document.getElementById("newsContent").value="";
+      await loadNews();
+      alert("✅ Đã đăng thông báo");
+    }
+
+    async function loadNews(){
+      const { data, error } = await sb.from("announcements")
+        .select("id,title,content,is_pinned,created_at")
+        .order("is_pinned",{ascending:false})
+        .order("created_at",{ascending:false});
+      if(error) return alert(error.message);
+
+      document.getElementById("newsList").innerHTML = (data||[]).map(n=>`
+        <div class="card" style="margin-top:10px">
+          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+            <b>${n.is_pinned ? "📌 " : ""}${n.title}</b>
+            <span class="tag">${new Date(n.created_at).toLocaleString()}</span>
+          </div>
+          <div style="margin-top:8px;color:rgba(255,255,255,.85)">${n.content}</div>
+        </div>
+      `).join("") || `<div class="tag">Chưa có thông báo</div>`;
+    }
+
+    guardAdmin();
+  </script>
+</body>
+</html>
