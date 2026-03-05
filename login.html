@@ -1,349 +1,387 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>TECHMONEY - Login</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+html,body{max-width:100%;overflow-x:hidden;}
 
 body{
-height:100vh;
-display:flex;
-background:#0f172a;
-color:white;
-transition:0.3s;
+  min-height:100vh;
+  display:flex;
+  background:#0f172a;
+  color:#fff;
+  transition:.3s;
 }
 
-body.light{
-background:#f1f5f9;
-color:#0f172a;
-}
+/* LIGHT */
+body.light{background:#f1f5f9;color:#0f172a;}
+body.light .right{background:#ffffff;}
+body.light .glass{background:#f8fafc;border-color:rgba(15,23,42,.12);}
+body.light input{background:#fff;color:#0f172a;border-color:rgba(15,23,42,.15);}
+body.light .muted{color:#475569;}
+body.light .theme-toggle{color:#0f172a;}
+body.light .contact-btn{background:linear-gradient(135deg,#0ea5e9,#2563eb);}
 
-body.light .right{
-background:#ffffff;
-}
-
-body.light input{
-background:#e2e8f0;
-color:#0f172a;
-}
-
+/* LEFT */
 .left{
-width:50%;
-background:linear-gradient(135deg,#1e3a8a,#2563eb);
-color:white;
-padding:60px;
-position:relative;
-display:flex;
-flex-direction:column;
-justify-content:center;
+  width:50%;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  padding:60px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:14px;
 }
-
-.logo{
-position:absolute;
-top:30px;
-left:40px;
-font-weight:700;
-font-size:20px;
+.left .brand{
+  position:absolute;
+  top:26px; left:40px;
+  font-weight:800;
+  font-size:20px;
+  letter-spacing:.5px;
+  color:#e0f2fe;
+  text-shadow:0 0 18px rgba(56,189,248,.35);
 }
-
-.left h2{
-font-size:30px;
-margin-bottom:30px;
-}
-
+.left h2{font-size:30px;line-height:1.2;margin-top:18px;}
 .feature{
-background:rgba(255,255,255,0.1);
-padding:15px;
-border-radius:10px;
-margin-bottom:15px;
+  background:rgba(255,255,255,0.12);
+  padding:14px 14px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.16);
 }
+.feature b{display:block;margin-bottom:4px;}
+.left p{opacity:.9;font-size:14px;line-height:1.6;}
 
+/* RIGHT */
 .right{
-width:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-position:relative;
-background:#0f172a;
+  width:50%;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:#0f172a;
 }
 
+/* theme toggle đúng “bên phải đăng nhập/đăng ký” */
 .theme-toggle{
-position:absolute;
-top:20px;
-right:80px;
-background:none;
-border:none;
-font-size:18px;
-color:white;
-cursor:pointer;
+  position:absolute;
+  top:18px;
+  right:18px;
+  border:none;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  padding:10px 12px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:700;
+  transition:.2s;
+}
+.theme-toggle:hover{transform:translateY(-1px);background:rgba(255,255,255,0.12);}
+
+.glass{
+  width:min(420px, 100%);
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.10);
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.35);
 }
 
-.form-box{
-width:350px;
+.title{
+  font-size:22px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+.muted{
+  color:#9ca3af;
+  font-size:13px;
+  margin-bottom:16px;
 }
 
-.form-box h2{
-margin-bottom:5px;
-}
-
-.form-box p{
-font-size:13px;
-color:#aaa;
-margin-bottom:20px;
-}
-
-.input-group{
-margin-bottom:15px;
-position:relative;
-}
-
+.input-group{margin-bottom:12px; position:relative;}
+label{font-size:13px; opacity:.9;}
 input{
-width:100%;
-padding:12px;
-border-radius:6px;
-border:1px solid #334155;
-background:#1e293b;
-color:white;
-outline:none;
+  width:100%;
+  padding:12px 12px;
+  margin-top:6px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.12);
+  background:#111827;
+  color:#fff;
+  outline:none;
 }
-
-input:focus{
-border-color:#2563eb;
-}
-
+input:focus{border-color:#38bdf8;}
 .show-pass{
-position:absolute;
-right:10px;
-top:12px;
-cursor:pointer;
-font-size:14px;
-opacity:0.7;
+  position:absolute;
+  right:12px;
+  top:38px;
+  cursor:pointer;
+  opacity:.85;
+  user-select:none;
 }
 
-button{
-width:100%;
-padding:12px;
-border:none;
-border-radius:6px;
-background:linear-gradient(90deg,#2563eb,#3b82f6);
-color:white;
-font-weight:600;
-cursor:pointer;
-margin-top:10px;
+.btn{
+  width:100%;
+  padding:12px 14px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(90deg,#2563eb,#3b82f6);
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+  margin-top:6px;
+  transition:.2s;
 }
+.btn:hover{transform:translateY(-1px);filter:brightness(1.05);}
 
 .links{
-margin-top:15px;
-font-size:13px;
+  margin-top:12px;
+  font-size:13px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
-
 .links a{
-color:#3b82f6;
-cursor:pointer;
-text-decoration:none;
+  color:#38bdf8;
+  text-decoration:none;
+  cursor:pointer;
 }
-
 .back{
-margin-top:10px;
-font-size:12px;
+  margin-top:6px;
+  font-size:12px;
 }
 
+/* ===== FLOAT CONTACT (không dính form) ===== */
 .contact-fixed{
-position:fixed;
-right:20px;
-top:50%;
-transform:translateY(-50%);
-display:flex;
-flex-direction:column;
-gap:15px;
-z-index:999;
+  position:fixed;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  z-index:999;
 }
 
 .contact-btn{
-width:50px;
-height:50px;
-background:linear-gradient(135deg,#1e3a8a,#2563eb);
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-box-shadow:0 0 15px rgba(37,99,235,0.5);
-transition:0.3s;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+  transition:.2s;
+}
+.contact-btn img{width:24px;height:24px;}
+.contact-btn:hover{transform:scale(1.1);}
+
+/* Để nút liên hệ không đè vào form trên màn nhỏ */
+@media (max-width:900px){
+  body{display:block;}
+  .left{display:none;}
+  .right{width:100%; min-height:100vh;}
 }
 
-.contact-btn img{width:24px;}
-
-.contact-btn:hover{
-transform:scale(1.15);
-}
-
-@media(max-width:900px){
-.left{display:none;}
-.right{width:100%;}
+/* Mobile nhỏ: đẩy contact xuống dưới và nhỏ lại */
+@media (max-width:520px){
+  .contact-fixed{
+    top:auto;
+    bottom:18px;
+    right:12px;
+    transform:none;
+    gap:10px;
+  }
+  .contact-btn{width:44px;height:44px;}
+  .theme-toggle{right:12px;}
 }
 </style>
 </head>
 
 <body>
 
+<!-- CONTACT -->
 <div class="contact-fixed">
-<a href="#" class="contact-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
-<a href="#" class="contact-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"></a>
-<a href="#" class="contact-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"></a>
-<a href="#" class="contact-btn"><img src="https://cdn-icons-png.flaticon.com/512/597/597177.png"></a>
+  <a class="contact-btn" href="https://zalo.me/0900000000" target="_blank" title="Zalo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+  </a>
+  <a class="contact-btn" href="https://m.me/yourfacebook" target="_blank" title="Messenger">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+  </a>
+  <a class="contact-btn" href="https://t.me/yourtelegram" target="_blank" title="Telegram">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+  </a>
+  <a class="contact-btn" href="tel:0900000000" title="Gọi điện">
+    <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Phone">
+  </a>
 </div>
 
 <div class="left">
-<div class="logo">TECHMONEY</div>
-<h2>Tại Sao Chọn Chúng Tôi?</h2>
-<div class="feature">Giải ngân nhanh trong ngày</div>
-<div class="feature">Bảo mật thông tin khách hàng</div>
-<div class="feature">Hỗ trợ 24/7</div>
+  <div class="brand">TECHMONEY</div>
+  <h2>Dịch vụ tài chính<br>nhanh chóng & an toàn</h2>
+  <p>Vay iCloud iPhone, rút ví trả sau, đáo hạn thẻ tín dụng và nhiều dịch vụ khác.</p>
+
+  <div class="feature"><b>⚡ Duyệt nhanh</b>Hỗ trợ xử lý trong ngày.</div>
+  <div class="feature"><b>🔒 Bảo mật</b>Thông tin khách hàng được bảo vệ.</div>
+  <div class="feature"><b>💬 Hỗ trợ 24/7</b>Nhân viên tư vấn mọi lúc.</div>
 </div>
 
 <div class="right">
+  <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
 
-<button class="theme-toggle" id="themeToggle">🌙</button>
+  <div class="glass">
 
-<div class="form-box">
+    <!-- LOGIN -->
+    <div id="loginForm">
+      <div class="title">Chào mừng trở lại</div>
+      <div class="muted">Đăng nhập để tiếp tục</div>
 
-<!-- LOGIN -->
-<div id="loginForm">
-<h2>Chào Mừng Trở Lại</h2>
-<p>Đăng nhập để tiếp tục</p>
+      <div class="input-group">
+        <label>Tên đăng nhập</label>
+        <input id="loginUser" type="text" placeholder="Nhập tên đăng nhập">
+      </div>
 
-<div class="input-group">
-<input type="text" id="loginUser" placeholder="Tên đăng nhập">
-</div>
+      <div class="input-group">
+        <label>Mật khẩu</label>
+        <input id="loginPass" type="password" placeholder="Nhập mật khẩu">
+        <span class="show-pass" onclick="togglePass('loginPass')">👁</span>
+      </div>
 
-<div class="input-group">
-<input type="password" id="loginPass" placeholder="Mật khẩu">
-<span class="show-pass" onclick="togglePass('loginPass')">👁</span>
-</div>
+      <button class="btn" type="button" onclick="login()">Đăng nhập →</button>
 
-<button onclick="login()">Đăng nhập →</button>
+      <div class="links">
+        <a onclick="showRegister()">Chưa có tài khoản? Đăng ký ngay</a>
+        <a onclick="forgot()">Quên mật khẩu?</a>
+        <div class="back">← <a href="index.html">Quay lại trang chủ</a></div>
+      </div>
+    </div>
 
-<div class="links">
-Chưa có tài khoản? <a onclick="showRegister()">Đăng ký ngay</a>
-<div class="back">
-← <a href="index.html">Quay lại trang chủ</a>
-</div>
-</div>
-</div>
+    <!-- REGISTER -->
+    <div id="registerForm" style="display:none;">
+      <div class="title">Tạo tài khoản</div>
+      <div class="muted">Đăng ký để bắt đầu sử dụng</div>
 
-<!-- REGISTER -->
-<div id="registerForm" style="display:none;">
-<h2>Tạo Tài Khoản</h2>
-<p>Đăng ký để bắt đầu</p>
+      <div class="input-group">
+        <label>Tên đăng nhập</label>
+        <input id="regUser" type="text" placeholder="VD: techmoney123">
+      </div>
 
-<div class="input-group">
-<input type="text" id="regUser" placeholder="Tên đăng nhập">
-</div>
+      <div class="input-group">
+        <label>Mật khẩu</label>
+        <input id="regPass" type="password" placeholder="Tạo mật khẩu">
+        <span class="show-pass" onclick="togglePass('regPass')">👁</span>
+      </div>
 
-<div class="input-group">
-<input type="password" id="regPass" placeholder="Mật khẩu">
-<span class="show-pass" onclick="togglePass('regPass')">👁</span>
-</div>
+      <div class="input-group">
+        <label>Xác nhận mật khẩu</label>
+        <input id="regConfirm" type="password" placeholder="Nhập lại mật khẩu">
+        <span class="show-pass" onclick="togglePass('regConfirm')">👁</span>
+      </div>
 
-<div class="input-group">
-<input type="password" id="regConfirm" placeholder="Xác nhận mật khẩu">
-<span class="show-pass" onclick="togglePass('regConfirm')">👁</span>
-</div>
+      <button class="btn" type="button" onclick="register()">Đăng ký →</button>
 
-<button onclick="register()">Đăng ký →</button>
+      <div class="links">
+        <a onclick="showLogin()">Đã có tài khoản? Đăng nhập</a>
+      </div>
+    </div>
 
-<div class="links">
-Đã có tài khoản? <a onclick="showLogin()">Đăng nhập</a>
-</div>
-</div>
-
-</div>
+  </div>
 </div>
 
 <script>
+/* ===== THEME ===== */
+const themeToggle = document.getElementById("themeToggle");
+function applyTheme(){
+  const t = localStorage.getItem("theme");
+  if(t==="light"){
+    document.body.classList.add("light");
+    themeToggle.textContent="☀️";
+  }else{
+    document.body.classList.remove("light");
+    themeToggle.textContent="🌙";
+  }
+}
+applyTheme();
+
+themeToggle.addEventListener("click", ()=>{
+  const isLight = document.body.classList.toggle("light");
+  localStorage.setItem("theme", isLight ? "light" : "dark");
+  applyTheme();
+});
+
+/* ===== UI SWITCH ===== */
 function showRegister(){
-document.getElementById("loginForm").style.display="none";
-document.getElementById("registerForm").style.display="block";
+  document.getElementById("loginForm").style.display="none";
+  document.getElementById("registerForm").style.display="block";
 }
-
 function showLogin(){
-document.getElementById("loginForm").style.display="block";
-document.getElementById("registerForm").style.display="none";
+  document.getElementById("registerForm").style.display="none";
+  document.getElementById("loginForm").style.display="block";
 }
-
 function togglePass(id){
-let input=document.getElementById(id);
-input.type=input.type==="password"?"text":"password";
+  const input=document.getElementById(id);
+  input.type = input.type==="password" ? "text" : "password";
 }
 
-// DARK LIGHT
-const toggleBtn=document.getElementById("themeToggle");
-
-if(localStorage.getItem("theme")==="light"){
-document.body.classList.add("light");
-toggleBtn.textContent="☀️";
+/* ===== AUTH (LocalStorage) ===== */
+function getUsers(){
+  return JSON.parse(localStorage.getItem("users") || "[]");
+}
+function setUsers(users){
+  localStorage.setItem("users", JSON.stringify(users));
 }
 
-toggleBtn.onclick=function(){
-document.body.classList.toggle("light");
-if(document.body.classList.contains("light")){
-toggleBtn.textContent="☀️";
-localStorage.setItem("theme","light");
-}else{
-toggleBtn.textContent="🌙";
-localStorage.setItem("theme","dark");
-}
-}
-
-// REGISTER
 function register(){
-const username=document.getElementById("regUser").value;
-const password=document.getElementById("regPass").value;
-const confirm=document.getElementById("regConfirm").value;
+  const username = document.getElementById("regUser").value.trim();
+  const password = document.getElementById("regPass").value;
+  const confirm  = document.getElementById("regConfirm").value;
 
-if(username===""||password===""||confirm===""){
-alert("Vui lòng nhập đầy đủ!");
-return;
+  if(!username || !password || !confirm){
+    alert("Vui lòng nhập đầy đủ thông tin!");
+    return;
+  }
+  if(password !== confirm){
+    alert("Mật khẩu không khớp!");
+    return;
+  }
+
+  const users = getUsers();
+  if(users.find(u=>u.username===username)){
+    alert("Tài khoản đã tồn tại!");
+    return;
+  }
+
+  users.push({username, password});
+  setUsers(users);
+
+  alert("✅ Đăng ký thành công! Bạn có thể đăng nhập.");
+  showLogin();
 }
 
-if(password!==confirm){
-alert("Mật khẩu không khớp!");
-return;
-}
-
-let users=JSON.parse(localStorage.getItem("users"))||[];
-
-if(users.find(u=>u.username===username)){
-alert("Tài khoản đã tồn tại!");
-return;
-}
-
-users.push({username,password});
-localStorage.setItem("users",JSON.stringify(users));
-
-alert("Đăng ký thành công!");
-showLogin();
-}
-
-// LOGIN
 function login(){
-const username=document.getElementById("loginUser").value;
-const password=document.getElementById("loginPass").value;
+  const username = document.getElementById("loginUser").value.trim();
+  const password = document.getElementById("loginPass").value;
 
-let users=JSON.parse(localStorage.getItem("users"))||[];
+  const users = getUsers();
+  const ok = users.find(u=>u.username===username && u.password===password);
 
-const valid=users.find(u=>u.username===username&&u.password===password);
-
-if(valid){
-localStorage.setItem("currentUser",username);
-window.location.href="home.html";
-}else{
-alert("Sai tài khoản hoặc mật khẩu!");
+  if(ok){
+    localStorage.setItem("currentUser", username);
+    window.location.href = "home.html";
+  }else{
+    alert("Sai tài khoản hoặc mật khẩu!");
+  }
 }
+
+function forgot(){
+  alert("Bạn hãy liên hệ hỗ trợ để được cấp lại mật khẩu.");
 }
 </script>
 

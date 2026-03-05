@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TECHMONEY - Nạp tiền</title>
+<title>TECHMONEY - Đáo hạn thẻ tín dụng</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
@@ -19,12 +19,13 @@ body.light .menu a:hover{color:#fff;}
 body.light .topbar{background:rgba(255,255,255,.85);border-color:rgba(15,23,42,.08);}
 body.light .icon-btn{background:rgba(15,23,42,0.06);}
 body.light .panel{background:rgba(15,23,42,0.04);border-color:rgba(15,23,42,0.08);}
-body.light input, body.light select{background:#fff;color:#0f172a;border-color:rgba(15,23,42,.15);}
+body.light input,body.light select{background:#fff;color:#0f172a;border-color:rgba(15,23,42,.15);}
+body.light .warning{background:#ffe6e6;}
 body.light .overlay{background:rgba(0,0,0,.35);}
 
 /* SIDEBAR */
 .sidebar{width:240px;background:#111827;padding:20px;display:flex;flex-direction:column;justify-content:space-between;height:100vh;position:sticky;top:0;}
-.logo{font-size:20px;font-weight:800;margin-bottom:18px;color:#38bdf8;white-space:nowrap;}
+.logo{font-size:20px;font-weight:800;margin-bottom:18px;color:#38bdf8;}
 .menu a{display:block;padding:12px;margin-bottom:10px;border-radius:10px;background:rgba(255,255,255,0.06);transition:.25s;white-space:nowrap;}
 .menu a:hover{background:linear-gradient(90deg,#2563eb,#3b82f6);}
 .sep{margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,.12);}
@@ -47,10 +48,7 @@ body.light .overlay{background:rgba(0,0,0,.35);}
   white-space:nowrap;transition:.2s;
 }
 .icon-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.12);}
-.logout{
-  background:#ef4444;border:none;padding:10px 14px;border-radius:12px;
-  color:#fff;cursor:pointer;font-weight:800;white-space:nowrap;transition:.2s;
-}
+.logout{background:#ef4444;border:none;padding:10px 14px;border-radius:12px;color:#fff;cursor:pointer;font-weight:800;white-space:nowrap;transition:.2s;}
 .logout:hover{transform:translateY(-1px);filter:brightness(1.05);}
 
 .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;}
@@ -64,30 +62,24 @@ input,select{
   border:1px solid rgba(255,255,255,0.12);background:#111827;color:#fff;
   margin-top:6px;margin-bottom:12px;
 }
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .primary{
   width:100%;padding:12px;border:none;border-radius:12px;
   background:#2563eb;color:#fff;font-weight:800;cursor:pointer;transition:.2s;
 }
 .primary:hover{transform:translateY(-1px);filter:brightness(1.05);}
+.result{
+  margin-top:10px;padding:12px;border-radius:12px;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);
+}
 .success{
   display:none;margin-top:12px;padding:12px;border-radius:12px;
-  background:#065f46;border:1px solid rgba(255,255,255,0.12);
-  font-weight:700;
+  background:#065f46;border:1px solid rgba(255,255,255,0.12);font-weight:800;
 }
+.warning{background:#3b1d1d;border:1px solid #ef4444;padding:16px;border-radius:16px;}
+.warning ul{padding-left:18px;line-height:1.6;font-size:14px}
 
-.bankline{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,0.06);margin-top:10px;border:1px solid rgba(255,255,255,0.08);}
-.bankline b{white-space:nowrap}
-.copy{
-  border:none;background:rgba(255,255,255,0.10);color:inherit;
-  padding:8px 10px;border-radius:10px;cursor:pointer;font-weight:700;
-}
-.copy:hover{background:rgba(255,255,255,0.16);}
-
-@media(max-width:900px){
-  .grid{grid-template-columns:1fr;}
-}
-
-/* Drawer mobile */
+/* drawer */
 .mobile-only{display:none;}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:90;}
 .sidebar.drawer{display:none;position:fixed;left:-280px;top:0;height:100vh;z-index:100;transition:left .25s ease;box-shadow:0 20px 50px rgba(0,0,0,.35);}
@@ -97,6 +89,8 @@ input,select{
   .sidebar{display:none;}
   .sidebar.drawer{display:flex;}
   .mobile-only{display:inline-flex;}
+  .grid{grid-template-columns:1fr;}
+  .row{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -104,33 +98,34 @@ input,select{
 <body>
 <div class="overlay" id="overlay" onclick="closeDrawer()"></div>
 
-<!-- drawer mobile -->
 <div class="sidebar drawer" id="drawer">
   <div>
     <div class="logo">TECHMONEY</div>
     <div class="menu">
       <a href="home.html">🏠 Trang chủ</a>
-      <a href="naptien.html">💰 Nạp tiền</a>
       <a href="vayip.html">📱 Vay iCloud iPhone</a>
       <a href="rutvi.html">💳 Rút ví trả sau</a>
+      <a href="daohan.html">🔄 ĐH thẻ tín dụng</a>
+      <a href="gachthecao.html">📱 Gạch thẻ cào</a>
+      <a href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
+      <a href="naptien.html">💰 Nạp tiền</a>
       <a href="thongtin.html">👤 Thông tin cá nhân</a>
       <a href="lichsu.html">📜 Lịch sử</a>
     </div>
   </div>
 </div>
 
-<!-- sidebar desktop -->
 <div class="sidebar">
   <div>
     <div class="logo">TECHMONEY</div>
     <div class="menu">
       <a href="home.html">🏠 Trang chủ</a>
-      <a href="naptien.html">💰 Nạp tiền</a>
       <a href="vayip.html">📱 Vay iCloud iPhone</a>
       <a href="rutvi.html">💳 Rút ví trả sau</a>
-      <a href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
       <a href="daohan.html">🔄 ĐH thẻ tín dụng</a>
       <a href="gachthecao.html">📱 Gạch thẻ cào</a>
+      <a href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
+      <a href="naptien.html">💰 Nạp tiền</a>
       <hr class="sep">
       <a href="thongtin.html">👤 Thông tin cá nhân</a>
       <a href="lichsu.html">📜 Lịch sử</a>
@@ -146,7 +141,7 @@ input,select{
   <div class="topbar">
     <div class="left-actions">
       <button class="icon-btn mobile-only" type="button" onclick="openDrawer()">☰ Menu</button>
-      <button class="icon-btn" type="button" onclick="goHome()">← Dashboard</button>
+      <button class="icon-btn" type="button" onclick="location.href='home.html'">← Dashboard</button>
       <button class="icon-btn" type="button" onclick="toggleTheme()" id="themeBtn">🌙 Giao diện</button>
     </div>
     <button class="logout" type="button" onclick="logout()">Đăng xuất</button>
@@ -154,62 +149,66 @@ input,select{
 
   <div class="grid">
     <div class="panel">
-      <h2>💰 Nạp tiền vào TECHMONEY</h2>
-      <div class="muted">Điền thông tin, sau đó bấm <b>Gửi yêu cầu nạp</b>. Nhân viên sẽ xác nhận.</div>
+      <h2>🔄 Đáo hạn thẻ tín dụng</h2>
+      <div class="muted">Phí dịch vụ (tạm tính): <b>2.5%</b> • Nhân viên sẽ xác nhận lại trước khi xử lý.</div>
 
-      <label>Số tiền muốn nạp (VNĐ)</label>
-      <input id="amount" type="number" placeholder="VD: 1000000" min="10000">
-
-      <label>Hình thức</label>
-      <select id="method">
-        <option value="Chuyển khoản ngân hàng">Chuyển khoản ngân hàng</option>
-        <option value="Momo">Momo</option>
-        <option value="ZaloPay">ZaloPay</option>
+      <label>Ngân hàng phát hành</label>
+      <select id="bank">
+        <option>Vietcombank</option>
+        <option>Techcombank</option>
+        <option>MB Bank</option>
+        <option>ACB</option>
+        <option>VPBank</option>
+        <option>Sacombank</option>
+        <option>TPBank</option>
       </select>
 
-      <label>Nội dung chuyển khoản</label>
-      <input id="content" type="text" placeholder="VD: TECHMONEY + Tên tài khoản">
+      <div class="row">
+        <div>
+          <label>Chủ thẻ</label>
+          <input id="owner" type="text" placeholder="VD: Nguyễn Văn A">
+        </div>
+        <div>
+          <label>4 số cuối thẻ</label>
+          <input id="last4" type="text" placeholder="VD: 1234" maxlength="4">
+        </div>
+      </div>
 
-      <button class="primary" type="button" onclick="submitTopup()">Gửi yêu cầu nạp</button>
-      <div class="success" id="successBox">✅ Đã gửi yêu cầu nạp tiền cho nhân viên!</div>
+      <label>Số tiền cần đáo hạn (VNĐ)</label>
+      <input id="amount" type="number" placeholder="VD: 10000000" min="100000">
+
+      <div class="result" id="calcBox">Phí dự kiến: <b>0đ</b> • Tổng cần chuẩn bị: <b>0đ</b></div>
+
+      <button class="primary" type="button" onclick="sendRequest()">Gửi yêu cầu</button>
+      <div class="success" id="successBox">✅ Đã gửi yêu cầu đáo hạn cho nhân viên!</div>
     </div>
 
-    <div class="panel">
-      <h2>🏦 Thông tin nhận tiền</h2>
-      <div class="muted">Bạn có thể sửa thông tin này theo ngân hàng của bạn.</div>
-
-      <div class="bankline">
-        <div><div class="muted">Ngân hàng</div><b>TECHCOMBANK</b></div>
-        <button class="copy" type="button" onclick="copyText('TECHCOMBANK')">Copy</button>
-      </div>
-      <div class="bankline">
-        <div><div class="muted">Số tài khoản</div><b id="stk">999920052005</b></div>
-        <button class="copy" type="button" onclick="copyText(document.getElementById('stk').innerText)">Copy</button>
-      </div>
-      <div class="bankline">
-        <div><div class="muted">Chủ tài khoản</div><b id="ctk">LE DUC HUY</b></div>
-        <button class="copy" type="button" onclick="copyText(document.getElementById('ctk').innerText)">Copy</button>
-      </div>
-
-      <div style="margin-top:12px" class="muted">
-        ✅ Sau khi chuyển khoản, nhớ đúng nội dung để được cộng tiền nhanh.
-      </div>
+    <div class="warning">
+      <h3>⚠ Chú ý</h3>
+      <ul>
+        <li>Thông tin chủ thẻ phải chính xác.</li>
+        <li>Nghiêm cấm hành vi rửa tiền → ban tài khoản và giam tiền.</li>
+        <li>Nhân viên có thể yêu cầu xác minh khi cần.</li>
+      </ul>
     </div>
   </div>
 </div>
 
 <script>
-/* ===== AUTH ===== */
 const user = localStorage.getItem("currentUser");
-if(!user) location.href = "index.html";
+if(!user) location.href="index.html";
 document.getElementById("userDisplay").innerText = user;
 
-/* ===== THEME ===== */
+/* BALANCE */
+function getBalance(){ return parseInt(localStorage.getItem("balance_"+user) || "0"); }
+document.getElementById("balanceText").innerText = getBalance().toLocaleString()+"đ";
+
+/* THEME */
 const themeBtn = document.getElementById("themeBtn");
 function applyTheme(){
   const t = localStorage.getItem("theme");
-  if(t==="light"){ document.body.classList.add("light"); themeBtn.innerText="☀️ Giao diện"; }
-  else { document.body.classList.remove("light"); themeBtn.innerText="🌙 Giao diện"; }
+  if(t==="light"){document.body.classList.add("light"); themeBtn.innerText="☀️ Giao diện";}
+  else{document.body.classList.remove("light"); themeBtn.innerText="🌙 Giao diện";}
 }
 applyTheme();
 function toggleTheme(){
@@ -218,48 +217,47 @@ function toggleTheme(){
   applyTheme();
 }
 
-/* ===== DRAWER ===== */
+/* DRAWER */
 const drawer = document.getElementById("drawer");
 const overlay = document.getElementById("overlay");
-function openDrawer(){ drawer.classList.add("open"); overlay.classList.add("show"); }
-function closeDrawer(){ drawer.classList.remove("open"); overlay.classList.remove("show"); }
+function openDrawer(){drawer.classList.add("open");overlay.classList.add("show");}
+function closeDrawer(){drawer.classList.remove("open");overlay.classList.remove("show");}
 window.addEventListener("resize", ()=>{ if(window.innerWidth>900) closeDrawer(); });
 
-/* ===== NAV ===== */
-function goHome(){ location.href="home.html"; }
-function logout(){ localStorage.removeItem("currentUser"); location.href="index.html"; }
-
-/* ===== BALANCE + TX ===== */
-function getBalance(){ return parseInt(localStorage.getItem("balance_"+user) || "0"); }
-function setBalance(v){ localStorage.setItem("balance_"+user, String(v)); renderBalance(); }
-function renderBalance(){ document.getElementById("balanceText").innerText = getBalance().toLocaleString()+"đ"; }
-renderBalance();
-
+/* TX */
 function addTx(type, amount, note){
   const key = "tx_"+user;
   const list = JSON.parse(localStorage.getItem(key) || "[]");
-  list.unshift({time: new Date().toISOString(), type, amount, note});
+  list.unshift({time:new Date().toISOString(), type, amount, note});
   localStorage.setItem(key, JSON.stringify(list));
 }
 
-function submitTopup(){
+/* CALC */
+const amountEl = document.getElementById("amount");
+function recalc(){
+  const a = parseInt(amountEl.value || "0");
+  const fee = Math.round(a * 0.025);
+  const total = a + fee;
+  document.getElementById("calcBox").innerHTML =
+    `Phí dự kiến: <b>${fee.toLocaleString()}đ</b> • Tổng cần chuẩn bị: <b>${total.toLocaleString()}đ</b>`;
+}
+amountEl.addEventListener("input", recalc);
+recalc();
+
+function sendRequest(){
+  const bank = document.getElementById("bank").value;
+  const owner = document.getElementById("owner").value.trim();
+  const last4 = document.getElementById("last4").value.trim();
   const amount = parseInt(document.getElementById("amount").value || "0");
-  const method = document.getElementById("method").value;
-  const content = document.getElementById("content").value.trim();
+  if(!owner){ alert("Vui lòng nhập chủ thẻ"); return; }
+  if(last4.length !== 4 || !/^\d{4}$/.test(last4)){ alert("4 số cuối thẻ phải là 4 chữ số"); return; }
+  if(amount < 100000){ alert("Số tiền tối thiểu 100.000đ"); return; }
 
-  if(amount < 10000){ alert("Số tiền tối thiểu 10.000đ"); return; }
-
-  // giả lập: cộng luôn để bạn test
-  setBalance(getBalance() + amount);
-  addTx("Nạp tiền", amount, method + (content?(" | "+content):""));
-  const box = document.getElementById("successBox");
-  box.style.display="block";
+  addTx("Đáo hạn thẻ tín dụng", 0, `${bank} | Chủ thẻ: ${owner} | **** ${last4} | Số tiền: ${amount.toLocaleString()}đ`);
+  document.getElementById("successBox").style.display="block";
 }
 
-function copyText(txt){
-  navigator.clipboard?.writeText(String(txt));
-  alert("✅ Đã copy: " + txt);
-}
+function logout(){ localStorage.removeItem("currentUser"); location.href="index.html"; }
 </script>
 </body>
 </html>

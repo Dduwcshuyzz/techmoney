@@ -1,175 +1,527 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>TECHMONEY - Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+html,body{max-width:100%;overflow-x:hidden;}
+a{text-decoration:none;color:inherit}
 
 body{
-display:flex;
-height:100vh;
-background:#0f172a;
-color:white;
-transition:0.3s;
+  display:flex;
+  min-height:100vh;
+  background:#0f172a;
+  color:#fff;
+  transition:.3s;
 }
 
-body.light{
-background:#f1f5f9;
-color:#0f172a;
-}
+/* ===== LIGHT ===== */
+body.light{background:#f1f5f9;color:#0f172a;}
+body.light .sidebar{background:#ffffff;}
+body.light .menu a{color:#0f172a;background:rgba(15,23,42,0.05);}
+body.light .menu a:hover{color:#fff;}
+body.light .topbar{background:rgba(255,255,255,.85);border-color:rgba(15,23,42,.08);}
+body.light .icon-btn{background:rgba(15,23,42,0.06);}
+body.light .card{background:#ffffff;border-color:rgba(15,23,42,0.12);}
+body.light .card2{background:#ffffff;border-color:rgba(15,23,42,0.12);}
+body.light .mini-row{background:rgba(15,23,42,0.04);border-color:rgba(15,23,42,0.08);}
+body.light .support-tip{background:rgba(255,255,255,.95);color:#0f172a;border-color:rgba(15,23,42,0.12);}
+body.light .overlay{background:rgba(0,0,0,.35);}
 
+/* ===== SIDEBAR (desktop) ===== */
 .sidebar{
-width:250px;
-background:#111827;
-padding:20px;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-}
-
-body.light .sidebar{
-background:#ffffff;
+  width:240px;
+  background:#111827;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  height:100vh;
+  position:sticky;
+  top:0;
 }
 
 .logo{
-font-size:20px;
-font-weight:700;
-margin-bottom:30px;
+  font-size:20px;
+  font-weight:800;
+  margin-bottom:18px;
+  color:#38bdf8;
+  white-space:nowrap;
 }
 
 .menu a{
-display:block;
-padding:12px;
-margin-bottom:10px;
-border-radius:8px;
-text-decoration:none;
-color:white;
-background:rgba(255,255,255,0.05);
-transition:0.3s;
+  display:block;
+  padding:12px;
+  margin-bottom:10px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.06);
+  transition:.25s;
+  white-space:nowrap;
 }
+.menu a:hover{background:linear-gradient(90deg,#2563eb,#3b82f6);}
 
-.menu a:hover{
-background:linear-gradient(90deg,#2563eb,#3b82f6);
-}
-
-body.light .menu a{
-color:#0f172a;
+.sep{
+  margin:14px 0;
+  border:none;
+  border-top:1px solid rgba(255,255,255,.12);
 }
 
 .bottom-box{
-background:linear-gradient(135deg,#2563eb,#3b82f6);
-padding:15px;
-border-radius:10px;
-text-align:center;
+  background:linear-gradient(135deg,#2563eb,#3b82f6);
+  padding:14px;
+  border-radius:12px;
+  text-align:center;
+  font-size:14px;
 }
+.bottom-box b{font-size:15px}
 
+/* ===== MAIN ===== */
 .main{
-flex:1;
-padding:30px;
-overflow:auto;
+  flex:1;
+  padding:14px;
+  overflow:auto;
+  min-width:0;
 }
 
+/* TOPBAR */
 .topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:30px;
+  position:sticky;
+  top:0;
+  z-index:50;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:12px 14px;
+  margin-bottom:14px;
+  border-radius:14px;
+  background:rgba(15,23,42,0.55);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
 }
 
-.toggle{
-cursor:pointer;
-font-size:20px;
-margin-right:20px;
+.left-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
 }
+
+.icon-btn{
+  border:none;
+  background:rgba(255,255,255,0.08);
+  color:inherit;
+  padding:10px 12px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:800;
+  white-space:nowrap;
+  transition:.2s;
+}
+.icon-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.12);}
 
 .logout{
-background:#ef4444;
-border:none;
-padding:8px 15px;
-border-radius:6px;
-color:white;
-cursor:pointer;
+  background:#ef4444;
+  border:none;
+  padding:10px 14px;
+  border-radius:12px;
+  color:#fff;
+  cursor:pointer;
+  font-weight:900;
+  white-space:nowrap;
+  transition:.2s;
 }
+.logout:hover{transform:translateY(-1px);filter:brightness(1.05);}
 
+/* MAIN HERO CARD */
 .card{
-background:linear-gradient(135deg,#1e3a8a,#2563eb);
-padding:30px;
-border-radius:15px;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  padding:18px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.10);
+}
+.card h2{font-size:20px;margin-bottom:6px;}
+.card p{opacity:.9;line-height:1.6;font-size:14px}
+
+/* EXTRA GRID */
+.grid{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:14px;
+  margin-top:14px;
 }
 
+.card2{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;
+  padding:16px;
+}
+.card2 h3{font-size:16px;margin-bottom:10px;}
+
+.badge-new{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(56,189,248,0.18);
+  border:1px solid rgba(56,189,248,0.35);
+  font-weight:900;
+  font-size:12px;
+  margin-bottom:10px;
+}
+
+.mini-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  margin-top:10px;
+}
+.mini-title{font-weight:900;}
+.mini-sub{opacity:.85;font-size:13px;margin-top:4px;line-height:1.4;}
+.mini-time{opacity:.8;font-size:12px;white-space:nowrap;}
+
+.quick-actions{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:12px;
+}
+
+.qbtn{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  cursor:pointer;
+  transition:.2s;
+  font-weight:900;
+}
+.qbtn:hover{transform:translateY(-1px);filter:brightness(1.05);}
+.qbtn small{opacity:.8;font-weight:800}
+
+.table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0 10px;
+  margin-top:8px;
+}
+.table td{
+  padding:12px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+}
+.table td:first-child{border-radius:14px 0 0 14px;}
+.table td:last-child{border-radius:0 14px 14px 0;text-align:right;font-weight:900;}
+body.light .table td{background:rgba(15,23,42,0.04);border-color:rgba(15,23,42,0.08);}
+
+/* ===== MOBILE DRAWER ===== */
+.mobile-only{display:none;}
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:90;
+}
+.sidebar.drawer{
+  display:none;
+  position:fixed;
+  left:-280px;
+  top:0;
+  height:100vh;
+  z-index:100;
+  transition:left .25s ease;
+  box-shadow:0 20px 50px rgba(0,0,0,.35);
+}
+.sidebar.drawer.open{left:0;}
+.overlay.show{display:block;}
+
+/* ===== SUPPORT FLOAT ===== */
+.support-fixed{
+  position:fixed;
+  right:14px;
+  bottom:calc(86px + env(safe-area-inset-bottom)); /* không bị che trên mobile */
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  z-index:999;
+}
+.support-wrap{position:relative;}
+.support-btn{
+  width:52px;height:52px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  box-shadow:0 0 18px rgba(37,99,235,0.45);
+  transition:.25s;
+  border:1px solid rgba(255,255,255,0.14);
+}
+.support-btn:hover{transform:scale(1.12);box-shadow:0 0 26px rgba(56,189,248,0.8);}
+.support-btn img,.support-btn svg{width:24px;height:24px;}
+.support-tip{
+  position:absolute;
+  right:62px;
+  top:50%;
+  transform:translateY(-50%) translateX(8px);
+  background:rgba(15,23,42,0.9);
+  color:#fff;
+  padding:7px 10px;
+  border-radius:10px;
+  font-size:12px;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+  border:1px solid rgba(255,255,255,0.12);
+}
+.support-wrap:hover .support-tip{opacity:1;transform:translateY(-50%) translateX(0);}
+
+/* ===== RESPONSIVE ===== */
 @media(max-width:900px){
-.sidebar{display:none;}
+  .sidebar{display:none;}
+  .sidebar.drawer{display:flex;}
+  .mobile-only{display:inline-flex;}
+  .grid{grid-template-columns:1fr;}
+  .quick-actions{grid-template-columns:1fr;}
+  .support-fixed{right:12px;}
 }
 </style>
 </head>
 
 <body>
 
+<!-- overlay cho drawer -->
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+
+<!-- SIDEBAR drawer (mobile) -->
+<div class="sidebar drawer" id="drawer">
+  <div>
+    <div class="logo">TECHMONEY</div>
+    <div class="menu">
+      <a href="home.html">🏠 Trang chủ</a>
+      <a href="vayip.html">📱 Vay iCloud iPhone</a>
+      <a href="rutvi.html">💳 Rút ví trả sau</a>
+      <a href="daohan.html">🔄 ĐH thẻ tín dụng</a>
+      <a href="gachthecao.html">📱 Gạch thẻ cào</a>
+      <a href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
+      <a href="naptien.html">💰 Nạp tiền</a>
+      <a href="thongtin.html">👤 Thông tin cá nhân</a>
+      <a href="lichsu.html">📜 Lịch sử</a>
+    </div>
+  </div>
+</div>
+
+<!-- SIDEBAR desktop -->
 <div class="sidebar">
-<div>
-<div class="logo">TECHMONEY</div>
+  <div>
+    <div class="logo">TECHMONEY</div>
+    <div class="menu">
+      <a href="home.html">🏠 Trang chủ</a>
+      <a href="vayip.html">📱 Vay iCloud iPhone</a>
+      <a href="rutvi.html">💳 Rút ví trả sau</a>
+      <a href="daohan.html">🔄 ĐH thẻ tín dụng</a>
+      <a href="gachthecao.html">📱 Gạch thẻ cào</a>
+      <a href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
+      <a href="naptien.html">💰 Nạp tiền</a>
+      <hr class="sep">
+      <a href="thongtin.html">👤 Thông tin cá nhân</a>
+      <a href="lichsu.html">📜 Lịch sử</a>
+    </div>
+  </div>
 
-<div class="menu">
-<a href="vayip.html">🏦 Vay iCloud iPhone</a>
-<a href="rutvi.html">💳 Rút ví trả sau</a>
-<a href="#">🔄 ĐH thẻ tín dụng</a>
-<a href="#">📱 Gạch thẻ cào</a>
-<a href="#">👥 Giới thiệu bạn bè</a>
-<a href="naptien.html">💰 Nạp tiền</a>
-<hr style="margin:15px 0;border-color:rgba(255,255,255,0.1);">
-
-<a href="thongtin.html">👤 Thông tin cá nhân</a>
-<a href="#">👤 Lịch sử hoạt động</a>
-</div>
+  <div class="bottom-box">
+    Xin chào<br>
+    <b id="userDisplay">User</b><br><br>
+    Số dư: <b id="balanceText">0đ</b>
+  </div>
 </div>
 
-<div class="bottom-box">
-Xin chào<br>
-<b id="userDisplay"></b><br><br>
-Số dư: 0đ
-</div>
-</div>
-
+<!-- MAIN -->
 <div class="main">
 
-<div class="topbar">
-<div>
-<span class="toggle" onclick="toggleTheme()">🌙</span>
-</div>
-<button class="logout" onclick="logout()">Đăng xuất</button>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="left-actions">
+      <button class="icon-btn mobile-only" type="button" onclick="openDrawer()">☰ Menu</button>
+      <button class="icon-btn" type="button" onclick="toggleTheme()" id="themeBtn">🌙 Giao diện</button>
+      <button class="icon-btn" type="button" onclick="location.href='lichsu.html'">📜 Lịch sử</button>
+    </div>
+
+    <button class="logout" type="button" onclick="logout()">Đăng xuất</button>
+  </div>
+
+  <!-- HERO -->
+  <div class="card">
+    <h2>Chào mừng đến TECHMONEY</h2>
+    <p>Hệ thống dịch vụ tài chính nhanh – uy tín – bảo mật. Chọn dịch vụ bạn cần ở bên trái hoặc dùng nút nhanh bên dưới.</p>
+  </div>
+
+  <!-- EXTRA -->
+  <div class="grid">
+
+    <!-- LEFT -->
+    <div class="card2">
+      <div class="badge-new">🟦 Thông báo / cập nhật</div>
+
+      <div class="mini-row">
+        <div>
+          <div class="mini-title">✅ Rút ví trả sau</div>
+          <div class="mini-sub">Phí tự động: <b>5%</b> • Gửi yêu cầu là có nhân viên xử lý.</div>
+        </div>
+        <div class="mini-time">Mới</div>
+      </div>
+
+      <div class="mini-row">
+        <div>
+          <div class="mini-title">📱 Vay iPhone iCloud</div>
+          <div class="mini-sub">Ước tính <b>60%</b> giá trị máy • 1 đến 36 tháng.</div>
+        </div>
+        <div class="mini-time">Hôm nay</div>
+      </div>
+
+      <div style="margin-top:14px;font-weight:900;">⚡ Nút nhanh</div>
+      <div class="quick-actions">
+        <div class="qbtn" onclick="location.href='vayip.html'">
+          <div>📱 Vay iPhone<br><small>Ước tính + lãi</small></div><span>→</span>
+        </div>
+        <div class="qbtn" onclick="location.href='rutvi.html'">
+          <div>💳 Rút ví trả sau<br><small>Phí 5%</small></div><span>→</span>
+        </div>
+        <div class="qbtn" onclick="location.href='naptien.html'">
+          <div>💰 Nạp tiền<br><small>Tạo yêu cầu</small></div><span>→</span>
+        </div>
+        <div class="qbtn" onclick="location.href='thongtin.html'">
+          <div>👤 Thông tin cá nhân<br><small>Cập nhật hồ sơ</small></div><span>→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="card2">
+      <h3>🏆 Top giới thiệu tháng</h3>
+      <div style="opacity:.85;font-size:13px;line-height:1.55;">Bảng demo để trang đỡ trống (sau này bạn thay dữ liệu thật).</div>
+
+      <table class="table">
+        <tr><td>🥇 user_anhkhoa</td><td>18 lượt</td></tr>
+        <tr><td>🥈 user_thanhhuyen</td><td>12 lượt</td></tr>
+        <tr><td>🥉 user_minhquan</td><td>9 lượt</td></tr>
+        <tr><td>⭐ user_hongngoc</td><td>7 lượt</td></tr>
+      </table>
+
+      <button class="icon-btn" style="width:100%;margin-top:10px;" type="button" onclick="location.href='gioithieubanbe.html'">
+        👥 Đi đến giới thiệu bạn bè →
+      </button>
+    </div>
+
+  </div>
+
 </div>
 
-<div class="card">
-<h2>Chào mừng đến TECHMONEY</h2>
-<p>Hệ thống dịch vụ tài chính nhanh - bảo mật - uy tín.</p>
-</div>
+<!-- SUPPORT FLOAT -->
+<div class="support-fixed" id="supportFixed">
+
+  <div class="support-wrap">
+    <div class="support-tip">Zalo</div>
+    <a class="support-btn" href="https://zalo.me/0387676061" target="_blank" rel="noopener">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+    </a>
+  </div>
+
+  <div class="support-wrap">
+    <div class="support-tip">Messenger</div>
+    <a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank" rel="noopener">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+    </a>
+  </div>
+
+  <div class="support-wrap">
+    <div class="support-tip">Gọi điện</div>
+    <a class="support-btn" href="tel:0387676061">
+      <svg viewBox="0 0 24 24" fill="white" aria-hidden="true">
+        <path d="M6.6 10.8a15.5 15.5 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C9.4 22 2 14.6 2 5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="support-wrap">
+    <div class="support-tip">Telegram</div>
+    <a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank" rel="noopener">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+    </a>
+  </div>
 
 </div>
 
 <script>
-
-// Kiểm tra đăng nhập
-let user = localStorage.getItem("currentUser");
-if(!user){
-window.location.href="index.html";
-}
+/* ===== CHECK LOGIN ===== */
+const user = localStorage.getItem("currentUser");
+if(!user) location.href="index.html";
 document.getElementById("userDisplay").innerText = user;
 
-// Dark Light
+/* ===== BALANCE (nếu bạn dùng) ===== */
+function getBalance(){ return parseInt(localStorage.getItem("balance_"+user) || "0"); }
+document.getElementById("balanceText").innerText = getBalance().toLocaleString()+"đ";
+
+/* ===== THEME ===== */
+const themeBtn = document.getElementById("themeBtn");
+function applyTheme(){
+  const t = localStorage.getItem("theme");
+  if(t === "light"){
+    document.body.classList.add("light");
+    themeBtn.innerText = "☀️ Giao diện";
+  }else{
+    document.body.classList.remove("light");
+    themeBtn.innerText = "🌙 Giao diện";
+  }
+}
+applyTheme();
+
 function toggleTheme(){
-document.body.classList.toggle("light");
+  document.body.classList.toggle("light");
+  localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
+  applyTheme();
 }
 
-// Logout
+/* ===== LOGOUT ===== */
 function logout(){
-localStorage.removeItem("currentUser");
-window.location.href="index.html";
+  localStorage.removeItem("currentUser");
+  location.href="index.html";
 }
 
+/* ===== DRAWER (mobile) ===== */
+const drawer = document.getElementById("drawer");
+const overlay = document.getElementById("overlay");
+const supportFixed = document.getElementById("supportFixed");
+
+function openDrawer(){
+  drawer.classList.add("open");
+  overlay.classList.add("show");
+  if(supportFixed) supportFixed.style.display = "none"; // tránh bị che/đè
+}
+function closeDrawer(){
+  drawer.classList.remove("open");
+  overlay.classList.remove("show");
+  if(supportFixed) supportFixed.style.display = "flex";
+}
+window.addEventListener("resize", ()=>{
+  if(window.innerWidth > 900) closeDrawer();
+});
 </script>
 
 </body>

@@ -1,182 +1,130 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Giới Thiệu Dịch Vụ - TECHMONEY</title>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TECHMONEY - Giới thiệu</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+html,body{max-width:100%;overflow-x:hidden;}
+body{min-height:100vh;background:#0f172a;color:#fff;transition:.3s;}
+a{text-decoration:none;color:inherit}
 
-body{
-    background: linear-gradient(135deg,#0f172a,#1e293b);
-    color:white;
-    transition:0.3s;
-}
-
-body.light{
-    background:#f4f6fb;
-    color:#111;
-}
+/* light */
+body.light{background:#f1f5f9;color:#0f172a;}
+body.light header{background:rgba(255,255,255,.9);border-color:rgba(15,23,42,.08);}
+body.light .card{background:#fff;border-color:rgba(15,23,42,.12);}
+body.light .muted{color:#475569;}
 
 header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 60px;
+  position:sticky;top:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:14px 16px;
+  background:rgba(15,23,42,0.65);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
 }
-
-.logo{
-    font-size:22px;
-    font-weight:bold;
-    color:#4da6ff;
+.logo{font-weight:900;color:#38bdf8;letter-spacing:.4px;}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.btn{
+  border:none;background:rgba(255,255,255,0.08);color:inherit;
+  padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:800;
+  transition:.2s;white-space:nowrap;
 }
+.btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.12);}
+.primary{background:#2563eb;}
+.primary:hover{filter:brightness(1.05);}
 
-nav a{
-    margin-left:20px;
-    text-decoration:none;
-    color:inherit;
-}
-
-.theme-toggle{
-    background:none;
-    border:none;
-    font-size:20px;
-    cursor:pointer;
-    margin-left:20px;
-}
-
+.wrap{max-width:980px;margin:0 auto;padding:22px 16px;}
 .hero{
-    text-align:center;
-    padding:80px 20px;
+  padding:24px 16px;border-radius:18px;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  border:1px solid rgba(255,255,255,0.12);
 }
-
-.hero h1{
-    font-size:38px;
-    margin-bottom:20px;
-}
-
-.hero p{
-    max-width:700px;
-    margin:0 auto 30px;
-    opacity:0.85;
-    line-height:1.6;
-}
-
-.section{
-    padding:60px 80px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:30px;
-}
-
+.hero h1{font-size:26px;margin-bottom:8px;}
+.muted{opacity:.88;font-size:14px;line-height:1.6;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
 .card{
-    background:rgba(255,255,255,0.05);
-    padding:30px;
-    border-radius:15px;
-    backdrop-filter: blur(10px);
-    transition:0.3s;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;padding:16px;
 }
-
-body.light .card{
-    background:white;
-    box-shadow:0 5px 20px rgba(0,0,0,0.1);
-}
-
-.card:hover{
-    transform:translateY(-6px);
-}
-
-.card h3{
-    margin-bottom:15px;
-    color:#4da6ff;
-}
-
-.cta{
-    text-align:center;
-    padding:60px 20px;
-}
-
-.cta a{
-    display:inline-block;
-    padding:12px 30px;
-    background:#4da6ff;
-    color:white;
-    border-radius:8px;
-    text-decoration:none;
-    font-weight:bold;
-    transition:0.3s;
-}
-
-.cta a:hover{
-    opacity:0.85;
-}
-
-.footer{
-    text-align:center;
-    padding:30px;
-    opacity:0.7;
-}
+.card h2{font-size:16px;margin-bottom:8px;}
+.list{padding-left:18px;line-height:1.7;font-size:14px;opacity:.92;}
+@media(max-width:800px){ .grid{grid-template-columns:1fr;} }
 </style>
 </head>
-
 <body>
 
 <header>
-    <div class="logo">TECHMONEY</div>
-    <nav>
-        <a href="index.html">Trang chủ</a>
-        <a href="login.html">Đăng nhập</a>
-        <button id="themeToggle" class="theme-toggle">🌙</button>
-    </nav>
+  <div class="logo">TECHMONEY</div>
+  <div class="actions">
+    <button class="btn" type="button" onclick="location.href='index.html'">← Trang chủ</button>
+    <button class="btn" type="button" onclick="toggleTheme()" id="themeBtn">🌙 Giao diện</button>
+    <button class="btn primary" type="button" onclick="location.href='login.html'">Đăng nhập</button>
+  </div>
 </header>
 
-<section class="hero">
-    <h1>Dịch Vụ Tài Chính Nhanh – Uy Tín – Bảo Mật</h1>
-    <p>
-        TECHMONEY chuyên cung cấp dịch vụ vay nhanh, hỗ trợ vay qua iCloud iPhone,
-        rút ví trả sau và các giải pháp tài chính linh hoạt.
-        Thủ tục đơn giản – giải ngân nhanh trong ngày.
-    </p>
-</section>
-
-<section class="section">
-
-    <div class="card">
-        <h3>⚡ Vay Nhanh 24/7</h3>
-        <p>Hỗ trợ vay nhanh chỉ cần CCCD. Xét duyệt nhanh, nhận tiền trong ngày.</p>
+<div class="wrap">
+  <div class="hero">
+    <h1>Giới thiệu TECHMONEY</h1>
+    <div class="muted">
+      TECHMONEY là nền tảng hỗ trợ dịch vụ tài chính nhanh: vay iCloud iPhone, rút ví trả sau, đáo hạn thẻ tín dụng, gạch thẻ cào và nhiều tiện ích khác.
+      Mục tiêu của chúng tôi là xử lý nhanh – minh bạch – bảo mật thông tin khách hàng.
     </div>
+  </div>
 
+  <div class="grid">
     <div class="card">
-        <h3>📱 Vay Qua iCloud iPhone</h3>
-        <p>Hỗ trợ tài chính thông qua thiết bị iPhone. Quy trình rõ ràng, minh bạch.</p>
+      <h2>✅ Dịch vụ chính</h2>
+      <ul class="list">
+        <li>Vay iCloud iPhone (ước tính theo giá trị máy)</li>
+        <li>Rút ví trả sau (tính phí tự động)</li>
+        <li>Đáo hạn thẻ tín dụng / vay tín chấp / vay thế chấp</li>
+        <li>Thuê Oto, xe máy (tuỳ khu vực)</li>
+      </ul>
     </div>
-
     <div class="card">
-        <h3>💳 Rút Ví Trả Sau</h3>
-        <p>Hỗ trợ rút tiền từ ví trả sau với mức phí hợp lý và xử lý nhanh chóng.</p>
+      <h2>🔒 Cam kết</h2>
+      <ul class="list">
+        <li>Thông tin khách hàng được bảo mật</li>
+        <li>Chống gian lận, chống rửa tiền</li>
+        <li>Hỗ trợ 24/7 qua Zalo / Messenger / Telegram</li>
+      </ul>
     </div>
-
     <div class="card">
-        <h3>🔐 Bảo Mật Thông Tin</h3>
-        <p>Mọi dữ liệu khách hàng được bảo mật tuyệt đối theo tiêu chuẩn an toàn.</p>
+      <h2>⚡ Quy trình</h2>
+      <ul class="list">
+        <li>Khách tạo tài khoản → đăng nhập</li>
+        <li>Chọn dịch vụ → nhập thông tin</li>
+        <li>Gửi yêu cầu → nhân viên xác nhận</li>
+      </ul>
     </div>
-
-</section>
-
-<section class="cta">
-    <h2 style="margin-bottom:20px;">Cần hỗ trợ tài chính ngay?</h2>
-    <a href="login.html">Đăng Ký Tư Vấn Ngay</a>
-</section>
-
-<div class="footer">
-    © 2026 TECHMONEY - Dịch vụ tài chính nhanh và uy tín.
+    <div class="card">
+      <h2>📌 Lưu ý</h2>
+      <ul class="list">
+        <li>Không cung cấp thông tin sai sự thật</li>
+        <li>Không hỗ trợ hành vi rửa tiền</li>
+        <li>Giá trị vay phụ thuộc tình trạng máy / hồ sơ</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
+<script>
+const themeBtn = document.getElementById("themeBtn");
+function applyTheme(){
+  const t = localStorage.getItem("theme");
+  if(t==="light"){document.body.classList.add("light"); themeBtn.innerText="☀️ Giao diện";}
+  else{document.body.classList.remove("light"); themeBtn.innerText="🌙 Giao diện";}
+}
+applyTheme();
+function toggleTheme(){
+  document.body.classList.toggle("light");
+  localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
+  applyTheme();
+}
+</script>
 </body>
 </html>

@@ -7,459 +7,462 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-    body.light{
-    background:#f1f5f9;
-    color:#0f172a;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
 }
 
-body.light header{
-    background:#ffffff;
-}
-
-body.light .hero{
-    background:linear-gradient(180deg,#e2e8f0,#ffffff);
-}
-
-body.light .why{
-    background:#ffffff;
-}
-
+/* ===== BASE ===== */
 body{
-    transition: all 0.4s ease;
+  background:#0f172a;
+  color:#fff;
+  transition:background 0.4s ease, color 0.4s ease;
 }
+
 /* ===== FLOATING CONTACT ===== */
 .contact-fixed{
-    position:fixed;
-    right:20px;
-    top:50%;
-    transform:translateY(-50%);
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-    z-index:999;
+  position:fixed;
+  right:20px;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  z-index:999;
 }
 
 .contact-btn{
-    width:50px;
-    height:50px;
-    background:linear-gradient(135deg,#1e3a8a,#2563eb);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 0 15px rgba(37,99,235,0.5);
-    transition:0.3s;
+  width:50px;
+  height:50px;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 15px rgba(37,99,235,0.5);
+  transition:0.3s;
 }
 
 .contact-btn img,
 .contact-btn svg{
-    width:24px;
-    height:24px;
+  width:24px;
+  height:24px;
 }
 
 .contact-btn:hover{
-    transform:scale(1.15);
-    box-shadow:0 0 25px rgba(56,189,248,0.9);
-}
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
-body{
-    background:#0f172a;
-    color:#fff;
+  transform:scale(1.15);
+  box-shadow:0 0 25px rgba(56,189,248,0.9);
 }
 
 /* ===== HEADER ===== */
 header{
-    position:fixed;
-    top:0;
-    width:100%;
-    background:rgba(15,23,42,0.95);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 60px;
-    z-index:1000;
+  position:fixed;
+  top:0;
+  width:100%;
+  background:rgba(15,23,42,0.95);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 60px;
+  z-index:1000;
 }
 
 .logo{
-    font-size:22px;
-    font-weight:800;
-    color:#38bdf8;
+  font-size:22px;
+  font-weight:800;
+  color:#38bdf8;
+  white-space:nowrap;
+}
+
+nav{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:nowrap;
 }
 
 nav a{
-    margin:0 15px;
-    text-decoration:none;
-    color:#ccc;
-    font-size:14px;
-    transition:0.3s;
+  text-decoration:none;
+  color:#ccc;
+  font-size:14px;
+  transition:0.3s;
+  white-space:nowrap;
 }
 
 nav a:hover{
-    color:#38bdf8;
+  color:#38bdf8;
 }
 
 .nav-btn{
-    padding:8px 16px;
-    border-radius:6px;
-    border:1px solid #38bdf8;
+  padding:8px 16px;
+  border-radius:6px;
+  border:1px solid #38bdf8;
 }
 
 .nav-primary{
-    background:#2563eb;
-    border:none;
-    color:#fff;
+  background:#2563eb;
+  border:none;
+  color:#fff;
+}
+
+/* ===== THEME TOGGLE BUTTON ===== */
+.theme-toggle{
+  background:none;
+  border:none;
+  font-size:18px;
+  cursor:pointer;
+  color:#fff;
+  transition:0.3s;
+  margin-left:4px;
+}
+
+.theme-toggle:hover{
+  transform:scale(1.2);
+}
+
+/* nhóm nút auth để mobile không lệch */
+.auth-buttons{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
 /* ===== HERO ===== */
 .hero{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    background:linear-gradient(180deg,#0f172a,#1e293b);
-    padding-top:80px;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  background:linear-gradient(180deg,#0f172a,#1e293b);
+  padding-top:80px;
 }
 
 .hero h1{
-    font-size:48px;
-    font-weight:800;
-    line-height:1.3;
+  font-size:48px;
+  font-weight:800;
+  line-height:1.25;
+  padding:0 16px;
 }
 
 .hero span{
-    background:linear-gradient(90deg,#38bdf8,#2563eb);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+  background:linear-gradient(90deg,#38bdf8,#2563eb);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 .subtitle{
-    margin-top:15px;
-    color:#aaa;
-    font-size:14px;
+  margin-top:15px;
+  color:#aaa;
+  font-size:14px;
 }
 
 .hero-buttons{
-    margin-top:30px;
+  margin-top:30px;
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:center;
 }
 
 .btn{
-    padding:12px 26px;
-    border-radius:8px;
-    text-decoration:none;
-    margin:0 10px;
-    font-weight:600;
-    transition:0.3s;
+  padding:12px 26px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:600;
+  transition:0.3s;
 }
 
 .btn-primary{
-    background:#2563eb;
-    color:#fff;
+  background:#2563eb;
+  color:#fff;
 }
 
 .btn-primary:hover{
-    background:#1d4ed8;
+  background:#1d4ed8;
 }
 
 .btn-outline{
-    border:1px solid #38bdf8;
-    color:#38bdf8;
+  border:1px solid #38bdf8;
+  color:#38bdf8;
 }
 
 .btn-outline:hover{
-    background:#38bdf8;
-    color:#000;
+  background:#38bdf8;
+  color:#000;
 }
 
 /* ===== STATS ===== */
 .stats{
-    display:flex;
-    justify-content:center;
-    gap:80px;
-    margin-top:60px;
+  display:flex;
+  justify-content:center;
+  gap:80px;
+  margin-top:60px;
+  padding:0 16px;
+  flex-wrap:wrap;
 }
 
 .stat h2{
-    color:#38bdf8;
-    font-size:28px;
+  color:#38bdf8;
+  font-size:28px;
 }
 
 .stat p{
-    font-size:13px;
-    color:#aaa;
+  font-size:13px;
+  color:#aaa;
 }
 
 /* ===== WHY SECTION ===== */
 .why{
-    background:#1e293b;
-    padding:80px 20px;
-    text-align:center;
+  background:#1e293b;
+  padding:80px 20px;
+  text-align:center;
 }
 
 .why h2{
-    font-size:28px;
-    margin-bottom:10px;
+  font-size:28px;
+  margin-bottom:10px;
 }
 
 .why p{
-    color:#aaa;
-    margin-bottom:40px;
+  color:#aaa;
+  margin-bottom:40px;
 }
 
 .cards{
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    flex-wrap:wrap;
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  flex-wrap:wrap;
 }
 
 .card{
-    background:#0f172a;
-    padding:30px;
-    width:250px;
-    border-radius:12px;
-    transition:0.3s;
-    border:1px solid transparent;
+  background:#0f172a;
+  padding:30px;
+  width:250px;
+  border-radius:12px;
+  transition:0.3s;
+  border:1px solid transparent;
 }
 
 .card:hover{
-    border:1px solid #38bdf8;
-    transform:translateY(-5px);
+  border:1px solid #38bdf8;
+  transform:translateY(-5px);
 }
 
 .card h3{
-    margin-bottom:10px;
-    font-size:18px;
-}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:768px){
-    .hero h1{
-        font-size:32px;
-    }
-    .stats{
-        flex-direction:column;
-        gap:20px;
-    }
-}
-/* ===== THEME TOGGLE BUTTON ===== */
-.theme-toggle{
-    background:none;
-    border:none;
-    font-size:18px;
-    cursor:pointer;
-    margin-right:15px;
-    color:#fff;
-    transition:0.3s;
-}
-
-.theme-toggle:hover{
-    transform:scale(1.2);
+  margin-bottom:10px;
+  font-size:18px;
 }
 
 /* ===== LIGHT MODE ===== */
 body.light{
-    background:#f1f5f9;
-    color:#0f172a;
+  background:#f1f5f9;
+  color:#0f172a;
 }
 
 body.light header{
-    background:#ffffff;
+  background:#ffffff;
 }
 
 body.light nav a{
-    color:#333;
+  color:#333;
+}
+
+body.light .theme-toggle{
+  color:#0f172a;
 }
 
 body.light .hero{
-    background:linear-gradient(180deg,#e2e8f0,#ffffff);
+  background:linear-gradient(180deg,#e2e8f0,#ffffff);
 }
 
 body.light .why{
-    background:#ffffff;
+  background:#ffffff;
 }
 
 body.light .card{
-    background:#f1f5f9;
-    color:#0f172a;
+  background:#f1f5f9;
+  color:#0f172a;
 }
 
-body{
-    transition:background 0.4s ease, color 0.4s ease;
-}
-/* FIX MENU MOBILE */
+/* ===== RESPONSIVE (FIX LỆCH MOBILE) ===== */
 @media (max-width:768px){
+  header{
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    padding:12px 16px;
+  }
 
-header{
-flex-direction:column;
-align-items:center;
-gap:10px;
+  nav{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+  }
+
+  .logo{
+    font-size:20px;
+    text-align:center;
+  }
+
+  .auth-buttons{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .nav-btn{
+    padding:6px 10px;
+    font-size:13px;
+  }
+
+  .hero{
+    padding-top:95px;
+    height:auto;
+    min-height:100vh;
+  }
+
+  .hero h1{
+    font-size:26px;
+  }
+
+  .stats{
+    flex-direction:column;
+    gap:18px;
+    margin-top:35px;
+  }
+
+  .contact-fixed{
+    right:12px;
+  }
+
+  .contact-btn{
+    width:46px;
+    height:46px;
+  }
 }
-
-nav{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:10px;
-}
-
-nav a{
-font-size:14px;
-padding:6px 10px;
-}
-
-.auth-buttons{
-display:flex;
-gap:8px;
-}
-
-.auth-buttons a{
-padding:6px 10px;
-font-size:13px;
-}
-
-} 
-@media (max-width:768px){
-
-.logo{
-font-size:20px;
-text-align:center;
-}
-
-.hero h1{
-font-size:26px;
-}
-
-.hero h2{
-font-size:18px;
-}
-
-}
-
 </style>
 </head>
 
 <body>
+
 <script>
 document.addEventListener("DOMContentLoaded", function(){
+  const toggleBtn = document.getElementById("themeToggle");
 
-    const toggleBtn = document.getElementById("themeToggle");
+  if(localStorage.getItem("theme") === "light"){
+    document.body.classList.add("light");
+    toggleBtn.textContent = "☀️";
+  }
 
-    // Load saved theme
-    if(localStorage.getItem("theme") === "light"){
-        document.body.classList.add("light");
-        toggleBtn.textContent = "☀️";
+  toggleBtn.addEventListener("click", function(){
+    document.body.classList.toggle("light");
+
+    if(document.body.classList.contains("light")){
+      toggleBtn.textContent = "☀️";
+      localStorage.setItem("theme", "light");
+    }else{
+      toggleBtn.textContent = "🌙";
+      localStorage.setItem("theme", "dark");
     }
-
-    toggleBtn.addEventListener("click", function(){
-        document.body.classList.toggle("light");
-
-        if(document.body.classList.contains("light")){
-            toggleBtn.textContent = "☀️";
-            localStorage.setItem("theme", "light");
-        } else {
-            toggleBtn.textContent = "🌙";
-            localStorage.setItem("theme", "dark");
-        }
-    });
-
+  });
 });
 </script>
+
 <!-- ===== FLOATING CONTACT BUTTONS ===== -->
 <div class="contact-fixed">
+  <a href="https://zalo.me/0900000000" target="_blank" class="contact-btn" title="Zalo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+  </a>
 
-    <a href="https://zalo.me/0900000000" target="_blank" class="contact-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg">
-    </a>
+  <a href="https://m.me/yourfacebook" target="_blank" class="contact-btn" title="Messenger">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+  </a>
 
-    <a href="https://m.me/yourfacebook" target="_blank" class="contact-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg">
-    </a>
+  <a href="tel:0900000000" class="contact-btn" title="Gọi điện">
+    <svg viewBox="0 0 24 24" fill="white" aria-hidden="true">
+      <path d="M6.6 10.8a15.5 15.5 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C9.4 22 2 14.6 2 5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1l-2.2 2.2z"/>
+    </svg>
+  </a>
 
-    <a href="tel:0900000000" class="contact-btn">
-        <svg viewBox="0 0 24 24" fill="white">
-            <path d="M6.6 10.8a15.5 15.5 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C9.4 22 2 14.6 2 5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1l-2.2 2.2z"/>
-        </svg>
-    </a>
-
-    <a href="https://t.me/yourtelegram" target="_blank" class="contact-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg">
-    </a>
-
+  <a href="https://t.me/yourtelegram" target="_blank" class="contact-btn" title="Telegram">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+  </a>
 </div>
 
 <header>
-    <div class="logo">TECHMONEY</div>
-    <nav>
-        <a href="#">Tính Năng</a>
-        <a href="#">Dịch Vụ</a>
-        <a href="#">Bảng Giá</a>
-        <button id="themeToggle" class="theme-toggle">🌙</button>
-        <a href="login.html" class="nav-btn">Đăng nhập</a>
-        <a href="login.html" class="nav-btn nav-primary">Đăng ký</a>
+  <div class="logo">TECHMONEY</div>
 
-        
-    </nav>
+  <nav>
+    <a href="#">Tính Năng</a>
+    <a href="#">Dịch Vụ</a>
+    <a href="#">Bảng Giá</a>
+
+    <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+
+    <div class="auth-buttons">
+      <a href="login.html" class="nav-btn">Đăng nhập</a>
+      <a href="login.html" class="nav-btn nav-primary">Đăng ký</a>
+    </div>
+  </nav>
 </header>
 
 <section class="hero">
-    <h1>
-        TAI CHINH SO 1 VIET NAM<br>
-        <span>UY TIN & HIEU QUA</span>
-    </h1>
+  <h1>
+    TAI CHINH SO 1 VIET NAM<br>
+    <span>UY TIN & HIEU QUA</span>
+  </h1>
 
-    <div class="subtitle">Professional TM Services</div>
+  <div class="subtitle">Professional TM Services</div>
 
-    <div class="hero-buttons">
-        <a href="login.html" class="btn btn-outline">Bắt Đầu Ngay →</a>
-        <a href="about.html" class="btn btn-outline">Tìm Hiểu Thêm</a>
+  <div class="hero-buttons">
+    <a href="login.html" class="btn btn-outline">Bắt Đầu Ngay →</a>
+    <a href="about.html" class="btn btn-outline">Tìm Hiểu Thêm</a>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <h2>50K+</h2>
+      <p>Đơn Vay</p>
     </div>
-
-    <div class="stats">
-        <div class="stat">
-            <h2>50K+</h2>
-            <p>Đơn Vay</p>
-        </div>
-        <div class="stat">
-            <h2>10K+</h2>
-            <p>Khách Hàng</p>
-        </div>
-        <div class="stat">
-            <h2>99.9%</h2>
-            <p>Hoạt Động</p>
-        </div>
-        <div class="stat">
-            <h2>24/7</h2>
-            <p>Hỗ Trợ</p>
-        </div>
+    <div class="stat">
+      <h2>10K+</h2>
+      <p>Khách Hàng</p>
     </div>
+    <div class="stat">
+      <h2>99.9%</h2>
+      <p>Hoạt Động</p>
+    </div>
+    <div class="stat">
+      <h2>24/7</h2>
+      <p>Hỗ Trợ</p>
+    </div>
+  </div>
 </section>
 
 <section class="why">
-    <h2>Tại Sao Chọn Chúng Tôi?</h2>
-    <p>TECHMONEY cung cấp dịch vụ vay chất lượng cao với giá cạnh tranh nhất</p>
+  <h2>Tại Sao Chọn Chúng Tôi?</h2>
+  <p>TECHMONEY cung cấp dịch vụ vay chất lượng cao với giá cạnh tranh nhất</p>
 
-    <div class="cards">
-        <div class="card">
-            <h3>Tốc Độ Cao</h3>
-            <p>Xử lý đơn hàng nhanh chóng và tự động.</p>
-        </div>
-        <div class="card">
-            <h3>Giá Tốt</h3>
-            <p>Mức giá cạnh tranh phù hợp mọi nhu cầu.</p>
-        </div>
-        <div class="card">
-            <h3>Hỗ Trợ 24/7</h3>
-            <p>Đội ngũ hỗ trợ chuyên nghiệp mọi lúc.</p>
-        </div>
+  <div class="cards">
+    <div class="card">
+      <h3>Tốc Độ Cao</h3>
+      <p>Xử lý đơn hàng nhanh chóng và tự động.</p>
     </div>
+    <div class="card">
+      <h3>Giá Tốt</h3>
+      <p>Mức giá cạnh tranh phù hợp mọi nhu cầu.</p>
+    </div>
+    <div class="card">
+      <h3>Hỗ Trợ 24/7</h3>
+      <p>Đội ngũ hỗ trợ chuyên nghiệp mọi lúc.</p>
+    </div>
+  </div>
 </section>
 
 </body>
