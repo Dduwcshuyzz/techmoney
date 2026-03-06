@@ -68,7 +68,7 @@ body.light .contact-btn{background:linear-gradient(135deg,#0ea5e9,#2563eb);}
   background:#0f172a;
 }
 
-/* theme toggle đúng “bên phải đăng nhập/đăng ký” */
+/* theme toggle */
 .theme-toggle{
   position:absolute;
   top:18px;
@@ -157,7 +157,14 @@ input:focus{border-color:#38bdf8;}
   font-size:12px;
 }
 
-/* ===== FLOAT CONTACT (không dính form) ===== */
+.note{
+  margin-top:10px;
+  font-size:13px;
+  min-height:20px;
+  color:#38bdf8;
+}
+
+/* CONTACT */
 .contact-fixed{
   position:fixed;
   right:14px;
@@ -183,14 +190,12 @@ input:focus{border-color:#38bdf8;}
 .contact-btn img{width:24px;height:24px;}
 .contact-btn:hover{transform:scale(1.1);}
 
-/* Để nút liên hệ không đè vào form trên màn nhỏ */
 @media (max-width:900px){
   body{display:block;}
   .left{display:none;}
   .right{width:100%; min-height:100vh;}
 }
 
-/* Mobile nhỏ: đẩy contact xuống dưới và nhỏ lại */
 @media (max-width:520px){
   .contact-fixed{
     top:auto;
@@ -207,7 +212,6 @@ input:focus{border-color:#38bdf8;}
 
 <body>
 
-<!-- CONTACT -->
 <div class="contact-fixed">
   <a class="contact-btn" href="https://zalo.me/0900000000" target="_blank" title="Zalo">
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
@@ -244,8 +248,8 @@ input:focus{border-color:#38bdf8;}
       <div class="muted">Đăng nhập để tiếp tục</div>
 
       <div class="input-group">
-        <label>Tên đăng nhập</label>
-        <input id="loginUser" type="text" placeholder="Nhập tên đăng nhập">
+        <label>Email</label>
+        <input id="loginEmail" type="email" placeholder="Nhập email">
       </div>
 
       <div class="input-group">
@@ -258,7 +262,7 @@ input:focus{border-color:#38bdf8;}
 
       <div class="links">
         <a onclick="showRegister()">Chưa có tài khoản? Đăng ký ngay</a>
-        <a onclick="forgot()">Quên mật khẩu?</a>
+        <a onclick="forgotPassword()">Quên mật khẩu?</a>
         <div class="back">← <a href="index.html">Quay lại trang chủ</a></div>
       </div>
     </div>
@@ -269,8 +273,13 @@ input:focus{border-color:#38bdf8;}
       <div class="muted">Đăng ký để bắt đầu sử dụng</div>
 
       <div class="input-group">
-        <label>Tên đăng nhập</label>
-        <input id="regUser" type="text" placeholder="VD: techmoney123">
+        <label>Tên hiển thị</label>
+        <input id="regName" type="text" placeholder="VD: Nguyễn Văn A">
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input id="regEmail" type="email" placeholder="VD: abc@gmail.com">
       </div>
 
       <div class="input-group">
@@ -292,11 +301,18 @@ input:focus{border-color:#38bdf8;}
       </div>
     </div>
 
+    <div id="note" class="note"></div>
+
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
 <script>
-/* ===== THEME ===== */
+const note = document.getElementById("note");
+
+/* THEME */
 const themeToggle = document.getElementById("themeToggle");
 function applyTheme(){
   const t = localStorage.getItem("theme");
@@ -316,72 +332,158 @@ themeToggle.addEventListener("click", ()=>{
   applyTheme();
 });
 
-/* ===== UI SWITCH ===== */
+function showMessage(text){
+  note.textContent = text;
+}
+
+/* UI SWITCH */
 function showRegister(){
   document.getElementById("loginForm").style.display="none";
   document.getElementById("registerForm").style.display="block";
+  showMessage("");
 }
 function showLogin(){
   document.getElementById("registerForm").style.display="none";
   document.getElementById("loginForm").style.display="block";
+  showMessage("");
 }
 function togglePass(id){
   const input=document.getElementById(id);
   input.type = input.type==="password" ? "text" : "password";
 }
 
-/* ===== AUTH (LocalStorage) ===== */
-function getUsers(){
-  return JSON.parse(localStorage.getItem("users") || "[]");
-}
-function setUsers(users){
-  localStorage.setItem("users", JSON.stringify(users));
-}
-
-function register(){
-  const username = document.getElementById("regUser").value.trim();
+/* REGISTER */
+async function register(){
+  const name = document.getElementById("regName").value.trim();
+  const email = document.getElementById("regEmail").value.trim();
   const password = document.getElementById("regPass").value;
-  const confirm  = document.getElementById("regConfirm").value;
+  const confirm = document.getElementById("regConfirm").value;
 
-  if(!username || !password || !confirm){
-    alert("Vui lòng nhập đầy đủ thông tin!");
+  if(!name || !email || !password || !confirm){
+    showMessage("Vui lòng nhập đầy đủ thông tin.");
     return;
   }
+
   if(password !== confirm){
-    alert("Mật khẩu không khớp!");
+    showMessage("Mật khẩu xác nhận không khớp.");
     return;
   }
 
-  const users = getUsers();
-  if(users.find(u=>u.username===username)){
-    alert("Tài khoản đã tồn tại!");
+  showMessage("Đang tạo tài khoản...");
+
+  const { data, error } = await sb.auth.signUp({
+    email: email,
+    password: password
+  });
+
+  if(error){
+    showMessage("Lỗi đăng ký: " + error.message);
     return;
   }
 
-  users.push({username, password});
-  setUsers(users);
+  const user = data.user;
+  if(!user){
+    showMessage("Tạo tài khoản xong. Hãy kiểm tra email xác nhận.");
+    return;
+  }
 
-  alert("✅ Đăng ký thành công! Bạn có thể đăng nhập.");
-  showLogin();
+  const { error: insertError } = await sb.from("users").insert({
+    user_id: user.id,
+    email: email,
+    name: name,
+    role: "user",
+    balance: 0,
+    status: "active"
+  });
+
+  if(insertError){
+    showMessage("Đăng ký auth thành công nhưng lỗi tạo hồ sơ: " + insertError.message);
+    return;
+  }
+
+  showMessage("Đăng ký thành công! Đang chuyển sang đăng nhập...");
+  setTimeout(() => {
+    showLogin();
+    document.getElementById("loginEmail").value = email;
+  }, 1200);
 }
 
-function login(){
-  const username = document.getElementById("loginUser").value.trim();
+/* LOGIN */
+async function login(){
+  const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPass").value;
 
-  const users = getUsers();
-  const ok = users.find(u=>u.username===username && u.password===password);
+  if(!email || !password){
+    showMessage("Vui lòng nhập email và mật khẩu.");
+    return;
+  }
 
-  if(ok){
-    localStorage.setItem("currentUser", username);
-    window.location.href = "home.html";
+  showMessage("Đang đăng nhập...");
+
+  const { data, error } = await sb.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  if(error){
+    showMessage("Sai email hoặc mật khẩu.");
+    return;
+  }
+
+  const userId = data.user.id;
+
+  const { data: rows, error: profileError } = await sb
+    .from("users")
+    .select("role,status,name")
+    .eq("user_id", userId)
+    .limit(1);
+
+  if(profileError){
+    showMessage("Đăng nhập được nhưng lỗi đọc hồ sơ: " + profileError.message);
+    return;
+  }
+
+  if(!rows || rows.length === 0){
+    showMessage("Không tìm thấy hồ sơ người dùng.");
+    return;
+  }
+
+  const me = rows[0];
+
+  if(me.status !== "active"){
+    await sb.auth.signOut();
+    showMessage("Tài khoản của bạn đang bị khóa.");
+    return;
+  }
+
+  localStorage.setItem("currentUser", me.name || email);
+
+  if(me.role === "admin"){
+    window.location.href = "admin.html";
   }else{
-    alert("Sai tài khoản hoặc mật khẩu!");
+    window.location.href = "home.html";
   }
 }
 
-function forgot(){
-  alert("Bạn hãy liên hệ hỗ trợ để được cấp lại mật khẩu.");
+/* FORGOT PASSWORD */
+async function forgotPassword(){
+  const email = document.getElementById("loginEmail").value.trim();
+
+  if(!email){
+    showMessage("Nhập email trước để đặt lại mật khẩu.");
+    return;
+  }
+
+  const { error } = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + "/login.html"
+  });
+
+  if(error){
+    showMessage("Lỗi gửi email khôi phục: " + error.message);
+    return;
+  }
+
+  showMessage("Đã gửi email khôi phục mật khẩu. Hãy kiểm tra hộp thư.");
 }
 </script>
 
