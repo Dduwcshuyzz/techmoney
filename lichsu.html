@@ -3,166 +3,179 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TECHMONEY - Lịch sử giao dịch</title>
+<title>TECHMONEY - Lịch sử</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#0f172a;color:#fff;min-height:100vh;padding:24px;}
-.wrap{max-width:1200px;margin:auto;}
-.topbar{
-display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;
-}
-.logo{font-size:30px;font-weight:800;color:#38bdf8;}
-.top-actions{display:flex;gap:10px;flex-wrap:wrap;}
-.btn{
-border:none;background:#2563eb;color:#fff;padding:10px 16px;border-radius:12px;
-cursor:pointer;font-weight:700;transition:.2s;
-}
-.btn:hover{transform:translateY(-1px);filter:brightness(1.05);}
-.btn.red{background:#ef4444;}
+<link rel="stylesheet" href="layout.css">
 
-.box{
-background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:22px;
-padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.25);overflow:auto;
-}
-h2{margin-bottom:12px;}
-table{width:100%;border-collapse:collapse;min-width:950px;}
-th,td{padding:12px;text-align:left;border-bottom:1px solid rgba(255,255,255,.08);font-size:14px;}
-th{color:#38bdf8;}
-.pending{color:#facc15;font-weight:700;}
-.approved{color:#22c55e;font-weight:700;}
-.rejected{color:#ef4444;font-weight:700;}
-
-.support-fixed{
-position:fixed;right:14px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:50;
-}
-.support-wrap{position:relative;}
-.support-btn{
-width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-background:linear-gradient(135deg,#1e3a8a,#2563eb);box-shadow:0 0 18px rgba(37,99,235,0.40);
-border:1px solid rgba(255,255,255,0.14);transition:.2s;
-}
-.support-btn:hover{transform:scale(1.08);}
-.support-btn img,.support-btn svg{width:24px;height:24px;}
-.support-tip{
-position:absolute;right:62px;top:50%;transform:translateY(-50%);
-background:rgba(15,23,42,0.92);color:#fff;border:1px solid rgba(255,255,255,0.10);
-border-radius:10px;padding:7px 10px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s;
-}
-.support-wrap:hover .support-tip{opacity:1;}
-</style>
 </head>
 <body>
-<div class="wrap">
-<div class="topbar">
+
+<div class="overlay" id="overlay" onclick="tmCloseDrawer()"></div>
+
+<div class="drawer" id="drawer">
 <div class="logo">TECHMONEY</div>
-<div class="top-actions">
-<button class="btn" onclick="location.href='home.html'">Trang chủ</button>
-<button class="btn" onclick="location.href='dashboard.html'">Dashboard</button>
-<button class="btn" onclick="location.href='naptien.html'">Nạp tiền</button>
-<button class="btn" onclick="location.href='ruttien.html'">Rút tiền</button>
-<button class="btn red" onclick="logout()">Đăng xuất</button>
+
+<div class="menu">
+
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
+
 </div>
 </div>
 
-<div class="box">
-<h2>Lịch sử giao dịch</h2>
+<div class="app">
+
+<aside class="sidebar">
+
+<div>
+
+<div class="logo">TECHMONEY</div>
+
+<div class="menu">
+
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+
+<div class="menu-group-title">Tài khoản</div>
+
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
+
+</div>
+
+</div>
+
+</aside>
+
+<main class="main">
+
+<div class="topbar">
+
+<div class="top-left">
+
+<button class="btn gray mobile-only" onclick="tmOpenDrawer()">☰</button>
+
+<button class="btn gray" id="themeBtn" onclick="tmToggleTheme()">🌙 Giao diện</button>
+
+</div>
+
+<div class="top-right">
+
+<button class="btn red" onclick="tmLogout()">Đăng xuất</button>
+
+</div>
+
+</div>
+
+<section class="hero">
+
+<h1>Lịch sử giao dịch</h1>
+
+<p>Xem toàn bộ lịch sử nạp tiền và rút tiền của tài khoản.</p>
+
+</section>
+
+<section class="panel">
+
+<h2>Danh sách giao dịch</h2>
+
 <table>
+
 <thead>
+
 <tr>
-<th>ID</th>
 <th>Loại</th>
-<th>Phương thức</th>
 <th>Số tiền</th>
-<th>Thông tin nhận/gửi</th>
-<th>Ngân hàng</th>
+<th>Phương thức</th>
 <th>Trạng thái</th>
 <th>Thời gian</th>
 </tr>
+
 </thead>
-<tbody id="historyTable"></tbody>
+
+<tbody id="historyTable">
+
+<tr>
+
+<td colspan="5">Đang tải...</td>
+
+</tr>
+
+</tbody>
+
 </table>
-</div>
+
+</section>
+
+</main>
+
 </div>
 
-<div class="support-fixed">
-<div class="support-wrap">
-<div class="support-tip">Zalo</div>
-<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
-<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
-</a>
-</div>
-<div class="support-wrap">
-<div class="support-tip">Messenger</div>
-<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
-<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
-</a>
-</div>
-<div class="support-wrap">
-<div class="support-tip">Gọi điện</div>
-<a class="support-btn" href="tel:0387676061">
-<img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Phone">
-</a>
-</div>
-<div class="support-wrap">
-<div class="support-tip">Telegram</div>
-<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
-</a>
-</div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+<script src="app.js"></script>
+
 <script>
+
 async function loadHistory(){
-const { data:{ user } } = await sb.auth.getUser();
+
+const { data:{ user } } = await sb.auth.getUser()
+
 if(!user){
-location.href = "login.html";
-return;
+
+location.href="login.html"
+return
+
 }
 
-const { data, error } = await sb
+const { data } = await sb
 .from("transactions")
 .select("*")
-.eq("user_id", user.id)
-.order("id", { ascending:false });
+.eq("user_id",user.id)
+.order("id",{ascending:false})
 
-if(error){
-alert("Lỗi tải lịch sử: " + error.message);
-return;
+const table=document.getElementById("historyTable")
+
+table.innerHTML=""
+
+if(!data || data.length===0){
+
+table.innerHTML=`<tr><td colspan="5">Chưa có giao dịch</td></tr>`
+return
+
 }
 
-const tbody = document.getElementById("historyTable");
-tbody.innerHTML = "";
+data.forEach(tx=>{
 
-if(!data || data.length === 0){
-tbody.innerHTML = `<tr><td colspan="8">Chưa có giao dịch nào.</td></tr>`;
-return;
+const row=document.createElement("tr")
+
+row.innerHTML=`
+
+<td>${tx.type}</td>
+<td>${tmMoney(tx.amount)}</td>
+<td>${tx.method}</td>
+<td class="status-${tx.status}">${tx.status}</td>
+<td>${new Date(tx.created_at).toLocaleString()}</td>
+
+`
+
+table.appendChild(row)
+
+})
+
 }
 
-data.forEach(tx => {
-const tr = document.createElement("tr");
-tr.innerHTML = `
-<td>${tx.id}</td>
-<td>${tx.type === "deposit" ? "Nạp tiền" : "Rút tiền"}</td>
-<td>${String(tx.method || "").toUpperCase()}</td>
-<td>${Number(tx.amount || 0).toLocaleString("vi-VN")}đ</td>
-<td>${tx.account_name || ""}<br>${tx.account_number || ""}</td>
-<td>${tx.bank_name || ""}</td>
-<td class="${tx.status}">${tx.status}</td>
-<td>${new Date(tx.created_at).toLocaleString("vi-VN")}</td>
-`;
-tbody.appendChild(tr);
-});
-}
+loadHistory()
 
-async function logout(){
-await sb.auth.signOut();
-location.href = "login.html";
-}
-
-loadHistory();
 </script>
+
 </body>
 </html>

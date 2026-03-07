@@ -1,216 +1,232 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TECHMONEY - Nạp tiền</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-    body{background:#0f172a;color:#fff;min-height:100vh;padding:30px;}
-    .wrap{max-width:850px;margin:auto;}
-    .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
-    .logo{font-size:28px;font-weight:800;color:#38bdf8;}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;}
-    .btn{
-      border:none;
-      background:#2563eb;
-      color:#fff;
-      padding:10px 16px;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:700;
-    }
-    .btn.red{background:#ef4444;}
-    .box{
-      background:#111827;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:18px;
-      padding:24px;
-      box-shadow:0 20px 50px rgba(0,0,0,.25);
-    }
-    .title{font-size:24px;font-weight:800;margin-bottom:8px;}
-    .sub{color:#94a3b8;margin-bottom:18px;font-size:14px;}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-    .full{grid-column:1/-1;}
-    label{font-size:14px;display:block;margin-bottom:6px;}
-    input,select,textarea{
-      width:100%;
-      padding:12px 14px;
-      border:none;
-      outline:none;
-      border-radius:12px;
-      background:#1f2937;
-      color:#fff;
-    }
-    textarea{resize:vertical;min-height:100px;}
-    .pay-box{
-      margin-top:18px;
-      padding:18px;
-      border-radius:14px;
-      background:linear-gradient(135deg,#1e293b,#0f172a);
-      border:1px solid rgba(56,189,248,.25);
-    }
-    .pay-box h3{margin-bottom:10px;color:#38bdf8;}
-    .pay-info{line-height:1.9;color:#e2e8f0;}
-    .note{margin-top:14px;color:#38bdf8;font-size:14px;min-height:20px;}
-    @media(max-width:768px){
-      .grid{grid-template-columns:1fr;}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECHMONEY - Nạp tiền</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="layout.css">
 </head>
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="logo">TECHMONEY</div>
-      <div class="actions">
-        <button class="btn" onclick="location.href='dashboard.html'">Dashboard</button>
-        <button class="btn" onclick="location.href='lichsu.html'">Lịch sử</button>
-        <button class="btn red" onclick="logout()">Đăng xuất</button>
-      </div>
-    </div>
 
-    <div class="box">
-      <div class="title">Nạp tiền</div>
-      <div class="sub">Tạo yêu cầu nạp tiền qua MoMo hoặc chuyển khoản ngân hàng. Admin duyệt xong số dư sẽ tự cộng.</div>
+<div class="overlay" id="overlay" onclick="tmCloseDrawer()"></div>
 
-      <div class="grid">
-        <div>
-          <label>Phương thức</label>
-          <select id="method" onchange="changeMethod()">
-            <option value="momo">MoMo</option>
-            <option value="bank">Ngân hàng</option>
-          </select>
-        </div>
+<div class="drawer" id="drawer">
+<div class="logo">TECHMONEY</div>
+<div class="menu">
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+</div>
+</div>
 
-        <div>
-          <label>Số tiền</label>
-          <input id="amount" type="number" placeholder="Ví dụ: 500000">
-        </div>
+<div class="app">
+<aside class="sidebar">
+<div>
+<div class="logo">TECHMONEY</div>
+<div class="menu">
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+</div>
+</div>
 
-        <div>
-          <label>Tên người gửi</label>
-          <input id="accountName" placeholder="Nhập tên của bạn">
-        </div>
+<div class="sidebar-box">
+<small>Nạp tiền</small>
+<b>TECHMONEY</b>
+<p>Tạo yêu cầu nạp tiền qua MoMo hoặc ngân hàng. Admin duyệt xong số dư sẽ tự cộng.</p>
+</div>
+</aside>
 
-        <div>
-          <label>Số điện thoại MoMo / Số tài khoản</label>
-          <input id="accountNumber" placeholder="Nhập số MoMo hoặc STK">
-        </div>
+<main class="main">
+<div class="topbar">
+<div class="top-left">
+<button class="btn gray mobile-only" onclick="tmOpenDrawer()">☰ Menu</button>
+<button class="btn gray" id="themeBtn" onclick="tmToggleTheme()">🌙 Giao diện</button>
+<button class="btn gray" onclick="location.href='home.html'">← Trang chủ</button>
+</div>
+<div class="top-right">
+<button class="btn red" onclick="tmLogout()">Đăng xuất</button>
+</div>
+</div>
 
-        <div id="bankWrap" style="display:none;">
-          <label>Tên ngân hàng</label>
-          <input id="bankName" placeholder="Ví dụ: MB Bank">
-        </div>
+<section class="hero">
+<h1>Nạp tiền</h1>
+<p>Tạo yêu cầu nạp tiền nhanh chóng qua MoMo hoặc tài khoản ngân hàng. Hệ thống đã chuyển phần chọn ngân hàng sang dạng danh sách để khách hàng không cần tự gõ.</p>
+</section>
 
-        <div class="full">
-          <label>Nội dung / ghi chú</label>
-          <textarea id="note" placeholder="Ví dụ: Nap tien Techmoney"></textarea>
-        </div>
-      </div>
+<section class="panel">
+<h2>Thông tin nạp tiền</h2>
+<div class="panel-sub">Điền đầy đủ thông tin để admin dễ duyệt hơn.</div>
 
-      <div class="pay-box">
-        <h3>Thông tin nhận tiền của TECHMONEY</h3>
-        <div class="pay-info" id="payInfo">
-          MoMo: 0900000000 - TECHMONEY<br>
-          Nội dung: NAPTIEN + EMAIL CUA BAN
-        </div>
-      </div>
+<div class="form-grid">
+<div>
+<label>Phương thức</label>
+<select id="method" class="field-select" onchange="changeMethod()">
+<option value="momo">MoMo</option>
+<option value="bank">Ngân hàng</option>
+</select>
+</div>
 
-      <div style="margin-top:18px;">
-        <button class="btn" onclick="createDeposit()">Gửi yêu cầu nạp tiền</button>
-      </div>
+<div>
+<label>Số tiền</label>
+<input id="amount" class="field-input" type="number" placeholder="Ví dụ: 500000">
+</div>
 
-      <div class="note" id="msg"></div>
-    </div>
-  </div>
+<div>
+<label>Tên người gửi</label>
+<input id="accountName" class="field-input" placeholder="Nhập tên của bạn">
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase.js"></script>
-  <script>
-    const msg = document.getElementById("msg");
+<div>
+<label>Số điện thoại MoMo / Số tài khoản</label>
+<input id="accountNumber" class="field-input" placeholder="Nhập số MoMo hoặc STK">
+</div>
 
-    function setMsg(t){ msg.textContent = t || ""; }
+<div id="bankWrap" style="display:none;">
+<label>Ngân hàng</label>
+<select id="bankName" class="field-select">
+<option value="">-- Chọn ngân hàng --</option>
+<option>Vietcombank</option>
+<option>Techcombank</option>
+<option>MB Bank</option>
+<option>BIDV</option>
+<option>ACB</option>
+<option>VPBank</option>
+<option>TPBank</option>
+<option>Sacombank</option>
+<option>Agribank</option>
+<option>MoMo</option>
+</select>
+</div>
 
-    function changeMethod(){
-      const method = document.getElementById("method").value;
-      const bankWrap = document.getElementById("bankWrap");
-      const payInfo = document.getElementById("payInfo");
+<div class="full">
+<label>Nội dung / ghi chú</label>
+<textarea id="note" class="field-textarea" placeholder="Ví dụ: Nạp tiền tài khoản TECHMONEY"></textarea>
+</div>
+</div>
 
-      if(method === "bank"){
-        bankWrap.style.display = "block";
-        payInfo.innerHTML = `
-          Ngân hàng: MB Bank<br>
-          STK: 0900000000<br>
-          Chủ TK: TECHMONEY<br>
-          Nội dung: NAPTIEN + EMAIL CUA BAN
-        `;
-      }else{
-        bankWrap.style.display = "none";
-        payInfo.innerHTML = `
-          MoMo: 0900000000 - TECHMONEY<br>
-          Nội dung: NAPTIEN + EMAIL CUA BAN
-        `;
-      }
-    }
+<div class="result-box" id="payInfo">
+MoMo: 0387676061 - TECHMONEY<br>
+Nội dung: NAPTIEN + EMAIL CUA BAN
+</div>
 
-    async function createDeposit(){
-      const { data:{ user } } = await sb.auth.getUser();
-      if(!user){
-        location.href = "login.html";
-        return;
-      }
+<div style="margin-top:18px;">
+<button class="btn blue" onclick="createDeposit()">Gửi yêu cầu nạp tiền</button>
+</div>
 
-      const method = document.getElementById("method").value;
-      const amount = Number(document.getElementById("amount").value || 0);
-      const accountName = document.getElementById("accountName").value.trim();
-      const accountNumber = document.getElementById("accountNumber").value.trim();
-      const bankName = document.getElementById("bankName").value.trim();
-      const note = document.getElementById("note").value.trim();
+<div class="note" id="msg"></div>
+</section>
+</main>
+</div>
 
-      if(amount <= 0){
-        setMsg("Vui lòng nhập số tiền hợp lệ.");
-        return;
-      }
+<div class="support-fixed">
+<div class="support-wrap">
+<div class="support-tip">Zalo</div>
+<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+</div>
+<div class="support-wrap">
+<div class="support-tip">Messenger</div>
+<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+</div>
+<div class="support-wrap">
+<div class="support-tip">Telegram</div>
+<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
+</div>
 
-      if(!accountName || !accountNumber){
-        setMsg("Vui lòng nhập đủ thông tin người gửi.");
-        return;
-      }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="app.js"></script>
+<script>
+const msg = document.getElementById("msg");
 
-      setMsg("Đang gửi yêu cầu...");
+function setMsg(t){ msg.textContent = t || ""; }
 
-      const { error } = await sb.from("transactions").insert({
-        user_id: user.id,
-        type: "deposit",
-        method,
-        amount,
-        account_name: accountName,
-        account_number: accountNumber,
-        bank_name: bankName,
-        note,
-        status: "pending"
-      });
+function changeMethod(){
+const method = document.getElementById("method").value;
+const bankWrap = document.getElementById("bankWrap");
+const payInfo = document.getElementById("payInfo");
 
-      if(error){
-        setMsg("Lỗi: " + error.message);
-        return;
-      }
+if(method === "bank"){
+bankWrap.style.display = "block";
+payInfo.innerHTML = `
+Ngân hàng: MB Bank<br>
+STK: 0387676061<br>
+Chủ TK: TECHMONEY<br>
+Nội dung: NAPTIEN + EMAIL CUA BAN
+`;
+}else{
+bankWrap.style.display = "none";
+payInfo.innerHTML = `
+MoMo: 0387676061 - TECHMONEY<br>
+Nội dung: NAPTIEN + EMAIL CUA BAN
+`;
+}
+}
 
-      setMsg("Đã gửi yêu cầu nạp tiền. Chờ admin duyệt.");
-      document.getElementById("amount").value = "";
-      document.getElementById("accountName").value = "";
-      document.getElementById("accountNumber").value = "";
-      document.getElementById("bankName").value = "";
-      document.getElementById("note").value = "";
-    }
+async function createDeposit(){
+const { data:{ user } } = await sb.auth.getUser();
+if(!user){
+location.href = "login.html";
+return;
+}
 
-    async function logout(){
-      await sb.auth.signOut();
-      location.href = "login.html";
-    }
+const method = document.getElementById("method").value;
+const amount = Number(document.getElementById("amount").value || 0);
+const accountName = document.getElementById("accountName").value.trim();
+const accountNumber = document.getElementById("accountNumber").value.trim();
+const bankName = document.getElementById("bankName").value.trim();
+const note = document.getElementById("note").value.trim();
 
-    changeMethod();
-  </script>
+if(amount <= 0){
+setMsg("Vui lòng nhập số tiền hợp lệ.");
+return;
+}
+
+if(!accountName || !accountNumber){
+setMsg("Vui lòng nhập đủ thông tin người gửi.");
+return;
+}
+
+setMsg("Đang gửi yêu cầu...");
+
+const { error } = await sb.from("transactions").insert({
+user_id: user.id,
+type: "deposit",
+method,
+amount,
+account_name: accountName,
+account_number: accountNumber,
+bank_name: bankName,
+note,
+status: "pending"
+});
+
+if(error){
+setMsg("Lỗi: " + error.message);
+return;
+}
+
+setMsg("Đã gửi yêu cầu nạp tiền. Chờ admin duyệt.");
+document.getElementById("amount").value = "";
+document.getElementById("accountName").value = "";
+document.getElementById("accountNumber").value = "";
+document.getElementById("bankName").value = "";
+document.getElementById("note").value = "";
+}
+
+changeMethod();
+</script>
 </body>
 </html>

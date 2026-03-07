@@ -4,59 +4,205 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TECHMONEY - Rút ví trả sau</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="layout.css">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#0f172a;color:#fff;min-height:100vh;padding:24px}
-.wrap{max-width:900px;margin:auto}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-.logo{font-size:30px;font-weight:800;color:#38bdf8}
-.actions{display:flex;gap:10px;flex-wrap:wrap}
-.btn{border:none;background:#2563eb;color:#fff;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:700}
-.btn.red{background:#ef4444}
-.box{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
-.title{font-size:24px;font-weight:800;margin-bottom:8px}
-.sub{color:#94a3b8;margin-bottom:18px;font-size:14px;line-height:1.7}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.full{grid-column:1/-1}
-label{font-size:14px;display:block;margin-bottom:6px}
-input,select,textarea{width:100%;padding:12px 14px;border:none;outline:none;border-radius:12px;background:#1f2937;color:#fff}
-textarea{resize:vertical;min-height:100px}
-.result{margin-top:18px;padding:18px;border-radius:16px;background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid rgba(56,189,248,.25);line-height:1.8}
-.note{margin-top:14px;color:#38bdf8;font-size:14px;min-height:20px}
-.support-fixed{position:fixed;right:14px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:50}
-.support-wrap{position:relative}
-.support-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e3a8a,#2563eb);box-shadow:0 0 18px rgba(37,99,235,.40);border:1px solid rgba(255,255,255,.14)}
-.support-btn img{width:24px;height:24px}
-.support-tip{position:absolute;right:62px;top:50%;transform:translateY(-50%);background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:7px 10px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s}
-.support-wrap:hover .support-tip{opacity:1}
-@media(max-width:768px){.grid{grid-template-columns:1fr}}
+.service-grid{
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:16px;
+margin-bottom:16px;
+}
+
+.badge-row{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:12px;
+}
+
+.mini-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:8px 12px;
+border-radius:999px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.08);
+color:#cbd5e1;
+font-size:13px;
+font-weight:600;
+}
+
+.highlight-box{
+background:linear-gradient(135deg,rgba(37,99,235,.18),rgba(15,23,42,.96));
+border:1px solid rgba(56,189,248,.18);
+border-radius:18px;
+padding:18px;
+box-shadow:0 14px 30px rgba(0,0,0,.14);
+}
+
+.highlight-box h3{
+font-size:18px;
+margin-bottom:8px;
+}
+
+.calc-result{
+display:grid;
+gap:12px;
+margin-top:14px;
+}
+
+.result-item{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+border-radius:16px;
+padding:14px;
+}
+
+.result-item .r-label{
+color:#94a3b8;
+font-size:13px;
+margin-bottom:6px;
+}
+
+.result-item .r-value{
+font-size:24px;
+font-weight:800;
+}
+
+.info-list{
+display:grid;
+gap:10px;
+margin-top:14px;
+}
+
+.info-line{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+border-radius:14px;
+padding:12px 14px;
+color:#cbd5e1;
+line-height:1.7;
+font-size:14px;
+}
+
+.service-note{
+margin-top:14px;
+color:#93c5fd;
+line-height:1.7;
+font-size:14px;
+}
+
+.price-tag{
+color:#22c55e;
+font-weight:800;
+}
+
+.warn{
+color:#facc15;
+font-weight:700;
+}
+
+@media(max-width:1100px){
+.service-grid{
+grid-template-columns:1fr;
+}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-<div class="topbar">
+
+<div class="overlay" id="overlay" onclick="tmCloseDrawer()"></div>
+
+<div class="drawer" id="drawer">
 <div class="logo">TECHMONEY</div>
-<div class="actions">
-<button class="btn" onclick="location.href='home.html'">Trang chủ</button>
-<button class="btn" onclick="location.href='dashboard.html'">Dashboard</button>
-<button class="btn red" onclick="logout()">Đăng xuất</button>
+<div class="menu">
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+<a data-link="rutvi.html" href="rutvi.html">💳 Rút ví trả sau</a>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
 </div>
 </div>
 
-<div class="box">
-<div class="title">Rút ví trả sau</div>
-<div class="sub">Tính nhanh số tiền nhận được sau khi trừ phí dịch vụ. Gửi yêu cầu để nhân viên hỗ trợ xử lý.</div>
+<div class="app">
 
-<div class="grid">
+<aside class="sidebar">
+<div>
+<div class="logo">TECHMONEY</div>
+
+<div class="menu">
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+
+<div class="menu-group-title">Dịch vụ</div>
+<a data-link="vayip.html" href="vayip.html">📱 Vay iCloud iPhone</a>
+<a data-link="rutvi.html" href="rutvi.html">💳 Rút ví trả sau</a>
+<a data-link="daohan.html" href="daohan.html">🔄 Đáo hạn thẻ tín dụng</a>
+<a data-link="gachthecao.html" href="gachthecao.html">📲 Gạch thẻ cào</a>
+
+<div class="menu-group-title">Tài khoản</div>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
+</div>
+</div>
+
+<div class="sidebar-box">
+<small>Dịch vụ nổi bật</small>
+<b>Rút ví trả sau</b>
+<p>Tính phí nhanh, xem số tiền thực nhận rõ ràng và gửi yêu cầu ngay trên hệ thống.</p>
+</div>
+</aside>
+
+<main class="main">
+
+<div class="topbar">
+<div class="top-left">
+<button class="btn gray mobile-only" onclick="tmOpenDrawer()">☰ Menu</button>
+<button class="btn gray" id="themeBtn" onclick="tmToggleTheme()">🌙 Giao diện</button>
+<button class="btn gray" onclick="location.href='home.html'">← Trang chủ</button>
+</div>
+
+<div class="top-right">
+<button class="btn red" onclick="tmLogout()">Đăng xuất</button>
+</div>
+</div>
+
+<section class="hero">
+<h1>Rút ví trả sau</h1>
+<p>
+Tính nhanh số tiền thực nhận sau phí dịch vụ, chọn phương thức nhận tiền và gửi yêu cầu xử lý. Trang này được làm theo kiểu rõ ràng, chuyên nghiệp và dễ thao tác hơn cho khách hàng.
+</p>
+
+<div class="badge-row">
+<div class="mini-badge">⚡ Tính phí tự động</div>
+<div class="mini-badge">💳 Hỗ trợ rút ví trả sau</div>
+<div class="mini-badge">🏦 Nhận về ngân hàng hoặc MoMo</div>
+<div class="mini-badge">📱 Tối ưu cả mobile</div>
+</div>
+</section>
+
+<section class="service-grid">
+<div class="panel">
+<h2>Thông tin yêu cầu</h2>
+<div class="panel-sub">Nhập số tiền và chọn phương thức nhận để hệ thống tính số tiền thực nhận.</div>
+
+<div class="form-grid">
 <div>
 <label>Số tiền cần rút</label>
-<input id="amount" type="number" placeholder="Ví dụ: 1000000">
+<input id="amount" class="field-input" type="number" placeholder="Ví dụ: 1000000" oninput="calculateRutVi()">
 </div>
 
 <div>
 <label>Phí dịch vụ</label>
-<select id="fee">
+<select id="feePercent" class="field-select" onchange="calculateRutVi()">
 <option value="5">5%</option>
 <option value="6">6%</option>
 <option value="7">7%</option>
@@ -64,72 +210,226 @@ textarea{resize:vertical;min-height:100px}
 </div>
 
 <div>
-<label>Họ và tên</label>
-<input id="fullname" placeholder="Nhập họ tên của bạn">
+<label>Phương thức nhận</label>
+<select id="receiveMethod" class="field-select" onchange="toggleBankMethod()">
+<option value="momo">MoMo</option>
+<option value="bank">Ngân hàng</option>
+</select>
 </div>
 
 <div>
-<label>Số điện thoại</label>
-<input id="phone" placeholder="Nhập số điện thoại">
+<label>Tên người nhận</label>
+<input id="accountName" class="field-input" placeholder="Nhập tên người nhận">
+</div>
+
+<div>
+<label>Số điện thoại / Số tài khoản</label>
+<input id="accountNumber" class="field-input" placeholder="Nhập số MoMo hoặc số tài khoản">
+</div>
+
+<div id="bankWrap" style="display:none;">
+<label>Ngân hàng</label>
+<select id="bankName" class="field-select">
+<option value="">-- Chọn ngân hàng --</option>
+<option>Vietcombank</option>
+<option>Techcombank</option>
+<option>MB Bank</option>
+<option>BIDV</option>
+<option>ACB</option>
+<option>VPBank</option>
+<option>TPBank</option>
+<option>Sacombank</option>
+<option>Agribank</option>
+</select>
 </div>
 
 <div class="full">
 <label>Ghi chú thêm</label>
-<textarea id="note" placeholder="Ví dụ: Cần hỗ trợ trong hôm nay"></textarea>
+<textarea id="note" class="field-textarea" placeholder="Ví dụ: Cần xử lý nhanh trong hôm nay..."></textarea>
 </div>
 </div>
 
-<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
-<button class="btn" onclick="calculateWithdraw()">Tính số tiền nhận</button>
-<button class="btn" onclick="sendWithdraw()">Gửi yêu cầu</button>
+<div style="margin-top:18px;">
+<button class="btn blue" onclick="submitRutVi()">Gửi yêu cầu rút ví</button>
 </div>
 
-<div class="result" id="resultBox">
-Nhập số tiền để xem số thực nhận.
+<div class="service-note" id="rutViMsg"></div>
 </div>
 
-<div class="note" id="msg"></div>
+<div class="highlight-box">
+<h3>Kết quả ước tính</h3>
+<div class="panel-sub">Số liệu hiển thị giúp khách hàng nhìn rõ phần phí và số tiền thực nhận.</div>
+
+<div class="calc-result">
+<div class="result-item">
+<div class="r-label">Số tiền yêu cầu rút</div>
+<div class="r-value" id="rawAmount">0đ</div>
 </div>
+
+<div class="result-item">
+<div class="r-label">Phí dịch vụ</div>
+<div class="r-value warn" id="feeAmount">0đ</div>
+</div>
+
+<div class="result-item">
+<div class="r-label">Số tiền thực nhận</div>
+<div class="r-value price-tag" id="receiveAmount">0đ</div>
+</div>
+</div>
+
+<div class="info-list">
+<div class="info-line">📌 Hệ thống hiển thị mức phí rõ ràng trước khi gửi yêu cầu.</div>
+<div class="info-line">📌 Có thể chọn nhận tiền qua <b>MoMo</b> hoặc <b>ngân hàng</b>.</div>
+<div class="info-line">📌 Phần hiển thị này giúp web trông chuyên nghiệp và dễ hiểu hơn nhiều so với form thường.</div>
+</div>
+</div>
+</section>
+
+<section class="panel">
+<h2>Lưu ý khi rút ví trả sau</h2>
+<div class="panel-sub">Bạn có thể dùng phần này để khách cảm thấy web đáng tin và rõ ràng hơn.</div>
+
+<div class="list">
+<div class="list-item">
+<div>
+<b>Nhập đúng thông tin nhận tiền</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px">Sai tên hoặc sai số tài khoản có thể làm chậm quá trình xử lý.</div>
+</div>
+</div>
+
+<div class="list-item">
+<div>
+<b>Phí được tính trước khi gửi</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px">Khách hàng có thể biết ngay số thực nhận mà không phải tự tính.</div>
+</div>
+</div>
+
+<div class="list-item">
+<div>
+<b>Thời gian xử lý tùy tình trạng giao dịch</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px">Yêu cầu sẽ được admin tiếp nhận và xử lý theo thứ tự.</div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
 </div>
 
 <div class="support-fixed">
-<div class="support-wrap"><div class="support-tip">Zalo</div><a class="support-btn" href="https://zalo.me/0387676061" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt=""></a></div>
-<div class="support-wrap"><div class="support-tip">Messenger</div><a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt=""></a></div>
-<div class="support-wrap"><div class="support-tip">Telegram</div><a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt=""></a></div>
+<div class="support-wrap">
+<div class="support-tip">Zalo</div>
+<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Messenger</div>
+<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Telegram</div>
+<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
-<script>
-function calculateWithdraw(){
-const amount = Number(document.getElementById("amount").value || 0);
-const fee = Number(document.getElementById("fee").value || 0);
-const feeMoney = Math.round(amount * fee / 100);
-const receive = amount - feeMoney;
+<script src="app.js"></script>
 
-document.getElementById("resultBox").innerHTML = `
-<b>Số tiền cần rút:</b> ${amount.toLocaleString("vi-VN")}đ<br>
-<b>Phí dịch vụ:</b> ${fee}% (${feeMoney.toLocaleString("vi-VN")}đ)<br>
-<b>Số tiền thực nhận:</b> ${receive.toLocaleString("vi-VN")}đ
-`;
+<script>
+const rutViMsg = document.getElementById("rutViMsg");
+
+function setRutViMsg(text){
+rutViMsg.textContent = text || "";
 }
 
-function sendWithdraw(){
-const fullname = document.getElementById("fullname").value.trim();
-const phone = document.getElementById("phone").value.trim();
-if(!fullname || !phone){
-document.getElementById("msg").textContent = "Vui lòng nhập họ tên và số điện thoại.";
+function toggleBankMethod(){
+const method = document.getElementById("receiveMethod").value;
+const bankWrap = document.getElementById("bankWrap");
+bankWrap.style.display = method === "bank" ? "block" : "none";
+}
+
+function calculateRutVi(){
+const amount = Number(document.getElementById("amount").value || 0);
+const feePercent = Number(document.getElementById("feePercent").value || 0);
+
+const feeMoney = Math.round(amount * feePercent / 100);
+const receiveMoney = Math.max(amount - feeMoney, 0);
+
+document.getElementById("rawAmount").textContent = tmMoney(amount);
+document.getElementById("feeAmount").textContent = tmMoney(feeMoney);
+document.getElementById("receiveAmount").textContent = tmMoney(receiveMoney);
+}
+
+async function submitRutVi(){
+const { data:{ user } } = await sb.auth.getUser();
+if(!user){
+location.href = "login.html";
 return;
 }
-document.getElementById("msg").textContent = "Đã gửi yêu cầu rút ví trả sau. Nhân viên sẽ liên hệ bạn sớm.";
+
+const amount = Number(document.getElementById("amount").value || 0);
+const feePercent = Number(document.getElementById("feePercent").value || 0);
+const receiveMethod = document.getElementById("receiveMethod").value;
+const accountName = document.getElementById("accountName").value.trim();
+const accountNumber = document.getElementById("accountNumber").value.trim();
+const bankName = document.getElementById("bankName").value.trim();
+const note = document.getElementById("note").value.trim();
+
+if(amount <= 0){
+setRutViMsg("Vui lòng nhập số tiền hợp lệ.");
+return;
 }
 
-async function logout(){
-await sb.auth.signOut();
-location.href = "login.html";
+if(!accountName || !accountNumber){
+setRutViMsg("Vui lòng nhập đủ thông tin nhận tiền.");
+return;
 }
 
-calculateWithdraw();
+const feeMoney = Math.round(amount * feePercent / 100);
+const receiveMoney = Math.max(amount - feeMoney, 0);
+
+const finalNote =
+`Yêu cầu rút ví trả sau | Số tiền: ${tmMoney(amount)} | Phí: ${feePercent}% | Thực nhận: ${tmMoney(receiveMoney)} | Phương thức nhận: ${receiveMethod} | Ghi chú: ${note}`;
+
+setRutViMsg("Đang gửi yêu cầu...");
+
+const { error } = await sb.from("transactions").insert({
+user_id: user.id,
+type: "rut_vi_tra_sau",
+method: receiveMethod,
+amount: amount,
+account_name: accountName,
+account_number: accountNumber,
+bank_name: bankName,
+note: finalNote,
+status: "pending"
+});
+
+if(error){
+setRutViMsg("Lỗi: " + error.message);
+return;
+}
+
+setRutViMsg("Đã gửi yêu cầu rút ví trả sau. Nhân viên sẽ tiếp nhận và xử lý sớm.");
+document.getElementById("amount").value = "";
+document.getElementById("accountName").value = "";
+document.getElementById("accountNumber").value = "";
+document.getElementById("bankName").value = "";
+document.getElementById("note").value = "";
+calculateRutVi();
+}
+
+toggleBankMethod();
+calculateRutVi();
 </script>
+
 </body>
 </html>

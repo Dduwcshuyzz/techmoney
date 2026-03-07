@@ -4,67 +4,240 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TECHMONEY - Vay iCloud iPhone</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="layout.css">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#0f172a;color:#fff;min-height:100vh;padding:24px}
-.wrap{max-width:1000px;margin:auto}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-.logo{font-size:30px;font-weight:800;color:#38bdf8}
-.actions{display:flex;gap:10px;flex-wrap:wrap}
-.btn{border:none;background:#2563eb;color:#fff;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:700}
-.btn.red{background:#ef4444}
-.box{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
-.title{font-size:24px;font-weight:800;margin-bottom:8px}
-.sub{color:#94a3b8;margin-bottom:18px;font-size:14px;line-height:1.7}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.full{grid-column:1/-1}
-label{font-size:14px;display:block;margin-bottom:6px}
-input,select,textarea{width:100%;padding:12px 14px;border:none;outline:none;border-radius:12px;background:#1f2937;color:#fff}
-textarea{resize:vertical;min-height:100px}
-.result{margin-top:18px;padding:18px;border-radius:16px;background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid rgba(56,189,248,.25);line-height:1.8}
-.note{margin-top:14px;color:#38bdf8;font-size:14px;min-height:20px}
-.support-fixed{position:fixed;right:14px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:50}
-.support-wrap{position:relative}
-.support-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e3a8a,#2563eb);box-shadow:0 0 18px rgba(37,99,235,.40);border:1px solid rgba(255,255,255,.14)}
-.support-btn img{width:24px;height:24px}
-.support-tip{position:absolute;right:62px;top:50%;transform:translateY(-50%);background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:7px 10px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s}
-.support-wrap:hover .support-tip{opacity:1}
-@media(max-width:768px){.grid{grid-template-columns:1fr}}
+.loan-grid{
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:16px;
+margin-bottom:16px;
+}
+
+.badge-row{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:12px;
+}
+
+.mini-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:8px 12px;
+border-radius:999px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.08);
+color:#cbd5e1;
+font-size:13px;
+font-weight:600;
+}
+
+.highlight-box{
+background:linear-gradient(135deg,rgba(37,99,235,.18),rgba(15,23,42,.96));
+border:1px solid rgba(56,189,248,.18);
+border-radius:18px;
+padding:18px;
+box-shadow:0 14px 30px rgba(0,0,0,.14);
+}
+
+.highlight-box h3{
+font-size:18px;
+margin-bottom:8px;
+}
+
+.loan-result{
+display:grid;
+gap:12px;
+margin-top:14px;
+}
+
+.result-item{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+border-radius:16px;
+padding:14px;
+}
+
+.result-item .r-label{
+color:#94a3b8;
+font-size:13px;
+margin-bottom:6px;
+}
+
+.result-item .r-value{
+font-size:24px;
+font-weight:800;
+}
+
+.info-list{
+display:grid;
+gap:10px;
+margin-top:14px;
+}
+
+.info-line{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+border-radius:14px;
+padding:12px 14px;
+color:#cbd5e1;
+line-height:1.7;
+font-size:14px;
+}
+
+.loan-note{
+margin-top:14px;
+color:#93c5fd;
+line-height:1.7;
+font-size:14px;
+}
+
+.price-tag{
+color:#22c55e;
+font-weight:800;
+}
+
+.warn{
+color:#facc15;
+font-weight:700;
+}
+
+@media(max-width:1100px){
+.loan-grid{
+grid-template-columns:1fr;
+}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-<div class="topbar">
+
+<div class="overlay" id="overlay" onclick="tmCloseDrawer()"></div>
+
+<div class="drawer" id="drawer">
 <div class="logo">TECHMONEY</div>
-<div class="actions">
-<button class="btn" onclick="location.href='home.html'">Trang chủ</button>
-<button class="btn" onclick="location.href='dashboard.html'">Dashboard</button>
-<button class="btn red" onclick="logout()">Đăng xuất</button>
+<div class="menu">
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+<a data-link="vayip.html" href="vayip.html">📱 Vay iCloud iPhone</a>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
 </div>
 </div>
 
-<div class="box">
-<div class="title">Vay iCloud iPhone</div>
-<div class="sub">Ước tính khoản vay theo dòng máy và thời gian vay. Sau khi gửi yêu cầu, nhân viên sẽ liên hệ xác nhận.</div>
+<div class="app">
 
-<div class="grid">
+<aside class="sidebar">
 <div>
-<label>Dòng iPhone</label>
-<select id="iphone">
-<option value="5000000">iPhone X</option>
-<option value="7000000">iPhone 11</option>
-<option value="10000000">iPhone 12</option>
-<option value="13000000">iPhone 13</option>
-<option value="17000000">iPhone 14</option>
-<option value="21000000">iPhone 15</option>
-<option value="26000000">iPhone 16 Pro Max</option>
+<div class="logo">TECHMONEY</div>
+
+<div class="menu">
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+
+<div class="menu-group-title">Dịch vụ</div>
+<a data-link="vayip.html" href="vayip.html">📱 Vay iCloud iPhone</a>
+<a data-link="rutvi.html" href="rutvi.html">💳 Rút ví trả sau</a>
+<a data-link="daohan.html" href="daohan.html">🔄 Đáo hạn thẻ tín dụng</a>
+<a data-link="gachthecao.html" href="gachthecao.html">📲 Gạch thẻ cào</a>
+
+<div class="menu-group-title">Tài khoản</div>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
+</div>
+</div>
+
+<div class="sidebar-box">
+<small>Dịch vụ nổi bật</small>
+<b>Vay iCloud iPhone</b>
+<p>Ước tính khoản vay nhanh, chọn dòng máy dễ dàng, gửi yêu cầu trực tiếp trên hệ thống.</p>
+</div>
+</aside>
+
+<main class="main">
+
+<div class="topbar">
+<div class="top-left">
+<button class="btn gray mobile-only" onclick="tmOpenDrawer()">☰ Menu</button>
+<button class="btn gray" id="themeBtn" onclick="tmToggleTheme()">🌙 Giao diện</button>
+<button class="btn gray" onclick="location.href='home.html'">← Trang chủ</button>
+</div>
+
+<div class="top-right">
+<button class="btn red" onclick="tmLogout()">Đăng xuất</button>
+</div>
+</div>
+
+<section class="hero">
+<h1>Vay iCloud iPhone</h1>
+<p>
+Chọn dòng máy, tình trạng và kỳ hạn để hệ thống ước tính khoản vay phù hợp. Giao diện được thiết kế để khách hàng nhìn phát là hiểu, thao tác nhanh và chuyên nghiệp hơn.
+</p>
+
+<div class="badge-row">
+<div class="mini-badge">⚡ Ước tính nhanh</div>
+<div class="mini-badge">🔒 Bảo mật thông tin</div>
+<div class="mini-badge">📱 Hỗ trợ nhiều dòng iPhone</div>
+<div class="mini-badge">🕒 Kỳ hạn linh hoạt</div>
+</div>
+</section>
+
+<section class="loan-grid">
+<div class="panel">
+<h2>Thông tin thiết bị</h2>
+<div class="panel-sub">Điền thông tin iPhone để hệ thống tính khoản vay dự kiến.</div>
+
+<div class="form-grid">
+<div>
+<label>Dòng máy iPhone</label>
+<select id="iphoneModel" class="field-select" onchange="calculateLoan()">
+<option value="0">-- Chọn dòng máy --</option>
+<option value="5000000">iPhone X / XR / XS</option>
+<option value="7000000">iPhone 11 / 11 Pro / 11 Pro Max</option>
+<option value="9000000">iPhone 12 / 12 Pro / 12 Pro Max</option>
+<option value="11000000">iPhone 13 / 13 Pro / 13 Pro Max</option>
+<option value="13000000">iPhone 14 / 14 Plus / 14 Pro / 14 Pro Max</option>
+<option value="16000000">iPhone 15 / 15 Plus / 15 Pro / 15 Pro Max</option>
 </select>
 </div>
 
 <div>
-<label>Thời gian vay</label>
-<select id="month">
+<label>Dung lượng</label>
+<select id="storage" class="field-select" onchange="calculateLoan()">
+<option value="1">64GB / 128GB</option>
+<option value="1.05">256GB</option>
+<option value="1.1">512GB / 1TB</option>
+</select>
+</div>
+
+<div>
+<label>Tình trạng máy</label>
+<select id="condition" class="field-select" onchange="calculateLoan()">
+<option value="1">Đẹp / hoạt động tốt</option>
+<option value="0.92">Trầy nhẹ / dùng ổn</option>
+<option value="0.82">Ngoại hình xấu / pin yếu</option>
+</select>
+</div>
+
+<div>
+<label>Pin còn lại</label>
+<select id="battery" class="field-select" onchange="calculateLoan()">
+<option value="1">Trên 90%</option>
+<option value="0.96">80% - 89%</option>
+<option value="0.90">Dưới 80%</option>
+</select>
+</div>
+
+<div>
+<label>Kỳ hạn vay</label>
+<select id="months" class="field-select" onchange="calculateLoan()">
 <option value="1">1 tháng</option>
 <option value="3">3 tháng</option>
 <option value="6">6 tháng</option>
@@ -73,74 +246,189 @@ textarea{resize:vertical;min-height:100px}
 </div>
 
 <div>
-<label>Họ và tên</label>
-<input id="fullname" placeholder="Nhập họ tên của bạn">
-</div>
-
-<div>
-<label>Số điện thoại</label>
-<input id="phone" placeholder="Nhập số điện thoại">
+<label>Lãi suất / tháng</label>
+<select id="interest" class="field-select" onchange="calculateLoan()">
+<option value="0.08">8%</option>
+<option value="0.1">10%</option>
+<option value="0.12">12%</option>
+</select>
 </div>
 
 <div class="full">
 <label>Ghi chú thêm</label>
-<textarea id="note" placeholder="Ví dụ: Máy zin, không lỗi, cần hỗ trợ nhanh"></textarea>
+<textarea id="note" class="field-textarea" placeholder="Ví dụ: Máy còn hộp, pin 89%, màn đẹp, không lỗi chức năng..."></textarea>
 </div>
 </div>
 
-<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
-<button class="btn" onclick="calculateLoan()">Ước tính khoản vay</button>
-<button class="btn" onclick="sendLoan()">Gửi yêu cầu</button>
+<div style="margin-top:18px;">
+<button class="btn blue" onclick="submitLoan()">Gửi yêu cầu vay</button>
 </div>
 
-<div class="result" id="resultBox">
-Chọn dòng máy và thời gian vay để xem ước tính.
+<div class="loan-note" id="loanMsg"></div>
 </div>
 
-<div class="note" id="msg"></div>
+<div class="highlight-box">
+<h3>Ước tính khoản vay</h3>
+<div class="panel-sub">Số liệu chỉ mang tính tham khảo để khách hàng dễ hình dung trước khi gửi yêu cầu.</div>
+
+<div class="loan-result">
+<div class="result-item">
+<div class="r-label">Giá trị máy tham chiếu</div>
+<div class="r-value" id="deviceValue">0đ</div>
 </div>
+
+<div class="result-item">
+<div class="r-label">Khoản vay dự kiến</div>
+<div class="r-value price-tag" id="loanValue">0đ</div>
+</div>
+
+<div class="result-item">
+<div class="r-label">Ước tính trả / tháng</div>
+<div class="r-value" id="monthlyValue">0đ</div>
+</div>
+</div>
+
+<div class="info-list">
+<div class="info-line">📌 Tỷ lệ vay tham khảo: <b>tối đa khoảng 60%</b> giá trị máy sau khi trừ hao tình trạng.</div>
+<div class="info-line">📌 Kỳ hạn càng dài thì tổng chi phí trả góp càng tăng.</div>
+<div class="info-line">📌 Hệ thống này đang làm theo phong cách <span class="warn">ước tính minh họa</span> để khách hàng dễ dùng.</div>
+</div>
+</div>
+</section>
+
+<section class="panel">
+<h2>Điều kiện & lưu ý</h2>
+<div class="panel-sub">Bạn có thể để phần này nhìn chuyên nghiệp như web dịch vụ thật.</div>
+
+<div class="list">
+<div class="list-item">
+<div>
+<b>Thiết bị cần hoạt động ổn định</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px">Máy nên lên nguồn, màn hình và cảm ứng hoạt động bình thường.</div>
+</div>
+</div>
+
+<div class="list-item">
+<div>
+<b>Thông tin khách hàng cần chính xác</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px">Tên, số điện thoại và tình trạng máy phải điền rõ để hỗ trợ xử lý nhanh hơn.</div>
+</div>
+</div>
+
+<div class="list-item">
+<div>
+<b>Khoản vay thực tế do hệ thống duyệt quyết định</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px">Giá trị hiển thị trên trang này là mức dự kiến để tham khảo.</div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
 </div>
 
 <div class="support-fixed">
-<div class="support-wrap"><div class="support-tip">Zalo</div><a class="support-btn" href="https://zalo.me/0387676061" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt=""></a></div>
-<div class="support-wrap"><div class="support-tip">Messenger</div><a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt=""></a></div>
-<div class="support-wrap"><div class="support-tip">Telegram</div><a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt=""></a></div>
+<div class="support-wrap">
+<div class="support-tip">Zalo</div>
+<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Messenger</div>
+<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Telegram</div>
+<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
-<script>
-function calculateLoan(){
-const value = Number(document.getElementById("iphone").value || 0);
-const month = Number(document.getElementById("month").value || 1);
-const loan = Math.round(value * 0.6);
-const interest = Math.round(loan * 0.02 * month);
-const total = loan + interest;
+<script src="app.js"></script>
 
-document.getElementById("resultBox").innerHTML = `
-<b>Số tiền có thể vay:</b> ${loan.toLocaleString("vi-VN")}đ<br>
-<b>Lãi suất:</b> 2% / tháng<br>
-<b>Tổng lãi:</b> ${interest.toLocaleString("vi-VN")}đ<br>
-<b>Tổng phải trả:</b> ${total.toLocaleString("vi-VN")}đ
-`;
+<script>
+const loanMsg = document.getElementById("loanMsg");
+
+function setLoanMsg(text){
+loanMsg.textContent = text || "";
 }
 
-function sendLoan(){
-const fullname = document.getElementById("fullname").value.trim();
-const phone = document.getElementById("phone").value.trim();
-if(!fullname || !phone){
-document.getElementById("msg").textContent = "Vui lòng nhập họ tên và số điện thoại.";
+function calculateLoan(){
+const model = Number(document.getElementById("iphoneModel").value || 0);
+const storage = Number(document.getElementById("storage").value || 1);
+const condition = Number(document.getElementById("condition").value || 1);
+const battery = Number(document.getElementById("battery").value || 1);
+const months = Number(document.getElementById("months").value || 1);
+const interest = Number(document.getElementById("interest").value || 0.1);
+
+const deviceValue = Math.round(model * storage * condition * battery);
+const loanValue = Math.round(deviceValue * 0.6);
+const totalReturn = Math.round(loanValue + (loanValue * interest * months));
+const monthlyValue = months > 0 ? Math.round(totalReturn / months) : 0;
+
+document.getElementById("deviceValue").textContent = tmMoney(deviceValue);
+document.getElementById("loanValue").textContent = tmMoney(loanValue);
+document.getElementById("monthlyValue").textContent = tmMoney(monthlyValue);
+}
+
+async function submitLoan(){
+const { data:{ user } } = await sb.auth.getUser();
+if(!user){
+location.href = "login.html";
 return;
 }
-document.getElementById("msg").textContent = "Đã gửi yêu cầu vay iPhone. Nhân viên sẽ liên hệ bạn sớm.";
+
+const modelText = document.getElementById("iphoneModel").selectedOptions[0].text;
+const modelValue = Number(document.getElementById("iphoneModel").value || 0);
+const storageText = document.getElementById("storage").selectedOptions[0].text;
+const conditionText = document.getElementById("condition").selectedOptions[0].text;
+const batteryText = document.getElementById("battery").selectedOptions[0].text;
+const monthsText = document.getElementById("months").selectedOptions[0].text;
+const note = document.getElementById("note").value.trim();
+
+if(modelValue <= 0){
+setLoanMsg("Vui lòng chọn dòng máy iPhone.");
+return;
 }
 
-async function logout(){
-await sb.auth.signOut();
-location.href = "login.html";
+const loanValueText = document.getElementById("loanValue").textContent;
+
+const finalNote =
+`Yêu cầu vay iCloud iPhone | Máy: ${modelText} | Dung lượng: ${storageText} | Tình trạng: ${conditionText} | Pin: ${batteryText} | Kỳ hạn: ${monthsText} | Khoản vay dự kiến: ${loanValueText} | Ghi chú: ${note}`;
+
+setLoanMsg("Đang gửi yêu cầu...");
+
+const { error } = await sb.from("transactions").insert({
+user_id: user.id,
+type: "loan_iphone",
+method: "icloud_iphone",
+amount: modelValue,
+account_name: modelText,
+account_number: storageText,
+bank_name: conditionText,
+note: finalNote,
+status: "pending"
+});
+
+if(error){
+setLoanMsg("Lỗi: " + error.message);
+return;
+}
+
+setLoanMsg("Đã gửi yêu cầu vay iCloud iPhone. Nhân viên sẽ liên hệ và duyệt sớm.");
+document.getElementById("note").value = "";
 }
 
 calculateLoan();
 </script>
+
 </body>
 </html>

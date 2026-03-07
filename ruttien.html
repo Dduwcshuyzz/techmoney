@@ -1,224 +1,243 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TECHMONEY - Rút tiền</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-    body{background:#0f172a;color:#fff;min-height:100vh;padding:30px;}
-    .wrap{max-width:850px;margin:auto;}
-    .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
-    .logo{font-size:28px;font-weight:800;color:#38bdf8;}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;}
-    .btn{
-      border:none;
-      background:#2563eb;
-      color:#fff;
-      padding:10px 16px;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:700;
-    }
-    .btn.red{background:#ef4444;}
-    .box{
-      background:#111827;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:18px;
-      padding:24px;
-      box-shadow:0 20px 50px rgba(0,0,0,.25);
-    }
-    .title{font-size:24px;font-weight:800;margin-bottom:8px;}
-    .sub{color:#94a3b8;margin-bottom:18px;font-size:14px;}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-    .full{grid-column:1/-1;}
-    label{font-size:14px;display:block;margin-bottom:6px;}
-    input,select,textarea{
-      width:100%;
-      padding:12px 14px;
-      border:none;
-      outline:none;
-      border-radius:12px;
-      background:#1f2937;
-      color:#fff;
-    }
-    textarea{resize:vertical;min-height:100px;}
-    .balance-box{
-      margin-top:18px;
-      padding:18px;
-      border-radius:14px;
-      background:linear-gradient(135deg,#1e293b,#0f172a);
-      border:1px solid rgba(56,189,248,.25);
-    }
-    .balance-box h3{margin-bottom:10px;color:#38bdf8;}
-    .note{margin-top:14px;color:#38bdf8;font-size:14px;min-height:20px;}
-    @media(max-width:768px){
-      .grid{grid-template-columns:1fr;}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECHMONEY - Rút tiền</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="layout.css">
 </head>
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="logo">TECHMONEY</div>
-      <div class="actions">
-        <button class="btn" onclick="location.href='dashboard.html'">Dashboard</button>
-        <button class="btn" onclick="location.href='lichsu.html'">Lịch sử</button>
-        <button class="btn red" onclick="logout()">Đăng xuất</button>
-      </div>
-    </div>
 
-    <div class="box">
-      <div class="title">Rút tiền</div>
-      <div class="sub">Tạo yêu cầu rút tiền qua MoMo hoặc ngân hàng. Admin duyệt xong số dư sẽ tự trừ.</div>
+<div class="overlay" id="overlay" onclick="tmCloseDrawer()"></div>
 
-      <div class="balance-box">
-        <h3>Số dư hiện tại</h3>
-        <div id="balanceText">Đang tải...</div>
-      </div>
+<div class="drawer" id="drawer">
+<div class="logo">TECHMONEY</div>
+<div class="menu">
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+</div>
+</div>
 
-      <div class="grid" style="margin-top:18px;">
-        <div>
-          <label>Phương thức</label>
-          <select id="method" onchange="changeMethod()">
-            <option value="momo">MoMo</option>
-            <option value="bank">Ngân hàng</option>
-          </select>
-        </div>
+<div class="app">
+<aside class="sidebar">
+<div>
+<div class="logo">TECHMONEY</div>
+<div class="menu">
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+</div>
+</div>
 
-        <div>
-          <label>Số tiền rút</label>
-          <input id="amount" type="number" placeholder="Ví dụ: 500000">
-        </div>
+<div class="sidebar-box">
+<small>Rút tiền</small>
+<b>TECHMONEY</b>
+<p>Gửi yêu cầu rút tiền nhanh chóng. Admin duyệt xong số dư sẽ tự trừ.</p>
+</div>
+</aside>
 
-        <div>
-          <label>Tên người nhận</label>
-          <input id="accountName" placeholder="Nhập tên người nhận">
-        </div>
+<main class="main">
+<div class="topbar">
+<div class="top-left">
+<button class="btn gray mobile-only" onclick="tmOpenDrawer()">☰ Menu</button>
+<button class="btn gray" id="themeBtn" onclick="tmToggleTheme()">🌙 Giao diện</button>
+<button class="btn gray" onclick="location.href='home.html'">← Trang chủ</button>
+</div>
+<div class="top-right">
+<button class="btn red" onclick="tmLogout()">Đăng xuất</button>
+</div>
+</div>
 
-        <div>
-          <label>Số điện thoại MoMo / Số tài khoản</label>
-          <input id="accountNumber" placeholder="Nhập số MoMo hoặc STK">
-        </div>
+<section class="hero">
+<h1>Rút tiền</h1>
+<p>Gửi yêu cầu rút tiền về MoMo hoặc ngân hàng. Danh sách ngân hàng đã được chuyển sang dạng chọn sẵn cho tiện thao tác.</p>
+</section>
 
-        <div id="bankWrap" style="display:none;">
-          <label>Tên ngân hàng</label>
-          <input id="bankName" placeholder="Ví dụ: MB Bank">
-        </div>
+<section class="panel">
+<h2>Thông tin rút tiền</h2>
+<div class="panel-sub">Hệ thống sẽ kiểm tra số dư trước khi tạo yêu cầu.</div>
 
-        <div class="full">
-          <label>Ghi chú</label>
-          <textarea id="note" placeholder="Nhập ghi chú thêm nếu có"></textarea>
-        </div>
-      </div>
+<div class="result-box" id="balanceBox">
+Số dư hiện tại: 0đ
+</div>
 
-      <div style="margin-top:18px;">
-        <button class="btn" onclick="createWithdraw()">Gửi yêu cầu rút tiền</button>
-      </div>
+<div class="form-grid" style="margin-top:16px">
+<div>
+<label>Phương thức</label>
+<select id="method" class="field-select" onchange="changeMethod()">
+<option value="momo">MoMo</option>
+<option value="bank">Ngân hàng</option>
+</select>
+</div>
 
-      <div class="note" id="msg"></div>
-    </div>
-  </div>
+<div>
+<label>Số tiền rút</label>
+<input id="amount" class="field-input" type="number" placeholder="Ví dụ: 500000">
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase.js"></script>
-  <script>
-    const msg = document.getElementById("msg");
-    let currentBalance = 0;
+<div>
+<label>Tên người nhận</label>
+<input id="accountName" class="field-input" placeholder="Nhập tên người nhận">
+</div>
 
-    function setMsg(t){ msg.textContent = t || ""; }
+<div>
+<label>Số điện thoại MoMo / Số tài khoản</label>
+<input id="accountNumber" class="field-input" placeholder="Nhập số MoMo hoặc STK">
+</div>
 
-    function changeMethod(){
-      const method = document.getElementById("method").value;
-      document.getElementById("bankWrap").style.display = method === "bank" ? "block" : "none";
-    }
+<div id="bankWrap" style="display:none;">
+<label>Ngân hàng</label>
+<select id="bankName" class="field-select">
+<option value="">-- Chọn ngân hàng --</option>
+<option>Vietcombank</option>
+<option>Techcombank</option>
+<option>MB Bank</option>
+<option>BIDV</option>
+<option>ACB</option>
+<option>VPBank</option>
+<option>TPBank</option>
+<option>Sacombank</option>
+<option>Agribank</option>
+<option>MoMo</option>
+</select>
+</div>
 
-    async function loadBalance(){
-      const { data:{ user } } = await sb.auth.getUser();
-      if(!user){
-        location.href = "login.html";
-        return;
-      }
+<div class="full">
+<label>Ghi chú</label>
+<textarea id="note" class="field-textarea" placeholder="Nhập ghi chú thêm nếu có"></textarea>
+</div>
+</div>
 
-      const { data, error } = await sb
-        .from("users")
-        .select("balance")
-        .eq("user_id", user.id)
-        .single();
+<div style="margin-top:18px;">
+<button class="btn blue" onclick="createWithdraw()">Gửi yêu cầu rút tiền</button>
+</div>
 
-      if(error || !data){
-        document.getElementById("balanceText").textContent = "Không tải được số dư";
-        return;
-      }
+<div class="note" id="msg"></div>
+</section>
+</main>
+</div>
 
-      currentBalance = Number(data.balance || 0);
-      document.getElementById("balanceText").textContent = currentBalance.toLocaleString() + "đ";
-    }
+<div class="support-fixed">
+<div class="support-wrap">
+<div class="support-tip">Zalo</div>
+<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+</div>
+<div class="support-wrap">
+<div class="support-tip">Messenger</div>
+<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+</div>
+<div class="support-wrap">
+<div class="support-tip">Telegram</div>
+<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
+</div>
 
-    async function createWithdraw(){
-      const { data:{ user } } = await sb.auth.getUser();
-      if(!user){
-        location.href = "login.html";
-        return;
-      }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="app.js"></script>
+<script>
+const msg = document.getElementById("msg");
+let currentBalance = 0;
 
-      const method = document.getElementById("method").value;
-      const amount = Number(document.getElementById("amount").value || 0);
-      const accountName = document.getElementById("accountName").value.trim();
-      const accountNumber = document.getElementById("accountNumber").value.trim();
-      const bankName = document.getElementById("bankName").value.trim();
-      const note = document.getElementById("note").value.trim();
+function setMsg(t){ msg.textContent = t || ""; }
 
-      if(amount <= 0){
-        setMsg("Vui lòng nhập số tiền hợp lệ.");
-        return;
-      }
+function changeMethod(){
+const method = document.getElementById("method").value;
+document.getElementById("bankWrap").style.display = method === "bank" ? "block" : "none";
+}
 
-      if(amount > currentBalance){
-        setMsg("Số dư không đủ để rút.");
-        return;
-      }
+async function loadBalance(){
+const { data:{ user } } = await sb.auth.getUser();
+if(!user){
+location.href = "login.html";
+return;
+}
 
-      if(!accountName || !accountNumber){
-        setMsg("Vui lòng nhập đủ thông tin người nhận.");
-        return;
-      }
+const { data, error } = await sb
+.from("users")
+.select("balance")
+.eq("user_id", user.id)
+.single();
 
-      setMsg("Đang gửi yêu cầu...");
+if(error || !data){
+document.getElementById("balanceBox").textContent = "Không tải được số dư";
+return;
+}
 
-      const { error } = await sb.from("transactions").insert({
-        user_id: user.id,
-        type: "withdraw",
-        method,
-        amount,
-        account_name: accountName,
-        account_number: accountNumber,
-        bank_name: bankName,
-        note,
-        status: "pending"
-      });
+currentBalance = Number(data.balance || 0);
+document.getElementById("balanceBox").innerHTML = `Số dư hiện tại: <b>${tmMoney(currentBalance)}</b>`;
+}
 
-      if(error){
-        setMsg("Lỗi: " + error.message);
-        return;
-      }
+async function createWithdraw(){
+const { data:{ user } } = await sb.auth.getUser();
+if(!user){
+location.href = "login.html";
+return;
+}
 
-      setMsg("Đã gửi yêu cầu rút tiền. Chờ admin duyệt.");
-      document.getElementById("amount").value = "";
-      document.getElementById("accountName").value = "";
-      document.getElementById("accountNumber").value = "";
-      document.getElementById("bankName").value = "";
-      document.getElementById("note").value = "";
-    }
+const method = document.getElementById("method").value;
+const amount = Number(document.getElementById("amount").value || 0);
+const accountName = document.getElementById("accountName").value.trim();
+const accountNumber = document.getElementById("accountNumber").value.trim();
+const bankName = document.getElementById("bankName").value.trim();
+const note = document.getElementById("note").value.trim();
 
-    async function logout(){
-      await sb.auth.signOut();
-      location.href = "login.html";
-    }
+if(amount <= 0){
+setMsg("Vui lòng nhập số tiền hợp lệ.");
+return;
+}
 
-    changeMethod();
-    loadBalance();
-  </script>
+if(amount > currentBalance){
+setMsg("Số dư không đủ để rút.");
+return;
+}
+
+if(!accountName || !accountNumber){
+setMsg("Vui lòng nhập đủ thông tin người nhận.");
+return;
+}
+
+setMsg("Đang gửi yêu cầu...");
+
+const { error } = await sb.from("transactions").insert({
+user_id: user.id,
+type: "withdraw",
+method,
+amount,
+account_name: accountName,
+account_number: accountNumber,
+bank_name: bankName,
+note,
+status: "pending"
+});
+
+if(error){
+setMsg("Lỗi: " + error.message);
+return;
+}
+
+setMsg("Đã gửi yêu cầu rút tiền. Chờ admin duyệt.");
+document.getElementById("amount").value = "";
+document.getElementById("accountName").value = "";
+document.getElementById("accountNumber").value = "";
+document.getElementById("bankName").value = "";
+document.getElementById("note").value = "";
+}
+
+changeMethod();
+loadBalance();
+</script>
 </body>
 </html>

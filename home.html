@@ -1,329 +1,30 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TECHMONEY - Home</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-html,body{max-width:100%;overflow-x:hidden;}
-a{text-decoration:none;color:inherit}
-
-body{
-background:#0f172a;
-color:#fff;
-min-height:100vh;
-}
-
-.app{
-display:flex;
-min-height:100vh;
-}
-
-.sidebar{
-width:250px;
-background:#111827;
-border-right:1px solid rgba(255,255,255,0.06);
-padding:18px 14px;
-position:sticky;
-top:0;
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-flex-shrink:0;
-}
-
-.logo{
-font-size:22px;
-font-weight:800;
-color:#38bdf8;
-margin-bottom:18px;
-text-shadow:0 0 18px rgba(56,189,248,0.25);
-}
-
-.menu{
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.menu-group-title{
-font-size:12px;
-color:#94a3b8;
-margin:10px 8px 2px;
-font-weight:700;
-text-transform:uppercase;
-letter-spacing:.5px;
-}
-
-.menu a{
-display:flex;
-align-items:center;
-gap:10px;
-min-height:48px;
-padding:12px 14px;
-border-radius:14px;
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.04);
-transition:.2s;
-font-weight:600;
-}
-.menu a:hover{
-background:linear-gradient(90deg,#2563eb,#3b82f6);
-transform:translateX(2px);
-}
-.menu a.active{
-background:linear-gradient(90deg,#2563eb,#3b82f6);
-box-shadow:0 10px 24px rgba(37,99,235,0.22);
-}
-
-.sidebar-user{
-margin-top:18px;
-background:linear-gradient(135deg,#2563eb,#3b82f6);
-border-radius:18px;
-padding:16px;
-text-align:center;
-box-shadow:0 16px 36px rgba(37,99,235,0.24);
-}
-.sidebar-user small{display:block;opacity:.95;margin-bottom:4px;}
-.sidebar-user b{display:block;font-size:16px;margin-bottom:12px;}
-.user-balance{font-size:14px;font-weight:700;}
-
-.main{
-flex:1;
-min-width:0;
-padding:18px;
-}
-
-.topbar{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:12px;
-margin-bottom:16px;
-padding:12px 14px;
-background:rgba(17,24,39,0.86);
-border:1px solid rgba(255,255,255,0.07);
-border-radius:18px;
-backdrop-filter:blur(10px);
-position:sticky;
-top:12px;
-z-index:20;
-}
-
-.topbar-left,.topbar-right{
-display:flex;
-align-items:center;
-gap:10px;
-flex-wrap:wrap;
-}
-
-.icon-btn,.logout{
-border:none;
-border-radius:12px;
-padding:10px 14px;
-font-weight:700;
-cursor:pointer;
-transition:.2s;
-}
-.icon-btn{background:rgba(255,255,255,0.07);color:#fff;}
-.icon-btn:hover{background:rgba(255,255,255,0.12);transform:translateY(-1px);}
-.logout{background:#ef4444;color:#fff;}
-.logout:hover{filter:brightness(1.05);transform:translateY(-1px);}
-
-.hero{
-background:linear-gradient(135deg,#1e40af,#2563eb);
-border:1px solid rgba(255,255,255,0.10);
-border-radius:24px;
-padding:24px;
-box-shadow:0 18px 40px rgba(0,0,0,.20);
-margin-bottom:16px;
-}
-.hero h1{font-size:30px;line-height:1.2;margin-bottom:8px;}
-.hero p{color:#dbeafe;max-width:760px;line-height:1.7;font-size:14px;}
-
-.stats{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:14px;
-margin-bottom:16px;
-}
-.stat-card{
-background:#111827;
-border:1px solid rgba(255,255,255,0.08);
-border-radius:20px;
-padding:18px;
-box-shadow:0 14px 30px rgba(0,0,0,.16);
-}
-.stat-label{font-size:13px;color:#94a3b8;margin-bottom:10px;}
-.stat-value{font-size:20px;font-weight:800;margin-bottom:8px;}
-.stat-sub{font-size:13px;color:#38bdf8;}
-
-.content-grid{
-display:grid;
-grid-template-columns:1.15fr .85fr;
-gap:16px;
-margin-bottom:16px;
-}
-.panel{
-background:#111827;
-border:1px solid rgba(255,255,255,0.08);
-border-radius:22px;
-padding:18px;
-box-shadow:0 14px 30px rgba(0,0,0,.16);
-}
-.panel h3{font-size:20px;margin-bottom:10px;}
-.panel-sub{color:#94a3b8;font-size:14px;line-height:1.7;margin-bottom:14px;}
-
-.notice-list,.profile-list,.rank-list{
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-.notice-item,.profile-item,.rank-item{
-display:flex;
-justify-content:space-between;
-gap:12px;
-padding:14px;
-border-radius:16px;
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.06);
-}
-.notice-title{font-weight:700;margin-bottom:4px;}
-.notice-desc{color:#cbd5e1;font-size:13px;line-height:1.5;}
-.notice-time{color:#94a3b8;font-size:12px;white-space:nowrap;}
-
-.quick-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-margin-top:14px;
-}
-.quick-card{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.06);
-border-radius:18px;
-padding:16px;
-transition:.2s;
-cursor:pointer;
-}
-.quick-card:hover{
-transform:translateY(-2px);
-border-color:rgba(56,189,248,.25);
-box-shadow:0 12px 26px rgba(0,0,0,.18);
-}
-.quick-icon{font-size:24px;margin-bottom:8px;}
-.quick-title{font-weight:800;margin-bottom:6px;}
-.quick-desc{font-size:13px;color:#94a3b8;line-height:1.6;}
-
-.profile-item span:first-child{color:#94a3b8;font-size:13px;}
-.profile-item span:last-child{font-weight:700;text-align:right;}
-
-.rank-item b{font-size:14px;}
-.rank-item span{color:#cbd5e1;font-size:13px;}
-
-.support-fixed{
-position:fixed;
-right:14px;
-bottom:20px;
-display:flex;
-flex-direction:column;
-gap:12px;
-z-index:50;
-}
-.support-wrap{position:relative;}
-.support-btn{
-width:52px;height:52px;border-radius:50%;
-display:flex;align-items:center;justify-content:center;
-background:linear-gradient(135deg,#1e3a8a,#2563eb);
-box-shadow:0 0 18px rgba(37,99,235,0.40);
-border:1px solid rgba(255,255,255,0.14);
-transition:.2s;
-}
-.support-btn:hover{transform:scale(1.08);}
-.support-btn img,.support-btn svg{width:24px;height:24px;}
-.support-tip{
-position:absolute;
-right:62px;
-top:50%;
-transform:translateY(-50%);
-background:rgba(15,23,42,0.92);
-color:#fff;
-border:1px solid rgba(255,255,255,0.10);
-border-radius:10px;
-padding:7px 10px;
-font-size:12px;
-white-space:nowrap;
-opacity:0;
-pointer-events:none;
-transition:.2s;
-}
-.support-wrap:hover .support-tip{opacity:1;}
-
-.mobile-only{display:none;}
-.overlay{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.45);
-z-index:80;
-}
-.drawer{
-display:none;
-position:fixed;
-left:-280px;
-top:0;
-width:250px;
-height:100vh;
-z-index:90;
-transition:left .25s ease;
-background:#111827;
-border-right:1px solid rgba(255,255,255,0.06);
-padding:18px 14px;
-overflow:auto;
-}
-.drawer.open{left:0;}
-.overlay.show{display:block;}
-
-@media(max-width:1100px){
-.stats{grid-template-columns:repeat(2,1fr);}
-.content-grid{grid-template-columns:1fr;}
-}
-@media(max-width:900px){
-.sidebar{display:none;}
-.drawer{display:block;}
-.mobile-only{display:inline-flex;}
-}
-@media(max-width:700px){
-.main{padding:14px;}
-.hero h1{font-size:24px;}
-.stats{grid-template-columns:1fr;}
-.quick-grid{grid-template-columns:1fr;}
-}
-</style>
+<link rel="stylesheet" href="layout.css">
 </head>
-
 <body>
 
-<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<div class="overlay" id="overlay" onclick="tmCloseDrawer()"></div>
 
 <div class="drawer" id="drawer">
 <div class="logo">TECHMONEY</div>
 <div class="menu">
-<a class="active" href="home.html">🏠 Trang chủ</a>
-<a href="dashboard.html">📊 Dashboard</a>
-<a href="vayip.html">📱 Vay iCloud iPhone</a>
-<a href="rutvi.html">💳 Rút ví trả sau</a>
-<a href="daohan.html">🔄 ĐH thẻ tín dụng</a>
-<a href="gachthecao.html">📱 Gạch thẻ cào</a>
-<a href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
-<a href="naptien.html">💰 Nạp tiền</a>
-<a href="ruttien.html">🏦 Rút tiền</a>
-<a href="thongtin.html">👤 Thông tin cá nhân</a>
-<a href="lichsu.html">📜 Lịch sử</a>
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+<a data-link="vayip.html" href="vayip.html">📱 Vay iCloud iPhone</a>
+<a data-link="rutvi.html" href="rutvi.html">💳 Rút ví trả sau</a>
+<a data-link="daohan.html" href="daohan.html">🔄 Đáo hạn thẻ tín dụng</a>
+<a data-link="gachthecao.html" href="gachthecao.html">📱 Gạch thẻ cào</a>
+<a data-link="gioithieubanbe.html" href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin cá nhân</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
 </div>
 </div>
 
@@ -331,92 +32,75 @@ overflow:auto;
 <aside class="sidebar">
 <div>
 <div class="logo">TECHMONEY</div>
+
 <div class="menu">
-<a class="active" href="home.html">🏠 Trang chủ</a>
-<a href="dashboard.html">📊 Dashboard</a>
-<a href="vayip.html">📱 Vay iCloud iPhone</a>
-<a href="rutvi.html">💳 Rút ví trả sau</a>
-<a href="daohan.html">🔄 ĐH thẻ tín dụng</a>
-<a href="gachthecao.html">📱 Gạch thẻ cào</a>
-<a href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+<a data-link="vayip.html" href="vayip.html">📱 Vay iCloud iPhone</a>
+<a data-link="rutvi.html" href="rutvi.html">💳 Rút ví trả sau</a>
+<a data-link="daohan.html" href="daohan.html">🔄 Đáo hạn thẻ tín dụng</a>
+<a data-link="gachthecao.html" href="gachthecao.html">📱 Gạch thẻ cào</a>
+<a data-link="gioithieubanbe.html" href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
 
 <div class="menu-group-title">Tài khoản</div>
-<a href="naptien.html">💰 Nạp tiền</a>
-<a href="ruttien.html">🏦 Rút tiền</a>
-<a href="thongtin.html">👤 Thông tin cá nhân</a>
-<a href="lichsu.html">📜 Lịch sử</a>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin cá nhân</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
 </div>
 </div>
 
-<div class="sidebar-user">
+<div class="sidebar-box">
 <small>Xin chào</small>
 <b id="userDisplay">User</b>
-<div class="user-balance">Số dư: <span id="balanceText">0đ</span></div>
+<p>Số dư hiện tại: <span class="user-balance" id="balanceText">0đ</span></p>
 </div>
 </aside>
 
 <main class="main">
 <div class="topbar">
-<div class="topbar-left">
-<button class="icon-btn mobile-only" onclick="openDrawer()">☰ Menu</button>
-<button class="icon-btn" onclick="location.href='dashboard.html'">📊 Dashboard</button>
-<button class="icon-btn" onclick="location.href='lichsu.html'">📜 Lịch sử</button>
+<div class="top-left">
+<button class="btn gray mobile-only" onclick="tmOpenDrawer()">☰ Menu</button>
+<button class="btn gray" id="themeBtn" onclick="tmToggleTheme()">🌙 Giao diện</button>
+<button class="btn blue" onclick="location.href='dashboard.html'">📊 Dashboard</button>
 </div>
-<div class="topbar-right">
-<button class="logout" onclick="logout()">Đăng xuất</button>
+<div class="top-right">
+<button class="btn red" onclick="tmLogout()">Đăng xuất</button>
 </div>
 </div>
 
 <section class="hero">
 <h1 id="helloText">Chào mừng đến TECHMONEY</h1>
-<p>Hệ thống dịch vụ tài chính nhanh, uy tín và bảo mật. Chọn dịch vụ ở menu bên trái hoặc dùng thao tác nhanh bên dưới để bắt đầu.</p>
+<p>Hệ thống dịch vụ tài chính nhanh, hiện đại và đồng bộ. Từ đây bạn có thể chuyển nhanh sang dashboard, nạp rút và các dịch vụ khác.</p>
 </section>
 
 <section class="stats">
-<div class="stat-card">
-<div class="stat-label">Số dư hiện tại</div>
-<div class="stat-value" id="mainBalance">0đ</div>
-<div class="stat-sub">Cập nhật theo giao dịch đã duyệt</div>
+<div class="card">
+<div class="label">Số dư hiện tại</div>
+<div class="value" id="mainBalance">0đ</div>
+<div class="sub">Cập nhật theo giao dịch đã duyệt</div>
 </div>
-<div class="stat-card">
-<div class="stat-label">Trạng thái tài khoản</div>
-<div class="stat-value" id="statusText">active</div>
-<div class="stat-sub">Tài khoản đang hoạt động</div>
+<div class="card">
+<div class="label">Trạng thái tài khoản</div>
+<div class="value" id="statusText">active</div>
+<div class="sub">Tài khoản đang hoạt động</div>
 </div>
-<div class="stat-card">
-<div class="stat-label">Vai trò</div>
-<div class="stat-value" id="roleText">user</div>
-<div class="stat-sub">Quyền truy cập hệ thống</div>
+<div class="card">
+<div class="label">Vai trò</div>
+<div class="value" id="roleText">user</div>
+<div class="sub">Quyền truy cập hệ thống</div>
 </div>
-<div class="stat-card">
-<div class="stat-label">Tổng giao dịch</div>
-<div class="stat-value" id="txCountText">0</div>
-<div class="stat-sub">Nạp / rút đã tạo</div>
+<div class="card">
+<div class="label">Tổng giao dịch</div>
+<div class="value" id="txCountText">0</div>
+<div class="sub">Deposit / Withdraw</div>
 </div>
 </section>
 
-<section class="content-grid">
+<section class="grid">
 <div class="panel">
-<h3>Thông báo / cập nhật</h3>
-<div class="panel-sub">Theo dõi các cập nhật mới nhất từ hệ thống và dùng các nút nhanh để thao tác thuận tiện hơn.</div>
-
-<div class="notice-list">
-<div class="notice-item">
-<div>
-<div class="notice-title">✅ Rút ví trả sau</div>
-<div class="notice-desc">Phí dịch vụ 5%, gửi yêu cầu là có nhân viên hỗ trợ xử lý.</div>
-</div>
-<div class="notice-time">Mới</div>
-</div>
-
-<div class="notice-item">
-<div>
-<div class="notice-title">📱 Vay iPhone iCloud</div>
-<div class="notice-desc">Ước tính lên đến 60% giá trị máy, thời hạn linh hoạt.</div>
-</div>
-<div class="notice-time">Hôm nay</div>
-</div>
-</div>
+<h2>Thao tác nhanh</h2>
+<div class="panel-sub">Chọn nhanh chức năng cần dùng. Bộ khung này sẽ được giữ giống nhau trên toàn web.</div>
 
 <div class="quick-grid">
 <div class="quick-card" onclick="location.href='dashboard.html'">
@@ -446,47 +130,23 @@ overflow:auto;
 </div>
 
 <div class="panel">
-<h3>Thông tin tài khoản</h3>
-<div class="profile-list">
-<div class="profile-item">
-<span>Tên hiển thị</span>
-<span id="profileName">...</span>
+<h2>Thông tin tài khoản</h2>
+<div class="list">
+<div class="list-item">
+<div>Tên hiển thị</div>
+<div id="profileName">...</div>
 </div>
-<div class="profile-item">
-<span>Email</span>
-<span id="profileEmail">...</span>
+<div class="list-item">
+<div>Email</div>
+<div id="profileEmail">...</div>
 </div>
-<div class="profile-item">
-<span>Vai trò</span>
-<span id="profileRole">user</span>
+<div class="list-item">
+<div>Vai trò</div>
+<div id="profileRole">user</div>
 </div>
-<div class="profile-item">
-<span>Trạng thái</span>
-<span id="profileStatus">active</span>
-</div>
-</div>
-
-<div class="rank-list" style="margin-top:14px;">
-<div class="rank-item">
-<div>
-<b>🥇 user_anhkhoa</b><br>
-<span>Top giới thiệu tháng</span>
-</div>
-<b>18 lượt</b>
-</div>
-<div class="rank-item">
-<div>
-<b>🥈 user_thanhhuyen</b><br>
-<span>Top giới thiệu tháng</span>
-</div>
-<b>12 lượt</b>
-</div>
-<div class="rank-item">
-<div>
-<b>🥉 user_minhquan</b><br>
-<span>Top giới thiệu tháng</span>
-</div>
-<b>9 lượt</b>
+<div class="list-item">
+<div>Trạng thái</div>
+<div id="profileStatus" class="status-active">active</div>
 </div>
 </div>
 </div>
@@ -494,30 +154,19 @@ overflow:auto;
 </main>
 </div>
 
-<div class="support-fixed" id="supportFixed">
+<div class="support-fixed">
 <div class="support-wrap">
 <div class="support-tip">Zalo</div>
 <a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
 <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
 </a>
 </div>
-
 <div class="support-wrap">
 <div class="support-tip">Messenger</div>
 <a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
 <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
 </a>
 </div>
-
-<div class="support-wrap">
-<div class="support-tip">Gọi điện</div>
-<a class="support-btn" href="tel:0387676061">
-<svg viewBox="0 0 24 24" fill="white">
-<path d="M6.6 10.8a15.5 15.5 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C9.4 22 2 14.6 2 5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1l-2.2 2.2z"/>
-</svg>
-</a>
-</div>
-
 <div class="support-wrap">
 <div class="support-tip">Telegram</div>
 <a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
@@ -528,6 +177,7 @@ overflow:auto;
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+<script src="app.js"></script>
 <script>
 async function loadHome(){
 const { data:{ user } } = await sb.auth.getUser();
@@ -555,52 +205,27 @@ location.href = "login.html";
 return;
 }
 
-const balanceText = Number(profile.balance || 0).toLocaleString("vi-VN") + "đ";
+const balanceText = tmMoney(profile.balance);
 
-document.getElementById("helloText").textContent = "Xin chào, " + (profile.name || "Người dùng");
-document.getElementById("userDisplay").textContent = profile.name || profile.email || "User";
-document.getElementById("balanceText").textContent = balanceText;
-document.getElementById("mainBalance").textContent = balanceText;
-document.getElementById("statusText").textContent = profile.status || "active";
-document.getElementById("roleText").textContent = profile.role || "user";
-document.getElementById("profileName").textContent = profile.name || "...";
-document.getElementById("profileEmail").textContent = profile.email || user.email || "...";
-document.getElementById("profileRole").textContent = profile.role || "user";
-document.getElementById("profileStatus").textContent = profile.status || "active";
+tmSetText("helloText", "Xin chào, " + (profile.name || "Người dùng"));
+tmSetText("userDisplay", profile.name || profile.email || "User");
+tmSetText("balanceText", balanceText);
+tmSetText("mainBalance", balanceText);
+tmSetText("statusText", profile.status || "active");
+tmSetText("roleText", profile.role || "user");
+tmSetText("profileName", profile.name || "...");
+tmSetText("profileEmail", profile.email || user.email || "...");
+tmSetText("profileRole", profile.role || "user");
+tmSetText("profileStatus", profile.status || "active");
 
 const { data: txs } = await sb
 .from("transactions")
 .select("*")
-.eq("user_id", user.id)
-.order("id", { ascending:false });
+.eq("user_id", user.id);
 
-document.getElementById("txCountText").textContent = (txs || []).length;
+tmSetText("txCountText", (txs || []).length);
 }
-
-async function logout(){
-await sb.auth.signOut();
-location.href = "login.html";
-}
-
-const drawer = document.getElementById("drawer");
-const overlay = document.getElementById("overlay");
-const supportFixed = document.getElementById("supportFixed");
-
-function openDrawer(){
-drawer.classList.add("open");
-overlay.classList.add("show");
-if(supportFixed) supportFixed.style.display = "none";
-}
-function closeDrawer(){
-drawer.classList.remove("open");
-overlay.classList.remove("show");
-if(supportFixed) supportFixed.style.display = "flex";
-}
-window.addEventListener("resize", ()=>{
-if(window.innerWidth > 900) closeDrawer();
-});
 
 loadHome();
 </script>
 </body>
-</html>
