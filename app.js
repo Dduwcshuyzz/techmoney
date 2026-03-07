@@ -88,3 +88,30 @@ tmSetActiveMenu();
 tmBindEscClose();
 tmInitBodyFade();
 });
+async function tmAddHistory({
+actionType = "other",
+actionTitle = "Hoạt động",
+detail = "",
+amount = 0,
+status = "done",
+pageName = ""
+} = {}){
+try{
+if(!window.sb) return;
+
+const { data:{ user } } = await sb.auth.getUser();
+if(!user) return;
+
+await sb.from("activity_logs").insert({
+user_id: user.id,
+action_type: actionType,
+action_title: actionTitle,
+detail,
+amount,
+status,
+page_name: pageName || (location.pathname.split("/").pop() || "")
+});
+}catch(e){
+console.log("Không ghi được lịch sử:", e);
+}
+}

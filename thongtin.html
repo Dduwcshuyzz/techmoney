@@ -3,193 +3,436 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>TECHMONEY - Thông tin</title>
+<title>TECHMONEY - Thông tin cá nhân</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="layout.css">
 
+<style>
+.profile-grid{
+display:grid;
+grid-template-columns:1.05fr .95fr;
+gap:16px;
+margin-bottom:16px;
+}
+
+.profile-card{
+background:linear-gradient(135deg,rgba(37,99,235,.16),rgba(15,23,42,.96));
+border:1px solid rgba(56,189,248,.16);
+border-radius:18px;
+padding:18px;
+box-shadow:0 14px 30px rgba(0,0,0,.14);
+}
+
+.profile-head{
+display:flex;
+align-items:center;
+gap:14px;
+margin-bottom:16px;
+}
+
+.avatar{
+width:68px;
+height:68px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+font-weight:800;
+color:#fff;
+background:linear-gradient(135deg,#2563eb,#38bdf8);
+box-shadow:0 10px 24px rgba(37,99,235,.24);
+}
+
+.profile-meta h3{
+font-size:20px;
+margin-bottom:4px;
+}
+
+.profile-meta p{
+color:#cbd5e1;
+font-size:14px;
+}
+
+.info-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-top:14px;
+}
+
+.info-box{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+border-radius:14px;
+padding:14px;
+}
+
+.info-box .label{
+color:#94a3b8;
+font-size:12px;
+margin-bottom:6px;
+}
+
+.info-box .value{
+font-size:15px;
+font-weight:700;
+word-break:break-word;
+}
+
+.section-title-inline{
+font-size:18px;
+margin-bottom:10px;
+}
+
+.cccd-note{
+margin-top:12px;
+color:#93c5fd;
+line-height:1.7;
+font-size:14px;
+}
+
+@media(max-width:1100px){
+.profile-grid{
+grid-template-columns:1fr;
+}
+}
+
+@media(max-width:700px){
+.info-grid{
+grid-template-columns:1fr;
+}
+}
+</style>
 </head>
 <body>
 
 <div class="overlay" id="overlay" onclick="tmCloseDrawer()"></div>
 
 <div class="drawer" id="drawer">
-
 <div class="logo">TECHMONEY</div>
-
 <div class="menu">
-
 <a data-link="home.html" href="home.html">🏠 Trang chủ</a>
 <a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
 <a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
 <a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
 <a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
-<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
-
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin cá nhân</a>
 </div>
-
 </div>
 
 <div class="app">
 
 <aside class="sidebar">
-
 <div>
-
 <div class="logo">TECHMONEY</div>
 
 <div class="menu">
-
 <a data-link="home.html" href="home.html">🏠 Trang chủ</a>
 <a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
 
 <div class="menu-group-title">Tài khoản</div>
-
 <a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
 <a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
 <a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
-<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
-
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin cá nhân</a>
+</div>
 </div>
 
+<div class="sidebar-box">
+<small>Hồ sơ cá nhân</small>
+<b id="sideName">Đang tải...</b>
+<p>Cập nhật thông tin tài khoản và hồ sơ CCCD để quản lý dữ liệu rõ ràng hơn.</p>
 </div>
-
 </aside>
 
 <main class="main">
 
 <div class="topbar">
-
 <div class="top-left">
-
-<button class="btn gray mobile-only" onclick="tmOpenDrawer()">☰</button>
-
+<button class="btn gray mobile-only" onclick="tmOpenDrawer()">☰ Menu</button>
 <button class="btn gray" id="themeBtn" onclick="tmToggleTheme()">🌙 Giao diện</button>
-
+<button class="btn gray" onclick="location.href='home.html'">← Trang chủ</button>
 </div>
 
 <div class="top-right">
-
 <button class="btn red" onclick="tmLogout()">Đăng xuất</button>
-
 </div>
-
 </div>
 
 <section class="hero">
+<h1>Thông tin cá nhân</h1>
+<p>Quản lý hồ sơ tài khoản, số điện thoại và các thông tin giống trên CCCD trong một giao diện đồng bộ với toàn bộ hệ thống.</p>
+</section>
 
-<h1>Thông tin tài khoản</h1>
+<section class="profile-grid">
 
-<p>Xem và cập nhật thông tin của bạn.</p>
+<div class="panel">
+<h2>Thông tin tài khoản</h2>
+<div class="panel-sub">Phần này hiển thị các thông tin chính của tài khoản TECHMONEY.</div>
+
+<div class="profile-card">
+<div class="profile-head">
+<div class="avatar" id="avatarText">U</div>
+<div class="profile-meta">
+<h3 id="profileNameHead">Đang tải...</h3>
+<p id="profileEmailHead">...</p>
+</div>
+</div>
+
+<div class="info-grid">
+<div class="info-box">
+<div class="label">Tên đăng nhập</div>
+<div class="value" id="boxName">...</div>
+</div>
+
+<div class="info-box">
+<div class="label">Gmail</div>
+<div class="value" id="boxEmail">...</div>
+</div>
+
+<div class="info-box">
+<div class="label">Số điện thoại</div>
+<div class="value" id="boxPhone">Chưa cập nhật</div>
+</div>
+
+<div class="info-box">
+<div class="label">Vai trò</div>
+<div class="value" id="boxRole">user</div>
+</div>
+
+<div class="info-box">
+<div class="label">Trạng thái</div>
+<div class="value" id="boxStatus">active</div>
+</div>
+
+<div class="info-box">
+<div class="label">Số dư</div>
+<div class="value" id="boxBalance">0đ</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Cập nhật hồ sơ</h2>
+<div class="panel-sub">Bạn có thể sửa tên, số điện thoại và thông tin CCCD trực tiếp tại đây.</div>
+
+<div class="form-grid">
+<div>
+<label>Tên hiển thị</label>
+<input id="nameInput" class="field-input" placeholder="Nhập tên hiển thị">
+</div>
+
+<div>
+<label>Số điện thoại</label>
+<input id="phoneInput" class="field-input" placeholder="Nhập số điện thoại">
+</div>
+
+<div>
+<label>Email / Gmail</label>
+<input id="emailInput" class="field-input" disabled>
+</div>
+
+<div>
+<label>Vai trò</label>
+<input id="roleInput" class="field-input" disabled>
+</div>
+</div>
+</div>
 
 </section>
 
 <section class="panel">
+<h2>Thông tin CCCD</h2>
+<div class="panel-sub">Điền theo phong cách thông tin trên CCCD để hồ sơ đầy đủ và chuyên nghiệp hơn.</div>
 
 <div class="form-grid">
-
 <div>
-
-<label>Tên hiển thị</label>
-
-<input id="name" class="field-input">
-
+<label>Số CCCD</label>
+<input id="cccdNumber" class="field-input" placeholder="Nhập số CCCD">
 </div>
 
 <div>
-
-<label>Email</label>
-
-<input id="email" class="field-input" disabled>
-
+<label>Ngày sinh</label>
+<input id="birthDate" class="field-input" type="date">
 </div>
 
 <div>
-
-<label>Vai trò</label>
-
-<input id="role" class="field-input" disabled>
-
+<label>Giới tính</label>
+<select id="gender" class="field-select">
+<option value="">-- Chọn giới tính --</option>
+<option>Nam</option>
+<option>Nữ</option>
+<option>Khác</option>
+</select>
 </div>
 
 <div>
+<label>Dân tộc</label>
+<input id="ethnicity" class="field-input" placeholder="Ví dụ: Kinh">
+</div>
 
-<label>Số dư</label>
+<div>
+<label>Quê quán</label>
+<input id="hometown" class="field-input" placeholder="Nhập quê quán">
+</div>
 
-<input id="balance" class="field-input" disabled>
-
+<div>
+<label>Nơi thường trú</label>
+<input id="address" class="field-input" placeholder="Nhập nơi thường trú">
 </div>
 
 <div class="full">
-
-<button class="btn blue" onclick="saveProfile()">Lưu thay đổi</button>
-
+<button class="btn blue" onclick="saveProfile()">Cập nhật thông tin</button>
+</div>
 </div>
 
-</div>
-
-<div class="note" id="msg"></div>
-
+<div class="cccd-note" id="msg"></div>
 </section>
 
 </main>
-
 </div>
 
+<div class="support-fixed">
+<div class="support-wrap">
+<div class="support-tip">Zalo</div>
+<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Messenger</div>
+<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Telegram</div>
+<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 <script src="app.js"></script>
 
 <script>
+const msg = document.getElementById("msg");
+let currentUser = null;
+let currentProfile = null;
 
-const msg=document.getElementById("msg")
+function setMsg(text){
+msg.textContent = text || "";
+}
 
-let currentUser
+function setAvatar(name){
+const first = (name || "U").trim().charAt(0).toUpperCase();
+document.getElementById("avatarText").textContent = first || "U";
+}
 
 async function loadProfile(){
+const { data:{ user } } = await sb.auth.getUser();
+if(!user){
+location.href = "login.html";
+return;
+}
 
-const { data:{ user } }=await sb.auth.getUser()
+currentUser = user;
 
-currentUser=user
-
-const { data } = await sb
+const { data, error } = await sb
 .from("users")
 .select("*")
-.eq("user_id",user.id)
-.single()
+.eq("user_id", user.id)
+.single();
 
-document.getElementById("name").value=data.name || ""
-document.getElementById("email").value=data.email
-document.getElementById("role").value=data.role
-document.getElementById("balance").value=tmMoney(data.balance)
+if(error || !data){
+alert("Không tải được hồ sơ.");
+location.href = "login.html";
+return;
+}
 
+currentProfile = data;
+
+const displayName = data.name || "Người dùng";
+const email = data.email || user.email || "";
+const phone = data.phone || "";
+const role = data.role || "user";
+const status = data.status || "active";
+const balance = tmMoney(data.balance || 0);
+
+document.getElementById("sideName").textContent = displayName;
+document.getElementById("profileNameHead").textContent = displayName;
+document.getElementById("profileEmailHead").textContent = email;
+document.getElementById("boxName").textContent = displayName;
+document.getElementById("boxEmail").textContent = email;
+document.getElementById("boxPhone").textContent = phone || "Chưa cập nhật";
+document.getElementById("boxRole").textContent = role;
+document.getElementById("boxStatus").textContent = status;
+document.getElementById("boxBalance").textContent = balance;
+
+document.getElementById("nameInput").value = displayName;
+document.getElementById("phoneInput").value = phone;
+document.getElementById("emailInput").value = email;
+document.getElementById("roleInput").value = role;
+
+document.getElementById("cccdNumber").value = data.cccd_number || "";
+document.getElementById("birthDate").value = data.birth_date || "";
+document.getElementById("gender").value = data.gender || "";
+document.getElementById("ethnicity").value = data.ethnicity || "";
+document.getElementById("hometown").value = data.hometown || "";
+document.getElementById("address").value = data.address || "";
+
+setAvatar(displayName);
 }
 
 async function saveProfile(){
+const name = document.getElementById("nameInput").value.trim();
+const phone = document.getElementById("phoneInput").value.trim();
+const cccdNumber = document.getElementById("cccdNumber").value.trim();
+const birthDate = document.getElementById("birthDate").value;
+const gender = document.getElementById("gender").value.trim();
+const ethnicity = document.getElementById("ethnicity").value.trim();
+const hometown = document.getElementById("hometown").value.trim();
+const address = document.getElementById("address").value.trim();
 
-const name=document.getElementById("name").value
+if(!name){
+setMsg("Vui lòng nhập tên hiển thị.");
+return;
+}
 
-const { error }=await sb
+setMsg("Đang cập nhật thông tin...");
+
+const { error } = await sb
 .from("users")
-.update({name})
-.eq("user_id",currentUser.id)
+.update({
+name,
+phone,
+cccd_number: cccdNumber,
+birth_date: birthDate || null,
+gender,
+ethnicity,
+hometown,
+address
+})
+.eq("user_id", currentUser.id);
 
 if(error){
-
-msg.innerText="Lỗi cập nhật"
-
-return
-
+setMsg("Lỗi cập nhật: " + error.message);
+return;
 }
 
-msg.innerText="Đã cập nhật thông tin"
-
+localStorage.setItem("currentUser", name);
+setMsg("Đã cập nhật thông tin cá nhân thành công.");
+loadProfile();
 }
 
-loadProfile()
-
+loadProfile();
 </script>
 
 </body>

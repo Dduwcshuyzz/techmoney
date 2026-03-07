@@ -4,53 +4,201 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TECHMONEY - Đáo hạn thẻ tín dụng</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="layout.css">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#0f172a;color:#fff;min-height:100vh;padding:24px}
-.wrap{max-width:900px;margin:auto}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-.logo{font-size:30px;font-weight:800;color:#38bdf8}
-.actions{display:flex;gap:10px;flex-wrap:wrap}
-.btn{border:none;background:#2563eb;color:#fff;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:700}
-.btn.red{background:#ef4444}
-.box{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
-.title{font-size:24px;font-weight:800;margin-bottom:8px}
-.sub{color:#94a3b8;margin-bottom:18px;font-size:14px;line-height:1.7}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.full{grid-column:1/-1}
-label{font-size:14px;display:block;margin-bottom:6px}
-input,select,textarea{width:100%;padding:12px 14px;border:none;outline:none;border-radius:12px;background:#1f2937;color:#fff}
-textarea{resize:vertical;min-height:100px}
-.note{margin-top:14px;color:#38bdf8;font-size:14px;min-height:20px}
-.support-fixed{position:fixed;right:14px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:50}
-.support-wrap{position:relative}
-.support-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e3a8a,#2563eb);box-shadow:0 0 18px rgba(37,99,235,.40);border:1px solid rgba(255,255,255,.14)}
-.support-btn img{width:24px;height:24px}
-.support-tip{position:absolute;right:62px;top:50%;transform:translateY(-50%);background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:7px 10px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s}
-.support-wrap:hover .support-tip{opacity:1}
-@media(max-width:768px){.grid{grid-template-columns:1fr}}
+.service-grid{
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:16px;
+margin-bottom:16px;
+}
+
+.badge-row{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:12px;
+}
+
+.mini-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:8px 12px;
+border-radius:999px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.08);
+color:#cbd5e1;
+font-size:13px;
+font-weight:600;
+}
+
+.highlight-box{
+background:linear-gradient(135deg,rgba(37,99,235,.18),rgba(15,23,42,.96));
+border:1px solid rgba(56,189,248,.18);
+border-radius:18px;
+padding:18px;
+box-shadow:0 14px 30px rgba(0,0,0,.14);
+}
+
+.highlight-box h3{
+font-size:18px;
+margin-bottom:8px;
+}
+
+.calc-result{
+display:grid;
+gap:12px;
+margin-top:14px;
+}
+
+.result-item{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+border-radius:16px;
+padding:14px;
+}
+
+.result-item .r-label{
+color:#94a3b8;
+font-size:13px;
+margin-bottom:6px;
+}
+
+.result-item .r-value{
+font-size:24px;
+font-weight:800;
+}
+
+.info-list{
+display:grid;
+gap:10px;
+margin-top:14px;
+}
+
+.info-line{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+border-radius:14px;
+padding:12px 14px;
+color:#cbd5e1;
+line-height:1.7;
+font-size:14px;
+}
+
+.service-note{
+margin-top:14px;
+color:#93c5fd;
+line-height:1.7;
+font-size:14px;
+}
+
+.price-tag{
+color:#22c55e;
+font-weight:800;
+}
+
+.warn{
+color:#facc15;
+font-weight:700;
+}
+
+@media(max-width:1100px){
+.service-grid{
+grid-template-columns:1fr;
+}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-<div class="topbar">
+
+<div class="overlay" id="overlay" onclick="tmCloseDrawer()"></div>
+
+<div class="drawer" id="drawer">
 <div class="logo">TECHMONEY</div>
-<div class="actions">
-<button class="btn" onclick="location.href='home.html'">Trang chủ</button>
-<button class="btn" onclick="location.href='dashboard.html'">Dashboard</button>
-<button class="btn red" onclick="logout()">Đăng xuất</button>
+<div class="menu">
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+<a data-link="daohan.html" href="daohan.html">🔄 Đáo hạn thẻ tín dụng</a>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
 </div>
 </div>
 
-<div class="box">
-<div class="title">Đáo hạn thẻ tín dụng</div>
-<div class="sub">Điền thông tin cơ bản để gửi yêu cầu hỗ trợ đáo hạn. Nhân viên sẽ kiểm tra và liên hệ lại.</div>
+<div class="app">
 
-<div class="grid">
+<aside class="sidebar">
+<div>
+<div class="logo">TECHMONEY</div>
+
+<div class="menu">
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+
+<div class="menu-group-title">Dịch vụ</div>
+<a data-link="vayip.html" href="vayip.html">📱 Vay iCloud iPhone</a>
+<a data-link="rutvi.html" href="rutvi.html">💳 Rút ví trả sau</a>
+<a data-link="daohan.html" href="daohan.html">🔄 Đáo hạn thẻ tín dụng</a>
+<a data-link="gachthecao.html" href="gachthecao.html">📲 Gạch thẻ cào</a>
+
+<div class="menu-group-title">Tài khoản</div>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
+</div>
+</div>
+
+<div class="sidebar-box">
+<small>Dịch vụ nổi bật</small>
+<b>Đáo hạn thẻ tín dụng</b>
+<p>Ước tính phí nhanh, điền thông tin dễ hiểu và gửi yêu cầu trực tiếp ngay trên hệ thống.</p>
+</div>
+</aside>
+
+<main class="main">
+
+<div class="topbar">
+<div class="top-left">
+<button class="btn gray mobile-only" onclick="tmOpenDrawer()">☰ Menu</button>
+<button class="btn gray" id="themeBtn" onclick="tmToggleTheme()">🌙 Giao diện</button>
+<button class="btn gray" onclick="location.href='home.html'">← Trang chủ</button>
+</div>
+
+<div class="top-right">
+<button class="btn red" onclick="tmLogout()">Đăng xuất</button>
+</div>
+</div>
+
+<section class="hero">
+<h1>Đáo hạn thẻ tín dụng</h1>
+<p>
+Gửi yêu cầu đáo hạn nhanh chóng, chọn ngân hàng phát hành, nhập hạn mức và số tiền cần xử lý để hệ thống ước tính chi phí dịch vụ. Giao diện được làm theo hướng rõ ràng và chuyên nghiệp hơn.
+</p>
+
+<div class="badge-row">
+<div class="mini-badge">⚡ Ước tính phí tự động</div>
+<div class="mini-badge">💳 Hỗ trợ nhiều ngân hàng</div>
+<div class="mini-badge">🔒 Bảo mật thông tin</div>
+<div class="mini-badge">📱 Tối ưu mobile</div>
+</div>
+</section>
+
+<section class="service-grid">
+<div class="panel">
+<h2>Thông tin yêu cầu</h2>
+<div class="panel-sub">Điền đầy đủ thông tin để hệ thống tính nhanh và nhân viên dễ xử lý hơn.</div>
+
+<div class="form-grid">
 <div>
 <label>Ngân hàng phát hành thẻ</label>
-<select>
+<select id="bank" class="field-select" onchange="calculateDaohan()">
+<option value="">-- Chọn ngân hàng --</option>
 <option>Vietcombank</option>
 <option>Techcombank</option>
 <option>MB Bank</option>
@@ -59,61 +207,228 @@ textarea{resize:vertical;min-height:100px}
 <option>VPBank</option>
 <option>TPBank</option>
 <option>Sacombank</option>
+<option>Agribank</option>
+<option>Shinhan Bank</option>
 </select>
 </div>
 
 <div>
 <label>Hạn mức thẻ</label>
-<input placeholder="Ví dụ: 50000000">
+<input id="limitAmount" class="field-input" type="number" placeholder="Ví dụ: 50000000" oninput="calculateDaohan()">
+</div>
+
+<div>
+<label>Số tiền cần đáo hạn</label>
+<input id="needAmount" class="field-input" type="number" placeholder="Ví dụ: 10000000" oninput="calculateDaohan()">
+</div>
+
+<div>
+<label>Phí dịch vụ</label>
+<select id="feePercent" class="field-select" onchange="calculateDaohan()">
+<option value="2">2%</option>
+<option value="2.5">2.5%</option>
+<option value="3">3%</option>
+<option value="3.5">3.5%</option>
+</select>
 </div>
 
 <div>
 <label>Họ và tên</label>
-<input id="fullname" placeholder="Nhập họ tên">
+<input id="fullName" class="field-input" placeholder="Nhập họ tên">
 </div>
 
 <div>
 <label>Số điện thoại</label>
-<input id="phone" placeholder="Nhập số điện thoại">
+<input id="phone" class="field-input" placeholder="Nhập số điện thoại">
 </div>
 
 <div class="full">
 <label>Ghi chú thêm</label>
-<textarea placeholder="Ví dụ: Cần xử lý gấp trước ngày đến hạn"></textarea>
+<textarea id="note" class="field-textarea" placeholder="Ví dụ: Cần xử lý trước ngày đến hạn, thẻ đang dùng ổn định..."></textarea>
 </div>
 </div>
 
-<div style="margin-top:18px">
-<button class="btn" onclick="sendReq()">Gửi yêu cầu</button>
+<div style="margin-top:18px;">
+<button class="btn blue" onclick="submitDaohan()">Gửi yêu cầu đáo hạn</button>
 </div>
 
-<div class="note" id="msg"></div>
+<div class="service-note" id="daohanMsg"></div>
 </div>
+
+<div class="highlight-box">
+<h3>Ước tính chi phí</h3>
+<div class="panel-sub">Phần này giúp khách hàng thấy ngay phí và tổng số tiền cần chuẩn bị.</div>
+
+<div class="calc-result">
+<div class="result-item">
+<div class="r-label">Số tiền cần đáo hạn</div>
+<div class="r-value" id="needValue">0đ</div>
+</div>
+
+<div class="result-item">
+<div class="r-label">Phí dịch vụ</div>
+<div class="r-value warn" id="feeValue">0đ</div>
+</div>
+
+<div class="result-item">
+<div class="r-label">Tổng cần thanh toán</div>
+<div class="r-value price-tag" id="totalValue">0đ</div>
+</div>
+</div>
+
+<div class="info-list">
+<div class="info-line">📌 Hệ thống chỉ hiển thị mức phí tham khảo để khách hàng dễ hình dung.</div>
+<div class="info-line">📌 Nên nhập đúng số tiền cần đáo hạn để kết quả sát hơn.</div>
+<div class="info-line">📌 Nếu hạn mức thẻ nhỏ hơn số tiền cần đáo hạn, yêu cầu có thể cần kiểm tra lại.</div>
+</div>
+</div>
+</section>
+
+<section class="panel">
+<h2>Lưu ý & điều kiện</h2>
+<div class="panel-sub">Phần này giúp web của bạn trông giống dịch vụ thật và tạo cảm giác rõ ràng hơn.</div>
+
+<div class="list">
+<div class="list-item">
+<div>
+<b>Thông tin thẻ cần chính xác</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px">Nhập đúng ngân hàng, hạn mức và số tiền cần xử lý để tránh sai lệch khi tư vấn.</div>
+</div>
+</div>
+
+<div class="list-item">
+<div>
+<b>Phí dịch vụ được tính trước</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px">Khách hàng có thể nhìn thấy chi phí ước tính ngay trước khi gửi yêu cầu.</div>
+</div>
+</div>
+
+<div class="list-item">
+<div>
+<b>Thời gian xử lý tùy từng trường hợp</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px">Nhân viên sẽ kiểm tra và liên hệ lại để xác nhận phương án xử lý phù hợp.</div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
 </div>
 
 <div class="support-fixed">
-<div class="support-wrap"><div class="support-tip">Zalo</div><a class="support-btn" href="https://zalo.me/0387676061" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt=""></a></div>
-<div class="support-wrap"><div class="support-tip">Messenger</div><a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt=""></a></div>
-<div class="support-wrap"><div class="support-tip">Telegram</div><a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt=""></a></div>
+<div class="support-wrap">
+<div class="support-tip">Zalo</div>
+<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Messenger</div>
+<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Telegram</div>
+<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+<script src="app.js"></script>
+
 <script>
-function sendReq(){
-const fullname = document.getElementById("fullname").value.trim();
-const phone = document.getElementById("phone").value.trim();
-if(!fullname || !phone){
-document.getElementById("msg").textContent = "Vui lòng nhập họ tên và số điện thoại.";
-return;
-}
-document.getElementById("msg").textContent = "Đã gửi yêu cầu đáo hạn thẻ tín dụng.";
+const daohanMsg = document.getElementById("daohanMsg");
+
+function setDaohanMsg(text){
+daohanMsg.textContent = text || "";
 }
 
-async function logout(){
-await sb.auth.signOut();
-location.href = "login.html";
+function calculateDaohan(){
+const limitAmount = Number(document.getElementById("limitAmount").value || 0);
+const needAmount = Number(document.getElementById("needAmount").value || 0);
+const feePercent = Number(document.getElementById("feePercent").value || 0);
+
+const safeNeedAmount = Math.min(needAmount, limitAmount || needAmount);
+const feeMoney = Math.round(safeNeedAmount * feePercent / 100);
+const totalMoney = safeNeedAmount + feeMoney;
+
+document.getElementById("needValue").textContent = tmMoney(safeNeedAmount);
+document.getElementById("feeValue").textContent = tmMoney(feeMoney);
+document.getElementById("totalValue").textContent = tmMoney(totalMoney);
 }
+
+async function submitDaohan(){
+const { data:{ user } } = await sb.auth.getUser();
+if(!user){
+location.href = "login.html";
+return;
+}
+
+const bank = document.getElementById("bank").value.trim();
+const limitAmount = Number(document.getElementById("limitAmount").value || 0);
+const needAmount = Number(document.getElementById("needAmount").value || 0);
+const feePercent = Number(document.getElementById("feePercent").value || 0);
+const fullName = document.getElementById("fullName").value.trim();
+const phone = document.getElementById("phone").value.trim();
+const note = document.getElementById("note").value.trim();
+
+if(!bank){
+setDaohanMsg("Vui lòng chọn ngân hàng phát hành thẻ.");
+return;
+}
+
+if(limitAmount <= 0 || needAmount <= 0){
+setDaohanMsg("Vui lòng nhập hạn mức và số tiền cần đáo hạn hợp lệ.");
+return;
+}
+
+if(!fullName || !phone){
+setDaohanMsg("Vui lòng nhập họ tên và số điện thoại.");
+return;
+}
+
+const feeMoney = Math.round(needAmount * feePercent / 100);
+const totalMoney = needAmount + feeMoney;
+
+const finalNote =
+`Yêu cầu đáo hạn thẻ | Bank: ${bank} | Hạn mức: ${tmMoney(limitAmount)} | Cần đáo hạn: ${tmMoney(needAmount)} | Phí: ${feePercent}% | Tổng: ${tmMoney(totalMoney)} | Họ tên: ${fullName} | SĐT: ${phone} | Ghi chú: ${note}`;
+
+setDaohanMsg("Đang gửi yêu cầu...");
+
+const { error } = await sb.from("transactions").insert({
+user_id: user.id,
+type: "credit_card_due",
+method: "dao_han_the",
+amount: needAmount,
+account_name: fullName,
+account_number: phone,
+bank_name: bank,
+note: finalNote,
+status: "pending"
+});
+
+if(error){
+setDaohanMsg("Lỗi: " + error.message);
+return;
+}
+
+setDaohanMsg("Đã gửi yêu cầu đáo hạn thẻ tín dụng. Nhân viên sẽ liên hệ sớm.");
+document.getElementById("limitAmount").value = "";
+document.getElementById("needAmount").value = "";
+document.getElementById("fullName").value = "";
+document.getElementById("phone").value = "";
+document.getElementById("note").value = "";
+calculateDaohan();
+}
+
+calculateDaohan();
 </script>
+
 </body>
 </html>

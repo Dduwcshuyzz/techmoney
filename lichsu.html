@@ -3,11 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TECHMONEY - Lịch sử</title>
+<title>TECHMONEY - Lịch sử tổng</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="layout.css">
 
+<style>
+.history-toolbar{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:14px;
+}
+
+.history-filter{
+min-width:170px;
+}
+
+.history-search{
+min-width:260px;
+}
+
+.history-list{
+display:grid;
+gap:12px;
+}
+
+.history-item{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+border-radius:16px;
+padding:16px;
+display:flex;
+justify-content:space-between;
+gap:14px;
+transition:.2s ease;
+}
+
+.history-item:hover{
+transform:translateY(-2px);
+border-color:rgba(56,189,248,.20);
+}
+
+.history-left{
+min-width:0;
+}
+
+.history-title{
+font-size:16px;
+font-weight:800;
+margin-bottom:6px;
+}
+
+.history-detail{
+color:#94a3b8;
+font-size:13px;
+line-height:1.7;
+word-break:break-word;
+}
+
+.history-meta{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:10px;
+}
+
+.meta-pill{
+padding:6px 10px;
+border-radius:999px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+font-size:12px;
+color:#cbd5e1;
+}
+
+.history-right{
+text-align:right;
+min-width:145px;
+}
+
+.history-amount{
+font-size:18px;
+font-weight:800;
+margin-bottom:8px;
+}
+
+.history-time{
+color:#94a3b8;
+font-size:12px;
+line-height:1.6;
+}
+
+.empty-box{
+padding:24px;
+border-radius:18px;
+background:rgba(255,255,255,.04);
+border:1px dashed rgba(255,255,255,.10);
+color:#94a3b8;
+text-align:center;
+}
+
+.summary-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+margin-bottom:16px;
+}
+
+.summary-card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+border-radius:16px;
+padding:14px;
+}
+
+.summary-card .label{
+color:#94a3b8;
+font-size:12px;
+margin-bottom:6px;
+}
+
+.summary-card .value{
+font-size:22px;
+font-weight:800;
+}
+
+@media(max-width:1000px){
+.summary-grid{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+@media(max-width:760px){
+.history-item{
+flex-direction:column;
+}
+
+.history-right{
+text-align:left;
+min-width:unset;
+}
+
+.history-search,
+.history-filter{
+min-width:100%;
+}
+
+.summary-grid{
+grid-template-columns:1fr;
+}
+}
+</style>
 </head>
 <body>
 
@@ -15,166 +162,308 @@
 
 <div class="drawer" id="drawer">
 <div class="logo">TECHMONEY</div>
-
 <div class="menu">
-
 <a data-link="home.html" href="home.html">🏠 Trang chủ</a>
 <a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
 <a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
 <a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
 <a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
-<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
-
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin cá nhân</a>
 </div>
 </div>
 
 <div class="app">
 
 <aside class="sidebar">
-
 <div>
-
 <div class="logo">TECHMONEY</div>
 
 <div class="menu">
-
 <a data-link="home.html" href="home.html">🏠 Trang chủ</a>
 <a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
 
-<div class="menu-group-title">Tài khoản</div>
+<div class="menu-group-title">Dịch vụ</div>
+<a data-link="vayip.html" href="vayip.html">📱 Vay iCloud iPhone</a>
+<a data-link="rutvi.html" href="rutvi.html">💳 Rút ví trả sau</a>
+<a data-link="daohan.html" href="daohan.html">🔄 Đáo hạn thẻ tín dụng</a>
+<a data-link="gachthecao.html" href="gachthecao.html">📲 Gạch thẻ cào</a>
+<a data-link="gioithieubanbe.html" href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
 
+<div class="menu-group-title">Tài khoản</div>
 <a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
 <a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
 <a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
-<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
-
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin cá nhân</a>
+</div>
 </div>
 
+<div class="sidebar-box">
+<small>Lịch sử tổng</small>
+<b id="sideName">Đang tải...</b>
+<p>Xem toàn bộ hoạt động tài khoản, giao dịch và các yêu cầu dịch vụ trong một nơi.</p>
 </div>
-
 </aside>
 
 <main class="main">
 
 <div class="topbar">
-
 <div class="top-left">
-
-<button class="btn gray mobile-only" onclick="tmOpenDrawer()">☰</button>
-
+<button class="btn gray mobile-only" onclick="tmOpenDrawer()">☰ Menu</button>
 <button class="btn gray" id="themeBtn" onclick="tmToggleTheme()">🌙 Giao diện</button>
-
+<button class="btn gray" onclick="location.href='home.html'">← Trang chủ</button>
 </div>
 
 <div class="top-right">
-
 <button class="btn red" onclick="tmLogout()">Đăng xuất</button>
-
 </div>
-
 </div>
 
 <section class="hero">
-
-<h1>Lịch sử giao dịch</h1>
-
-<p>Xem toàn bộ lịch sử nạp tiền và rút tiền của tài khoản.</p>
-
+<h1>Lịch sử tổng hoạt động</h1>
+<p>Xem tất cả lịch sử như đăng nhập, nạp tiền, rút tiền, gạch thẻ, vay iPhone, đáo hạn và các thao tác khác từ toàn bộ hệ thống.</p>
 </section>
 
 <section class="panel">
+<h2>Tổng quan lịch sử</h2>
+<div class="panel-sub">Trang này gom cả giao dịch từ bảng transactions và lịch sử chung từ activity_logs.</div>
 
-<h2>Danh sách giao dịch</h2>
+<div class="summary-grid">
+<div class="summary-card">
+<div class="label">Tổng hoạt động</div>
+<div class="value" id="sumTotal">0</div>
+</div>
+<div class="summary-card">
+<div class="label">Đăng nhập</div>
+<div class="value" id="sumLogin">0</div>
+</div>
+<div class="summary-card">
+<div class="label">Nạp / Rút</div>
+<div class="value" id="sumMoney">0</div>
+</div>
+<div class="summary-card">
+<div class="label">Dịch vụ khác</div>
+<div class="value" id="sumOther">0</div>
+</div>
+</div>
 
-<table>
+<div class="history-toolbar">
+<select id="filterType" class="field-select history-filter" onchange="renderHistory()">
+<option value="">Tất cả loại</option>
+<option value="login">Đăng nhập</option>
+<option value="deposit">Nạp tiền</option>
+<option value="withdraw">Rút tiền</option>
+<option value="card_exchange">Gạch thẻ</option>
+<option value="loan_iphone">Vay iPhone</option>
+<option value="credit_card_due">Đáo hạn</option>
+<option value="rut_vi_tra_sau">Rút ví trả sau</option>
+<option value="other">Khác</option>
+</select>
 
-<thead>
+<select id="filterStatus" class="field-select history-filter" onchange="renderHistory()">
+<option value="">Tất cả trạng thái</option>
+<option value="pending">pending</option>
+<option value="approved">approved</option>
+<option value="rejected">rejected</option>
+<option value="done">done</option>
+</select>
 
-<tr>
-<th>Loại</th>
-<th>Số tiền</th>
-<th>Phương thức</th>
-<th>Trạng thái</th>
-<th>Thời gian</th>
-</tr>
+<input id="searchInput" class="field-input history-search" placeholder="Tìm theo tiêu đề, nội dung, phương thức..." oninput="renderHistory()">
+</div>
 
-</thead>
-
-<tbody id="historyTable">
-
-<tr>
-
-<td colspan="5">Đang tải...</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
+<div id="historyContainer" class="history-list">
+<div class="empty-box">Đang tải lịch sử...</div>
+</div>
 </section>
 
 </main>
-
 </div>
 
+<div class="support-fixed">
+<div class="support-wrap">
+<div class="support-tip">Zalo</div>
+<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Messenger</div>
+<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Telegram</div>
+<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
 <script src="app.js"></script>
 
 <script>
+let allHistory = [];
+let currentUser = null;
 
-async function loadHistory(){
-
-const { data:{ user } } = await sb.auth.getUser()
-
-if(!user){
-
-location.href="login.html"
-return
-
+function mapTxTitle(tx){
+const map = {
+deposit: "Nạp tiền",
+withdraw: "Rút tiền",
+card_exchange: "Gạch thẻ cào",
+loan_iphone: "Vay iCloud iPhone",
+credit_card_due: "Đáo hạn thẻ tín dụng",
+rut_vi_tra_sau: "Rút ví trả sau"
+};
+return map[tx.type] || "Hoạt động";
 }
 
-const { data } = await sb
+function mapActivityTitle(log){
+return log.action_title || "Hoạt động";
+}
+
+function formatTime(t){
+try{
+return new Date(t).toLocaleString("vi-VN");
+}catch(e){
+return t || "";
+}
+}
+
+function normalizeTx(tx){
+return {
+id: "tx_" + tx.id,
+action_type: tx.type || "other",
+action_title: mapTxTitle(tx),
+detail: tx.note || `${tx.method || ""} ${tx.bank_name || ""}`.trim(),
+amount: Number(tx.amount || 0),
+status: tx.status || "pending",
+page_name: "transactions",
+created_at: tx.created_at,
+method: tx.method || "",
+source: "transactions"
+};
+}
+
+function normalizeLog(log){
+return {
+id: "log_" + log.id,
+action_type: log.action_type || "other",
+action_title: mapActivityTitle(log),
+detail: log.detail || "",
+amount: Number(log.amount || 0),
+status: log.status || "done",
+page_name: log.page_name || "",
+created_at: log.created_at,
+method: "",
+source: "activity_logs"
+};
+}
+
+function updateSummary(){
+const total = allHistory.length;
+const login = allHistory.filter(x => x.action_type === "login").length;
+const money = allHistory.filter(x => x.action_type === "deposit" || x.action_type === "withdraw").length;
+const other = total - login - money;
+
+document.getElementById("sumTotal").textContent = total;
+document.getElementById("sumLogin").textContent = login;
+document.getElementById("sumMoney").textContent = money;
+document.getElementById("sumOther").textContent = other < 0 ? 0 : other;
+}
+
+function renderHistory(){
+const type = document.getElementById("filterType").value;
+const status = document.getElementById("filterStatus").value;
+const keyword = (document.getElementById("searchInput").value || "").toLowerCase();
+
+const list = allHistory.filter(item => {
+const okType = !type || item.action_type === type;
+const okStatus = !status || item.status === status;
+const text = `${item.action_title} ${item.detail} ${item.method} ${item.page_name}`.toLowerCase();
+const okKeyword = !keyword || text.includes(keyword);
+return okType && okStatus && okKeyword;
+});
+
+const box = document.getElementById("historyContainer");
+
+if(!list.length){
+box.innerHTML = `<div class="empty-box">Không có lịch sử phù hợp.</div>`;
+return;
+}
+
+box.innerHTML = "";
+
+list.forEach(item => {
+const div = document.createElement("div");
+div.className = "history-item";
+
+div.innerHTML = `
+<div class="history-left">
+<div class="history-title">${item.action_title}</div>
+<div class="history-detail">${item.detail || "Không có mô tả chi tiết."}</div>
+
+<div class="history-meta">
+<div class="meta-pill">Loại: ${item.action_type || "other"}</div>
+<div class="meta-pill">Nguồn: ${item.source}</div>
+<div class="meta-pill">Trang: ${item.page_name || "system"}</div>
+</div>
+</div>
+
+<div class="history-right">
+<div class="history-amount">${item.amount > 0 ? tmMoney(item.amount) : "-"}</div>
+<div class="status-${item.status}">${item.status}</div>
+<div class="history-time">${formatTime(item.created_at)}</div>
+</div>
+`;
+
+box.appendChild(div);
+});
+}
+
+async function loadAllHistory(){
+const { data:{ user } } = await sb.auth.getUser();
+if(!user){
+location.href = "login.html";
+return;
+}
+currentUser = user;
+
+const { data: profile } = await sb
+.from("users")
+.select("name,email")
+.eq("user_id", user.id)
+.single();
+
+document.getElementById("sideName").textContent = profile?.name || profile?.email || "Người dùng";
+
+const txRes = await sb
 .from("transactions")
 .select("*")
-.eq("user_id",user.id)
-.order("id",{ascending:false})
+.eq("user_id", user.id)
+.order("created_at", { ascending:false });
 
-const table=document.getElementById("historyTable")
+const logRes = await sb
+.from("activity_logs")
+.select("*")
+.eq("user_id", user.id)
+.order("created_at", { ascending:false });
 
-table.innerHTML=""
+const txs = (txRes.data || []).map(normalizeTx);
+const logs = (logRes.data || []).map(normalizeLog);
 
-if(!data || data.length===0){
+allHistory = [...txs, ...logs].sort((a,b) => {
+return new Date(b.created_at) - new Date(a.created_at);
+});
 
-table.innerHTML=`<tr><td colspan="5">Chưa có giao dịch</td></tr>`
-return
-
+updateSummary();
+renderHistory();
 }
 
-data.forEach(tx=>{
-
-const row=document.createElement("tr")
-
-row.innerHTML=`
-
-<td>${tx.type}</td>
-<td>${tmMoney(tx.amount)}</td>
-<td>${tx.method}</td>
-<td class="status-${tx.status}">${tx.status}</td>
-<td>${new Date(tx.created_at).toLocaleString()}</td>
-
-`
-
-table.appendChild(row)
-
-})
-
-}
-
-loadHistory()
-
+loadAllHistory();
 </script>
 
 </body>

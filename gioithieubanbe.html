@@ -4,105 +4,454 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TECHMONEY - Giới thiệu bạn bè</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="layout.css">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#0f172a;color:#fff;min-height:100vh;padding:24px}
-.wrap{max-width:900px;margin:auto}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-.logo{font-size:30px;font-weight:800;color:#38bdf8}
-.actions{display:flex;gap:10px;flex-wrap:wrap}
-.btn{border:none;background:#2563eb;color:#fff;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:700}
-.btn.red{background:#ef4444}
-.box{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
-.title{font-size:24px;font-weight:800;margin-bottom:8px}
-.sub{color:#94a3b8;margin-bottom:18px;font-size:14px;line-height:1.7}
-.code-box{padding:18px;border-radius:16px;background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid rgba(56,189,248,.25);margin-bottom:16px}
-.code{font-size:24px;font-weight:800;color:#38bdf8;word-break:break-all}
-.list{display:flex;flex-direction:column;gap:12px}
-.item{display:flex;justify-content:space-between;gap:10px;padding:14px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06)}
-.support-fixed{position:fixed;right:14px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:50}
-.support-wrap{position:relative}
-.support-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e3a8a,#2563eb);box-shadow:0 0 18px rgba(37,99,235,.40);border:1px solid rgba(255,255,255,.14)}
-.support-btn img{width:24px;height:24px}
-.support-tip{position:absolute;right:62px;top:50%;transform:translateY(-50%);background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:7px 10px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s}
-.support-wrap:hover .support-tip{opacity:1}
+.ref-grid{
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:16px;
+margin-bottom:16px;
+}
+
+.badge-row{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:12px;
+}
+
+.mini-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:8px 12px;
+border-radius:999px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.08);
+color:#cbd5e1;
+font-size:13px;
+font-weight:600;
+}
+
+.ref-card{
+background:linear-gradient(135deg,rgba(37,99,235,.18),rgba(15,23,42,.96));
+border:1px solid rgba(56,189,248,.18);
+border-radius:18px;
+padding:18px;
+box-shadow:0 14px 30px rgba(0,0,0,.14);
+}
+
+.ref-code-box{
+margin-top:14px;
+padding:18px;
+border-radius:18px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.08);
+text-align:center;
+}
+
+.ref-code-label{
+color:#94a3b8;
+font-size:13px;
+margin-bottom:8px;
+}
+
+.ref-code{
+font-size:28px;
+font-weight:800;
+letter-spacing:1px;
+color:#38bdf8;
+text-shadow:0 0 18px rgba(56,189,248,.18);
+word-break:break-all;
+}
+
+.ref-actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
+margin-top:14px;
+}
+
+.stat-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-top:16px;
+}
+
+.stat-box{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+border-radius:16px;
+padding:14px;
+}
+
+.stat-box .label{
+color:#94a3b8;
+font-size:12px;
+margin-bottom:6px;
+}
+
+.stat-box .value{
+font-size:22px;
+font-weight:800;
+}
+
+.reward-list{
+display:grid;
+gap:12px;
+margin-top:14px;
+}
+
+.reward-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+padding:14px;
+border-radius:16px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+}
+
+.reward-left b{
+display:block;
+margin-bottom:4px;
+}
+
+.reward-left span{
+color:#94a3b8;
+font-size:13px;
+line-height:1.6;
+}
+
+.reward-money{
+color:#22c55e;
+font-weight:800;
+white-space:nowrap;
+}
+
+.thank-box{
+margin-top:16px;
+padding:16px;
+border-radius:16px;
+background:linear-gradient(135deg,rgba(37,99,235,.14),rgba(255,255,255,.03));
+border:1px solid rgba(56,189,248,.18);
+line-height:1.8;
+color:#dbeafe;
+}
+
+.example-list{
+display:grid;
+gap:10px;
+margin-top:14px;
+}
+
+.example-item{
+display:flex;
+justify-content:space-between;
+gap:12px;
+padding:12px 14px;
+border-radius:14px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+font-size:14px;
+}
+
+.price-tag{
+color:#22c55e;
+font-weight:800;
+}
+
+.note-ref{
+margin-top:14px;
+color:#93c5fd;
+line-height:1.7;
+font-size:14px;
+}
+
+@media(max-width:1100px){
+.ref-grid{
+grid-template-columns:1fr;
+}
+}
+
+@media(max-width:700px){
+.stat-grid{
+grid-template-columns:1fr;
+}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-<div class="topbar">
+
+<div class="overlay" id="overlay" onclick="tmCloseDrawer()"></div>
+
+<div class="drawer" id="drawer">
 <div class="logo">TECHMONEY</div>
-<div class="actions">
-<button class="btn" onclick="location.href='home.html'">Trang chủ</button>
-<button class="btn" onclick="location.href='dashboard.html'">Dashboard</button>
-<button class="btn red" onclick="logout()">Đăng xuất</button>
+<div class="menu">
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+<a data-link="gioithieubanbe.html" href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
 </div>
 </div>
 
-<div class="box">
-<div class="title">Giới thiệu bạn bè</div>
-<div class="sub">Chia sẻ mã giới thiệu để nhận ưu đãi từ TECHMONEY khi bạn bè đăng ký và sử dụng dịch vụ.</div>
+<div class="app">
 
-<div class="code-box">
-<div style="margin-bottom:8px">Mã giới thiệu của bạn</div>
-<div class="code" id="refCode">TECHMONEY-USER</div>
-<div style="margin-top:12px">
-<button class="btn" onclick="copyCode()">Sao chép mã</button>
+<aside class="sidebar">
+<div>
+<div class="logo">TECHMONEY</div>
+
+<div class="menu">
+<a data-link="home.html" href="home.html">🏠 Trang chủ</a>
+<a data-link="dashboard.html" href="dashboard.html">📊 Dashboard</a>
+
+<div class="menu-group-title">Dịch vụ</div>
+<a data-link="vayip.html" href="vayip.html">📱 Vay iCloud iPhone</a>
+<a data-link="rutvi.html" href="rutvi.html">💳 Rút ví trả sau</a>
+<a data-link="daohan.html" href="daohan.html">🔄 Đáo hạn thẻ tín dụng</a>
+<a data-link="gachthecao.html" href="gachthecao.html">📲 Gạch thẻ cào</a>
+<a data-link="gioithieubanbe.html" href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
+
+<div class="menu-group-title">Tài khoản</div>
+<a data-link="naptien.html" href="naptien.html">💰 Nạp tiền</a>
+<a data-link="ruttien.html" href="ruttien.html">🏦 Rút tiền</a>
+<a data-link="lichsu.html" href="lichsu.html">📜 Lịch sử</a>
+<a data-link="thongtin.html" href="thongtin.html">👤 Thông tin</a>
 </div>
 </div>
+
+<div class="sidebar-box">
+<small>Chương trình giới thiệu</small>
+<b>Mời bạn bè - nhận thưởng</b>
+<p>Mỗi lượt giới thiệu thành công đều có thưởng, càng giới thiệu nhiều càng nhận thêm ưu đãi.</p>
+</div>
+</aside>
+
+<main class="main">
+
+<div class="topbar">
+<div class="top-left">
+<button class="btn gray mobile-only" onclick="tmOpenDrawer()">☰ Menu</button>
+<button class="btn gray" id="themeBtn" onclick="tmToggleTheme()">🌙 Giao diện</button>
+<button class="btn gray" onclick="location.href='home.html'">← Trang chủ</button>
+</div>
+
+<div class="top-right">
+<button class="btn red" onclick="tmLogout()">Đăng xuất</button>
+</div>
+</div>
+
+<section class="hero">
+<h1>Giới thiệu bạn bè</h1>
+<p>
+Chia sẻ mã giới thiệu của bạn để nhận thưởng cho mỗi lượt đăng ký thành công. Càng giới thiệu nhiều, bạn càng nhận được nhiều phần thưởng và mốc quà hấp dẫn hơn.
+</p>
+
+<div class="badge-row">
+<div class="mini-badge">💸 Thưởng mỗi lượt</div>
+<div class="mini-badge">🎯 Có mốc 5 / 10 / 20 / 50 người</div>
+<div class="mini-badge">📱 Chia sẻ nhanh</div>
+<div class="mini-badge">🚀 Đồng bộ với hệ thống</div>
+</div>
+</section>
+
+<section class="ref-grid">
+
+<div class="panel">
+<h2>Mã giới thiệu của bạn</h2>
+<div class="panel-sub">Mỗi người dùng sẽ có một mã riêng để chia sẻ cho bạn bè.</div>
+
+<div class="ref-card">
+<div class="ref-code-box">
+<div class="ref-code-label">Mã giới thiệu</div>
+<div class="ref-code" id="refCode">TECH-USER</div>
+
+<div class="ref-actions">
+<button class="btn blue" onclick="copyRefCode()">Sao chép mã</button>
+<button class="btn gray" onclick="copyRefLink()">Sao chép link</button>
+</div>
+</div>
+
+<div class="stat-grid">
+<div class="stat-box">
+<div class="label">Mỗi lượt thành công</div>
+<div class="value price-tag">10.000đ</div>
+</div>
+
+<div class="stat-box">
+<div class="label">Lượt giới thiệu</div>
+<div class="value" id="refCount">0</div>
+</div>
+
+<div class="stat-box">
+<div class="label">Tổng thưởng</div>
+<div class="value" id="refBonus">0đ</div>
+</div>
+</div>
+
+<div class="thank-box">
+Cảm ơn bạn đã tin tưởng <b>Techmoney</b>, hãy giới thiệu đến bạn bè và những người cần được hỗ trợ tài chính có nhu cầu vay, rút ví, đáo hạn thẻ hoặc các dịch vụ tiện ích khác của hệ thống.
+</div>
+</div>
+
+<div class="note-ref" id="refMsg"></div>
+</div>
+
+<div class="panel">
+<h2>Mốc phần thưởng</h2>
+<div class="panel-sub">Ngoài tiền thưởng mỗi lượt, bạn còn có thêm quà theo từng mốc giới thiệu.</div>
+
+<div class="reward-list">
+<div class="reward-item">
+<div class="reward-left">
+<b>Mốc 5 người</b>
+<span>Hoàn thành 5 lượt giới thiệu thành công đầu tiên.</span>
+</div>
+<div class="reward-money">+50.000đ</div>
+</div>
+
+<div class="reward-item">
+<div class="reward-left">
+<b>Mốc 10 người</b>
+<span>Đạt 10 lượt giới thiệu, tăng thêm thưởng khuyến khích.</span>
+</div>
+<div class="reward-money">+120.000đ</div>
+</div>
+
+<div class="reward-item">
+<div class="reward-left">
+<b>Mốc 20 người</b>
+<span>Dành cho cộng tác viên hoạt động tốt và giới thiệu đều.</span>
+</div>
+<div class="reward-money">+300.000đ</div>
+</div>
+
+<div class="reward-item">
+<div class="reward-left">
+<b>Mốc 50 người</b>
+<span>Mốc lớn dành cho người giới thiệu mạnh và ổn định.</span>
+</div>
+<div class="reward-money">+1.000.000đ</div>
+</div>
+</div>
+
+<div class="example-list">
+<div class="example-item"><span>5 lượt thành công</span><b>50.000đ + mốc 50.000đ</b></div>
+<div class="example-item"><span>10 lượt thành công</span><b>100.000đ + mốc 120.000đ</b></div>
+<div class="example-item"><span>20 lượt thành công</span><b>200.000đ + mốc 300.000đ</b></div>
+<div class="example-item"><span>50 lượt thành công</span><b>500.000đ + mốc 1.000.000đ</b></div>
+</div>
+</div>
+
+</section>
+
+<section class="panel">
+<h2>Cách hoạt động</h2>
+<div class="panel-sub">Giúp khách hàng hiểu rõ hơn và làm trang trông chuyên nghiệp hơn.</div>
 
 <div class="list">
-<div class="item">
+<div class="list-item">
 <div>
-<b>Nguyễn Văn A</b><br>
-<span style="color:#94a3b8;font-size:13px">Đăng ký thành công</span>
-</div>
-<b>+1 lượt</b>
-</div>
-<div class="item">
-<div>
-<b>Trần Thị B</b><br>
-<span style="color:#94a3b8;font-size:13px">Đã sử dụng dịch vụ</span>
-</div>
-<b>+1 lượt</b>
+<b>1. Chia sẻ mã giới thiệu</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px">Gửi mã hoặc link giới thiệu cho bạn bè qua Zalo, Messenger, Telegram...</div>
 </div>
 </div>
 
-<div id="msg" style="margin-top:14px;color:#38bdf8;font-size:14px"></div>
+<div class="list-item">
+<div>
+<b>2. Bạn bè đăng ký thành công</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px">Khi người được giới thiệu tạo tài khoản và dùng dịch vụ, lượt giới thiệu sẽ được tính.</div>
 </div>
+</div>
+
+<div class="list-item">
+<div>
+<b>3. Nhận thưởng theo lượt và theo mốc</b>
+<div style="font-size:13px;color:#94a3b8;margin-top:4px">Mỗi lượt có tiền thưởng riêng, ngoài ra còn có thêm thưởng khi đạt các mốc lớn.</div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
 </div>
 
 <div class="support-fixed">
-<div class="support-wrap"><div class="support-tip">Zalo</div><a class="support-btn" href="https://zalo.me/0387676061" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt=""></a></div>
-<div class="support-wrap"><div class="support-tip">Messenger</div><a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt=""></a></div>
-<div class="support-wrap"><div class="support-tip">Telegram</div><a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt=""></a></div>
+<div class="support-wrap">
+<div class="support-tip">Zalo</div>
+<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Messenger</div>
+<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Telegram</div>
+<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+<script src="app.js"></script>
+
 <script>
-async function buildCode(){
+const refMsg = document.getElementById("refMsg");
+
+function setRefMsg(text){
+refMsg.textContent = text || "";
+}
+
+async function buildRefInfo(){
 const { data:{ user } } = await sb.auth.getUser();
 if(!user){
 location.href = "login.html";
 return;
 }
-document.getElementById("refCode").textContent = "TECH-" + user.id.slice(0,8).toUpperCase();
+
+const code = "TECH-" + user.id.slice(0,8).toUpperCase();
+document.getElementById("refCode").textContent = code;
+
+// Demo tạm số lượt giới thiệu
+const refCount = 0;
+const totalBonus = refCount * 10000;
+
+document.getElementById("refCount").textContent = refCount;
+document.getElementById("refBonus").textContent = tmMoney(totalBonus);
 }
 
-function copyCode(){
+function copyRefCode(){
 const code = document.getElementById("refCode").textContent;
 navigator.clipboard.writeText(code);
-document.getElementById("msg").textContent = "Đã sao chép mã giới thiệu.";
+setRefMsg("Đã sao chép mã giới thiệu.");
 }
 
-async function logout(){
-await sb.auth.signOut();
-location.href = "login.html";
+function copyRefLink(){
+const code = document.getElementById("refCode").textContent;
+const link = window.location.origin + "/login.html?ref=" + encodeURIComponent(code);
+navigator.clipboard.writeText(link);
+setRefMsg("Đã sao chép link giới thiệu.");
 }
 
-buildCode();
+buildRefInfo();
 </script>
+
 </body>
 </html>
