@@ -1,303 +1,203 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TECHMONEY - Thông tin cá nhân</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-html,body{max-width:100%;overflow-x:hidden;}
-body{display:flex;min-height:100vh;background:#0f172a;color:#fff;transition:.3s;}
-a{color:inherit;text-decoration:none}
-
-/* LIGHT */
-body.light{background:#f1f5f9;color:#0f172a;}
-body.light .sidebar{background:#fff;}
-body.light .menu a{color:#0f172a;background:rgba(15,23,42,0.05);}
-body.light .menu a:hover{color:#fff;}
-body.light .topbar{background:rgba(255,255,255,.85);border-color:rgba(15,23,42,.08);}
-body.light .icon-btn{background:rgba(15,23,42,0.06);}
-body.light .panel{background:rgba(15,23,42,0.04);border-color:rgba(15,23,42,0.08);}
-body.light input{background:#fff;color:#0f172a;border-color:rgba(15,23,42,.15);}
-body.light .warning{background:#ffe6e6;}
-body.light .overlay{background:rgba(0,0,0,.35);}
-
-/* SIDEBAR */
-.sidebar{width:240px;background:#111827;padding:20px;display:flex;flex-direction:column;justify-content:space-between;height:100vh;position:sticky;top:0;}
-.logo{font-size:20px;font-weight:800;margin-bottom:18px;color:#38bdf8;}
-.menu a{display:block;padding:12px;margin-bottom:10px;border-radius:10px;background:rgba(255,255,255,0.06);transition:.25s;white-space:nowrap;}
-.menu a:hover{background:linear-gradient(90deg,#2563eb,#3b82f6);}
-.sep{margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,.12);}
-.bottom-box{background:linear-gradient(135deg,#2563eb,#3b82f6);padding:14px;border-radius:12px;text-align:center;font-size:14px;}
-.bottom-box b{font-size:15px}
-
-/* MAIN */
-.main{flex:1;padding:14px;overflow:auto;min-width:0;}
+body{background:#0f172a;color:#fff;min-height:100vh;padding:24px;}
+.wrap{max-width:900px;margin:auto;}
 .topbar{
-  position:sticky;top:0;z-index:50;
-  display:flex;justify-content:space-between;align-items:center;gap:10px;
-  padding:12px 14px;margin-bottom:14px;border-radius:14px;
-  background:rgba(15,23,42,0.55);border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
+display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;
 }
-.left-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.icon-btn{
-  border:none;background:rgba(255,255,255,0.08);color:inherit;
-  padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:700;
-  white-space:nowrap;transition:.2s;
+.logo{font-size:30px;font-weight:800;color:#38bdf8;}
+.top-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.btn{
+border:none;background:#2563eb;color:#fff;padding:10px 16px;border-radius:12px;
+cursor:pointer;font-weight:700;transition:.2s;
 }
-.icon-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.12);}
-.logout{
-  background:#ef4444;border:none;padding:10px 14px;border-radius:12px;
-  color:#fff;cursor:pointer;font-weight:800;white-space:nowrap;transition:.2s;
-}
-.logout:hover{transform:translateY(-1px);filter:brightness(1.05);}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.05);}
+.btn.red{background:#ef4444;}
 
-.grid{display:grid;grid-template-columns:1.3fr .7fr;gap:14px;}
-.panel{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:16px;}
-.panel h2{font-size:18px;margin-bottom:8px}
-.muted{opacity:.85;font-size:13px;line-height:1.55}
-
-label{font-size:13px;opacity:.9}
+.box{
+background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:22px;
+padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
+.title{font-size:24px;font-weight:800;margin-bottom:8px;}
+.sub{color:#94a3b8;margin-bottom:18px;font-size:14px;line-height:1.7;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.full{grid-column:1/-1;}
+label{font-size:14px;display:block;margin-bottom:6px;}
 input{
-  width:100%;padding:11px 12px;border-radius:12px;outline:none;
-  border:1px solid rgba(255,255,255,0.12);background:#111827;color:#fff;
-  margin-top:6px;margin-bottom:12px;
+width:100%;padding:12px 14px;border:none;outline:none;border-radius:12px;background:#1f2937;color:#fff;
 }
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.primary{
-  width:100%;padding:12px;border:none;border-radius:12px;
-  background:#2563eb;color:#fff;font-weight:800;cursor:pointer;transition:.2s;
-}
-.primary:hover{transform:translateY(-1px);filter:brightness(1.05);}
-.success{
-  display:none;margin-top:12px;padding:12px;border-radius:12px;
-  background:#065f46;border:1px solid rgba(255,255,255,0.12);font-weight:800;
-}
+.note{margin-top:14px;color:#38bdf8;font-size:14px;min-height:20px;}
 
-.avatar-box{
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-  padding:14px;border-radius:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);
+.support-fixed{
+position:fixed;right:14px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:50;
 }
-.avatar-box img{
-  width:120px;height:120px;border-radius:50%;object-fit:cover;
-  border:3px solid #2563eb;
+.support-wrap{position:relative;}
+.support-btn{
+width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,#1e3a8a,#2563eb);box-shadow:0 0 18px rgba(37,99,235,0.40);
+border:1px solid rgba(255,255,255,0.14);transition:.2s;
 }
-.avatar-box input{border:none;background:transparent;margin:0;padding:0;width:auto}
+.support-btn:hover{transform:scale(1.08);}
+.support-btn img,.support-btn svg{width:24px;height:24px;}
+.support-tip{
+position:absolute;right:62px;top:50%;transform:translateY(-50%);
+background:rgba(15,23,42,0.92);color:#fff;border:1px solid rgba(255,255,255,0.10);
+border-radius:10px;padding:7px 10px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s;
+}
+.support-wrap:hover .support-tip{opacity:1;}
 
-.warning{
-  background:#3b1d1d;border:1px solid #ef4444;padding:16px;border-radius:16px;
-}
-.warning ul{padding-left:18px;line-height:1.6;font-size:14px}
-
-@media(max-width:900px){
-  .grid{grid-template-columns:1fr;}
-  .row{grid-template-columns:1fr;}
-}
-
-/* Drawer */
-.mobile-only{display:none;}
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:90;}
-.sidebar.drawer{display:none;position:fixed;left:-280px;top:0;height:100vh;z-index:100;transition:left .25s ease;box-shadow:0 20px 50px rgba(0,0,0,.35);}
-.sidebar.drawer.open{left:0;}
-.overlay.show{display:block;}
-@media(max-width:900px){
-  .sidebar{display:none;}
-  .sidebar.drawer{display:flex;}
-  .mobile-only{display:inline-flex;}
+@media(max-width:768px){
+.grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
-
 <body>
-<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
-
-<div class="sidebar drawer" id="drawer">
-  <div>
-    <div class="logo">TECHMONEY</div>
-    <div class="menu">
-      <a href="home.html">🏠 Trang chủ</a>
-      <a href="naptien.html">💰 Nạp tiền</a>
-      <a href="vayip.html">📱 Vay iCloud iPhone</a>
-      <a href="rutvi.html">💳 Rút ví trả sau</a>
-      <a href="thongtin.html">👤 Thông tin cá nhân</a>
-      <a href="lichsu.html">📜 Lịch sử</a>
-    </div>
-  </div>
+<div class="wrap">
+<div class="topbar">
+<div class="logo">TECHMONEY</div>
+<div class="top-actions">
+<button class="btn" onclick="location.href='home.html'">Trang chủ</button>
+<button class="btn" onclick="location.href='dashboard.html'">Dashboard</button>
+<button class="btn" onclick="location.href='lichsu.html'">Lịch sử</button>
+<button class="btn red" onclick="logout()">Đăng xuất</button>
+</div>
 </div>
 
-<div class="sidebar">
-  <div>
-    <div class="logo">TECHMONEY</div>
-    <div class="menu">
-      <a href="home.html">🏠 Trang chủ</a>
-      <a href="naptien.html">💰 Nạp tiền</a>
-      <a href="vayip.html">📱 Vay iCloud iPhone</a>
-      <a href="rutvi.html">💳 Rút ví trả sau</a>
-      <a href="daohan.html">🔄 ĐH thẻ tín dụng</a>
-      <a href="gachthecao.html">📱 Gạch thẻ cào</a>
-      <hr class="sep">
-      <a href="thongtin.html">👤 Thông tin cá nhân</a>
-      <a href="lichsu.html">📜 Lịch sử</a>
-    </div>
-  </div>
-  <div class="bottom-box">
-    Xin chào<br><b id="userDisplay"></b><br><br>
-    Số dư: <b id="balanceText">0đ</b>
-  </div>
+<div class="box">
+<div class="title">Thông tin cá nhân</div>
+<div class="sub">Bạn có thể xem và cập nhật một số thông tin cơ bản của tài khoản TECHMONEY tại đây.</div>
+
+<div class="grid">
+<div>
+<label>Tên hiển thị</label>
+<input id="nameInput" placeholder="Tên hiển thị">
 </div>
 
-<div class="main">
-  <div class="topbar">
-    <div class="left-actions">
-      <button class="icon-btn mobile-only" type="button" onclick="openDrawer()">☰ Menu</button>
-      <button class="icon-btn" type="button" onclick="location.href='home.html'">← Dashboard</button>
-      <button class="icon-btn" type="button" onclick="toggleTheme()" id="themeBtn">🌙 Giao diện</button>
-    </div>
-    <button class="logout" type="button" onclick="logout()">Đăng xuất</button>
-  </div>
-
-  <div class="grid">
-    <div class="panel">
-      <h2>👤 Thông tin cá nhân</h2>
-      <div class="muted">Vui lòng nhập chính xác. Thông tin sẽ được lưu theo từng tài khoản.</div>
-
-      <div class="row">
-        <div>
-          <label>Họ và tên</label>
-          <input id="fullname" type="text" placeholder="VD: Nguyễn Văn A">
-        </div>
-        <div>
-          <label>Số điện thoại</label>
-          <input id="phone" type="text" placeholder="VD: 090xxxxxxx">
-        </div>
-      </div>
-
-      <div class="row">
-        <div>
-          <label>Số CCCD</label>
-          <input id="cccd" type="text" placeholder="VD: 012345678901">
-        </div>
-        <div>
-          <label>Ngày cấp CCCD</label>
-          <input id="ngaycap" type="date">
-        </div>
-      </div>
-
-      <label>Quê quán</label>
-      <input id="quequan" type="text" placeholder="VD: Hà Nội">
-
-      <div class="row">
-        <div>
-          <label>Dân tộc</label>
-          <input id="dantoc" type="text" placeholder="VD: Kinh">
-        </div>
-        <div>
-          <label>Thường trú</label>
-          <input id="thuongtru" type="text" placeholder="VD: Hoàn Kiếm, Hà Nội">
-        </div>
-      </div>
-
-      <button class="primary" type="button" onclick="saveInfo()">Cập nhật thông tin</button>
-      <div class="success" id="successBox">✅ Đã lưu thông tin thành công!</div>
-    </div>
-
-    <div>
-      <div class="avatar-box">
-        <img id="avatarPreview" src="https://i.pravatar.cc/150?img=3" alt="Avatar">
-        <div class="muted">Avatar khách hàng</div>
-        <input type="file" accept="image/*" onchange="previewAvatar(event)">
-      </div>
-
-      <div style="height:12px"></div>
-
-      <div class="warning">
-        <h3>⚠ Chú ý</h3>
-        <ul>
-          <li>Thông tin phải chính xác và trùng khớp CCCD.</li>
-          <li>Cung cấp sai thông tin có thể bị khóa tài khoản.</li>
-          <li>Không chia sẻ tài khoản cho người khác.</li>
-          <li>Hệ thống bảo mật thông tin khách hàng tuyệt đối.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<div>
+<label>Email</label>
+<input id="emailInput" readonly>
 </div>
 
+<div>
+<label>Vai trò</label>
+<input id="roleInput" readonly>
+</div>
+
+<div>
+<label>Trạng thái</label>
+<input id="statusInput" readonly>
+</div>
+
+<div class="full">
+<label>Số dư</label>
+<input id="balanceInput" readonly>
+</div>
+</div>
+
+<div style="margin-top:18px;">
+<button class="btn" onclick="saveProfile()">Lưu thay đổi</button>
+</div>
+
+<div class="note" id="msg"></div>
+</div>
+</div>
+
+<div class="support-fixed">
+<div class="support-wrap">
+<div class="support-tip">Zalo</div>
+<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+</div>
+<div class="support-wrap">
+<div class="support-tip">Messenger</div>
+<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+</div>
+<div class="support-wrap">
+<div class="support-tip">Gọi điện</div>
+<a class="support-btn" href="tel:0387676061">
+<img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Phone">
+</a>
+</div>
+<div class="support-wrap">
+<div class="support-tip">Telegram</div>
+<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 <script>
-const user = localStorage.getItem("currentUser");
-if(!user) location.href="index.html";
-document.getElementById("userDisplay").innerText = user;
+let currentUserId = null;
+const msg = document.getElementById("msg");
 
-/* theme */
-const themeBtn = document.getElementById("themeBtn");
-function applyTheme(){
-  const t = localStorage.getItem("theme");
-  if(t==="light"){document.body.classList.add("light"); themeBtn.innerText="☀️ Giao diện";}
-  else{document.body.classList.remove("light"); themeBtn.innerText="🌙 Giao diện";}
-}
-applyTheme();
-function toggleTheme(){
-  document.body.classList.toggle("light");
-  localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
-  applyTheme();
+function setMsg(t){ msg.textContent = t || ""; }
+
+async function loadProfile(){
+const { data:{ user } } = await sb.auth.getUser();
+if(!user){
+location.href = "login.html";
+return;
 }
 
-/* drawer */
-const drawer = document.getElementById("drawer");
-const overlay = document.getElementById("overlay");
-function openDrawer(){drawer.classList.add("open");overlay.classList.add("show");}
-function closeDrawer(){drawer.classList.remove("open");overlay.classList.remove("show");}
-window.addEventListener("resize", ()=>{ if(window.innerWidth>900) closeDrawer(); });
+const { data, error } = await sb
+.from("users")
+.select("*")
+.eq("user_id", user.id)
+.single();
 
-/* balance */
-function getBalance(){ return parseInt(localStorage.getItem("balance_"+user) || "0"); }
-document.getElementById("balanceText").innerText = getBalance().toLocaleString()+"đ";
-
-/* save info per user */
-const infoKey = "userInfo_"+user;
-function loadInfo(){
-  const data = JSON.parse(localStorage.getItem(infoKey) || "{}");
-  ["fullname","phone","cccd","ngaycap","quequan","dantoc","thuongtru"].forEach(id=>{
-    if(data[id]) document.getElementById(id).value = data[id];
-  });
-  if(data.avatar) document.getElementById("avatarPreview").src = data.avatar;
-}
-loadInfo();
-
-function saveInfo(){
-  const data = {
-    fullname: document.getElementById("fullname").value.trim(),
-    phone: document.getElementById("phone").value.trim(),
-    cccd: document.getElementById("cccd").value.trim(),
-    ngaycap: document.getElementById("ngaycap").value,
-    quequan: document.getElementById("quequan").value.trim(),
-    dantoc: document.getElementById("dantoc").value.trim(),
-    thuongtru: document.getElementById("thuongtru").value.trim(),
-    avatar: document.getElementById("avatarPreview").src
-  };
-  localStorage.setItem(infoKey, JSON.stringify(data));
-  document.getElementById("successBox").style.display="block";
+if(error || !data){
+alert("Không tải được hồ sơ.");
+location.href = "login.html";
+return;
 }
 
-function previewAvatar(event){
-  const file = event.target.files?.[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = ()=> {
-    document.getElementById("avatarPreview").src = reader.result;
-    // auto-save avatar
-    const data = JSON.parse(localStorage.getItem(infoKey) || "{}");
-    data.avatar = reader.result;
-    localStorage.setItem(infoKey, JSON.stringify(data));
-  };
-  reader.readAsDataURL(file);
+currentUserId = data.user_id;
+document.getElementById("nameInput").value = data.name || "";
+document.getElementById("emailInput").value = data.email || "";
+document.getElementById("roleInput").value = data.role || "user";
+document.getElementById("statusInput").value = data.status || "active";
+document.getElementById("balanceInput").value = Number(data.balance || 0).toLocaleString("vi-VN") + "đ";
 }
 
-/* logout */
-function logout(){ localStorage.removeItem("currentUser"); location.href="index.html"; }
+async function saveProfile(){
+const name = document.getElementById("nameInput").value.trim();
+if(!name){
+setMsg("Vui lòng nhập tên hiển thị.");
+return;
+}
+
+const { error } = await sb
+.from("users")
+.update({ name })
+.eq("user_id", currentUserId);
+
+if(error){
+setMsg("Lỗi cập nhật: " + error.message);
+return;
+}
+
+localStorage.setItem("currentUser", name);
+setMsg("Đã cập nhật thông tin.");
+}
+
+async function logout(){
+await sb.auth.signOut();
+location.href = "login.html";
+}
+
+loadProfile();
 </script>
 </body>
 </html>

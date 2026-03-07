@@ -3,470 +3,766 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TECHMONEY - SMM Services</title>
+<title>TECHMONEY - Dịch vụ tài chính hiện đại</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
-/* ===== BASE ===== */
+html,body{
+max-width:100%;
+overflow-x:hidden;
+scroll-behavior:smooth;
+}
+
 body{
-  background:#0f172a;
-  color:#fff;
-  transition:background 0.4s ease, color 0.4s ease;
+background:#0f172a;
+color:#fff;
+min-height:100vh;
 }
 
-/* ===== FLOATING CONTACT ===== */
-.contact-fixed{
-  position:fixed;
-  right:20px;
-  top:50%;
-  transform:translateY(-50%);
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-  z-index:999;
+a{
+text-decoration:none;
+color:inherit;
 }
 
-.contact-btn{
-  width:50px;
-  height:50px;
-  background:linear-gradient(135deg,#1e3a8a,#2563eb);
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 0 15px rgba(37,99,235,0.5);
-  transition:0.3s;
+canvas#bg{
+position:fixed;
+inset:0;
+z-index:-2;
 }
 
-.contact-btn img,
-.contact-btn svg{
-  width:24px;
-  height:24px;
+.bg-glow{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 20% 20%, rgba(37,99,235,.18), transparent 25%),
+radial-gradient(circle at 80% 30%, rgba(56,189,248,.10), transparent 22%),
+radial-gradient(circle at 70% 80%, rgba(59,130,246,.14), transparent 26%);
+z-index:-1;
+pointer-events:none;
 }
 
-.contact-btn:hover{
-  transform:scale(1.15);
-  box-shadow:0 0 25px rgba(56,189,248,0.9);
+.container{
+width:min(1200px, calc(100% - 32px));
+margin:auto;
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 header{
-  position:fixed;
-  top:0;
-  width:100%;
-  background:rgba(15,23,42,0.95);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 60px;
-  z-index:1000;
+position:sticky;
+top:0;
+z-index:50;
+backdrop-filter:blur(12px);
+background:rgba(15,23,42,.72);
+border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.nav{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:16px;
+padding:14px 0;
 }
 
 .logo{
-  font-size:22px;
-  font-weight:800;
-  color:#38bdf8;
-  white-space:nowrap;
+font-size:28px;
+font-weight:800;
+color:#38bdf8;
+text-shadow:0 0 18px rgba(56,189,248,.22);
+letter-spacing:.4px;
 }
 
-nav{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  flex-wrap:nowrap;
+.nav-links{
+display:flex;
+gap:12px;
+align-items:center;
+flex-wrap:wrap;
 }
 
-nav a{
-  text-decoration:none;
-  color:#ccc;
-  font-size:14px;
-  transition:0.3s;
-  white-space:nowrap;
+.nav-links a{
+padding:10px 14px;
+border-radius:12px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.05);
+font-weight:600;
+transition:.2s;
 }
 
-nav a:hover{
-  color:#38bdf8;
+.nav-links a:hover{
+background:rgba(255,255,255,.10);
+transform:translateY(-1px);
 }
 
-.nav-btn{
-  padding:8px 16px;
-  border-radius:6px;
-  border:1px solid #38bdf8;
+.nav-links .primary{
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+border:none;
 }
 
-.nav-primary{
-  background:#2563eb;
-  border:none;
-  color:#fff;
-}
-
-/* ===== THEME TOGGLE BUTTON ===== */
-.theme-toggle{
-  background:none;
-  border:none;
-  font-size:18px;
-  cursor:pointer;
-  color:#fff;
-  transition:0.3s;
-  margin-left:4px;
-}
-
-.theme-toggle:hover{
-  transform:scale(1.2);
-}
-
-/* nhóm nút auth để mobile không lệch */
-.auth-buttons{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-/* ===== HERO ===== */
+/* HERO */
 .hero{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  background:linear-gradient(180deg,#0f172a,#1e293b);
-  padding-top:80px;
+padding:72px 0 36px;
+}
+
+.hero-grid{
+display:grid;
+grid-template-columns:1.08fr .92fr;
+gap:24px;
+align-items:center;
+}
+
+.hero-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:8px 14px;
+border-radius:999px;
+background:rgba(37,99,235,.14);
+border:1px solid rgba(56,189,248,.18);
+color:#bfdbfe;
+font-size:13px;
+font-weight:700;
+margin-bottom:16px;
 }
 
 .hero h1{
-  font-size:48px;
-  font-weight:800;
-  line-height:1.25;
-  padding:0 16px;
+font-size:54px;
+line-height:1.08;
+margin-bottom:14px;
+font-weight:800;
 }
 
-.hero span{
-  background:linear-gradient(90deg,#38bdf8,#2563eb);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+.hero h1 span{
+color:#38bdf8;
+text-shadow:0 0 18px rgba(56,189,248,.18);
 }
 
-.subtitle{
-  margin-top:15px;
-  color:#aaa;
-  font-size:14px;
+.hero p{
+color:#cbd5e1;
+line-height:1.8;
+font-size:15px;
+margin-bottom:22px;
+max-width:690px;
 }
 
-.hero-buttons{
-  margin-top:30px;
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  justify-content:center;
+.hero-actions{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+margin-bottom:24px;
 }
 
 .btn{
-  padding:12px 26px;
-  border-radius:8px;
-  text-decoration:none;
-  font-weight:600;
-  transition:0.3s;
+padding:13px 18px;
+border-radius:14px;
+font-weight:700;
+transition:.2s;
+display:inline-flex;
+align-items:center;
+gap:8px;
 }
 
 .btn-primary{
-  background:#2563eb;
-  color:#fff;
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+color:#fff;
+box-shadow:0 14px 30px rgba(37,99,235,.22);
 }
 
-.btn-primary:hover{
-  background:#1d4ed8;
+.btn-secondary{
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.08);
+color:#fff;
 }
 
-.btn-outline{
-  border:1px solid #38bdf8;
-  color:#38bdf8;
+.btn:hover{
+transform:translateY(-2px);
+filter:brightness(1.04);
 }
 
-.btn-outline:hover{
-  background:#38bdf8;
-  color:#000;
+.hero-stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
 }
 
-/* ===== STATS ===== */
-.stats{
-  display:flex;
-  justify-content:center;
-  gap:80px;
-  margin-top:60px;
-  padding:0 16px;
-  flex-wrap:wrap;
+.stat{
+background:#111827;
+border:1px solid rgba(255,255,255,.07);
+border-radius:18px;
+padding:16px;
+box-shadow:0 14px 32px rgba(0,0,0,.12);
 }
 
-.stat h2{
-  color:#38bdf8;
-  font-size:28px;
+.stat b{
+font-size:24px;
+display:block;
+margin-bottom:4px;
 }
 
-.stat p{
-  font-size:13px;
-  color:#aaa;
+.stat span{
+color:#94a3b8;
+font-size:13px;
 }
 
-/* ===== WHY SECTION ===== */
-.why{
-  background:#1e293b;
-  padding:80px 20px;
-  text-align:center;
+.hero-card{
+background:linear-gradient(180deg, rgba(37,99,235,.16), rgba(17,24,39,.95));
+border:1px solid rgba(56,189,248,.15);
+border-radius:24px;
+padding:22px;
+box-shadow:0 20px 50px rgba(0,0,0,.22);
 }
 
-.why h2{
-  font-size:28px;
-  margin-bottom:10px;
+.hero-card h3{
+font-size:20px;
+margin-bottom:14px;
 }
 
-.why p{
-  color:#aaa;
-  margin-bottom:40px;
+.service-list{
+display:grid;
+gap:12px;
+}
+
+.service-item{
+padding:14px;
+border-radius:16px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+transition:.2s;
+}
+
+.service-item:hover{
+transform:translateY(-2px);
+border-color:rgba(56,189,248,.22);
+}
+
+.service-item b{
+display:block;
+margin-bottom:6px;
+font-size:15px;
+}
+
+.service-item p{
+margin:0;
+color:#cbd5e1;
+font-size:13px;
+line-height:1.7;
+}
+
+/* SECTION */
+.section{
+padding:28px 0;
+}
+
+.section-title{
+text-align:center;
+margin-bottom:20px;
+}
+
+.section-title h2{
+font-size:34px;
+margin-bottom:8px;
+}
+
+.section-title p{
+color:#94a3b8;
+max-width:700px;
+margin:auto;
+line-height:1.8;
 }
 
 .cards{
-  display:flex;
-  justify-content:center;
-  gap:30px;
-  flex-wrap:wrap;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:16px;
 }
 
 .card{
-  background:#0f172a;
-  padding:30px;
-  width:250px;
-  border-radius:12px;
-  transition:0.3s;
-  border:1px solid transparent;
+background:#111827;
+border:1px solid rgba(255,255,255,.08);
+border-radius:22px;
+padding:20px;
+box-shadow:0 14px 30px rgba(0,0,0,.14);
+transition:.2s;
 }
 
 .card:hover{
-  border:1px solid #38bdf8;
-  transform:translateY(-5px);
+transform:translateY(-3px);
+border-color:rgba(56,189,248,.22);
+}
+
+.card .icon{
+font-size:28px;
+margin-bottom:12px;
 }
 
 .card h3{
-  margin-bottom:10px;
-  font-size:18px;
+margin-bottom:8px;
+font-size:18px;
 }
 
-/* ===== LIGHT MODE ===== */
-body.light{
-  background:#f1f5f9;
-  color:#0f172a;
+.card p{
+color:#94a3b8;
+line-height:1.8;
+font-size:14px;
 }
 
-body.light header{
-  background:#ffffff;
+/* FEATURES */
+.feature-wrap{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
 }
 
-body.light nav a{
-  color:#333;
+.feature-box{
+background:#111827;
+border:1px solid rgba(255,255,255,.08);
+border-radius:22px;
+padding:22px;
 }
 
-body.light .theme-toggle{
-  color:#0f172a;
+.feature-box h3{
+margin-bottom:12px;
+font-size:22px;
 }
 
-body.light .hero{
-  background:linear-gradient(180deg,#e2e8f0,#ffffff);
+.feature-box ul{
+list-style:none;
+display:grid;
+gap:12px;
 }
 
-body.light .why{
-  background:#ffffff;
+.feature-box li{
+padding:12px 14px;
+border-radius:14px;
+background:rgba(255,255,255,.05);
+color:#cbd5e1;
+border:1px solid rgba(255,255,255,.05);
 }
 
-body.light .card{
-  background:#f1f5f9;
-  color:#0f172a;
+/* CTA */
+.cta{
+padding:34px 0 54px;
 }
 
-/* ===== RESPONSIVE (FIX LỆCH MOBILE) ===== */
-@media (max-width:768px){
-  header{
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-    padding:12px 16px;
-  }
+.cta-box{
+background:linear-gradient(135deg,#1d4ed8,#2563eb);
+border-radius:26px;
+padding:28px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+flex-wrap:wrap;
+box-shadow:0 20px 50px rgba(37,99,235,.22);
+}
 
-  nav{
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:10px;
-  }
+.cta-box h3{
+font-size:30px;
+margin-bottom:8px;
+}
 
-  .logo{
-    font-size:20px;
-    text-align:center;
-  }
+.cta-box p{
+color:#dbeafe;
+line-height:1.8;
+max-width:700px;
+}
 
-  .auth-buttons{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    justify-content:center;
-  }
+/* FOOTER */
+footer{
+border-top:1px solid rgba(255,255,255,.07);
+background:#0b1220;
+padding:22px 0;
+color:#94a3b8;
+font-size:14px;
+}
 
-  .nav-btn{
-    padding:6px 10px;
-    font-size:13px;
-  }
+/* SUPPORT */
+.support-fixed{
+position:fixed;
+right:14px;
+bottom:20px;
+display:flex;
+flex-direction:column;
+gap:12px;
+z-index:60;
+}
 
-  .hero{
-    padding-top:95px;
-    height:auto;
-    min-height:100vh;
-  }
+.support-wrap{
+position:relative;
+}
 
-  .hero h1{
-    font-size:26px;
-  }
+.support-btn{
+width:52px;
+height:52px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#1e3a8a,#2563eb);
+box-shadow:0 0 18px rgba(37,99,235,.40);
+border:1px solid rgba(255,255,255,.14);
+transition:.2s;
+}
 
-  .stats{
-    flex-direction:column;
-    gap:18px;
-    margin-top:35px;
-  }
+.support-btn:hover{
+transform:scale(1.08);
+}
 
-  .contact-fixed{
-    right:12px;
-  }
+.support-btn img,
+.support-btn svg{
+width:24px;
+height:24px;
+}
 
-  .contact-btn{
-    width:46px;
-    height:46px;
-  }
+.support-tip{
+position:absolute;
+right:62px;
+top:50%;
+transform:translateY(-50%);
+background:rgba(15,23,42,.94);
+color:#fff;
+border:1px solid rgba(255,255,255,.10);
+border-radius:10px;
+padding:7px 10px;
+font-size:12px;
+white-space:nowrap;
+opacity:0;
+pointer-events:none;
+transition:.2s;
+}
+
+.support-wrap:hover .support-tip{
+opacity:1;
+}
+
+/* MOBILE */
+.mobile-toggle{
+display:none;
+border:none;
+background:rgba(255,255,255,.08);
+color:#fff;
+padding:10px 14px;
+border-radius:12px;
+font-weight:700;
+}
+
+@media(max-width:1050px){
+.hero-grid,
+.feature-wrap{
+grid-template-columns:1fr;
+}
+
+.cards{
+grid-template-columns:repeat(2,1fr);
+}
+
+.hero h1{
+font-size:42px;
+}
+}
+
+@media(max-width:760px){
+.nav{
+align-items:flex-start;
+flex-direction:column;
+}
+
+.nav-links{
+width:100%;
+}
+
+.nav-links a{
+flex:1;
+text-align:center;
+}
+
+.hero{
+padding-top:42px;
+}
+
+.hero h1{
+font-size:34px;
+}
+
+.hero-stats,
+.cards{
+grid-template-columns:1fr;
+}
+
+.cta-box h3{
+font-size:24px;
+}
+
+.support-fixed{
+right:12px;
+bottom:16px;
+}
+
+.support-btn{
+width:46px;
+height:46px;
+}
 }
 </style>
 </head>
-
 <body>
 
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-  const toggleBtn = document.getElementById("themeToggle");
-
-  if(localStorage.getItem("theme") === "light"){
-    document.body.classList.add("light");
-    toggleBtn.textContent = "☀️";
-  }
-
-  toggleBtn.addEventListener("click", function(){
-    document.body.classList.toggle("light");
-
-    if(document.body.classList.contains("light")){
-      toggleBtn.textContent = "☀️";
-      localStorage.setItem("theme", "light");
-    }else{
-      toggleBtn.textContent = "🌙";
-      localStorage.setItem("theme", "dark");
-    }
-  });
-});
-</script>
-
-<!-- ===== FLOATING CONTACT BUTTONS ===== -->
-<div class="contact-fixed">
-  <a href="https://zalo.me/0900000000" target="_blank" class="contact-btn" title="Zalo">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
-  </a>
-
-  <a href="https://m.me/yourfacebook" target="_blank" class="contact-btn" title="Messenger">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
-  </a>
-
-  <a href="tel:0900000000" class="contact-btn" title="Gọi điện">
-    <svg viewBox="0 0 24 24" fill="white" aria-hidden="true">
-      <path d="M6.6 10.8a15.5 15.5 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C9.4 22 2 14.6 2 5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1l-2.2 2.2z"/>
-    </svg>
-  </a>
-
-  <a href="https://t.me/yourtelegram" target="_blank" class="contact-btn" title="Telegram">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
-  </a>
-</div>
+<canvas id="bg"></canvas>
+<div class="bg-glow"></div>
 
 <header>
-  <div class="logo">TECHMONEY</div>
+<div class="container nav">
+<div class="logo">TECHMONEY</div>
 
-  <nav>
-    <a href="#">Tính Năng</a>
-    <a href="#">Dịch Vụ</a>
-    <a href="#">Bảng Giá</a>
-
-    <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
-
-    <div class="auth-buttons">
-      <a href="login.html" class="nav-btn">Đăng nhập</a>
-      <a href="login.html" class="nav-btn nav-primary">Đăng ký</a>
-    </div>
-  </nav>
+<div class="nav-links">
+<a href="index.html">Trang chủ</a>
+<a href="about.html">Tìm hiểu thêm</a>
+<a href="login.html">Đăng nhập</a>
+<a href="login.html" class="primary">Bắt đầu ngay</a>
+</div>
+</div>
 </header>
 
 <section class="hero">
-  <h1>
-    TAI CHINH SO 1 VIET NAM<br>
-    <span>UY TIN & HIEU QUA</span>
-  </h1>
+<div class="container hero-grid">
+<div>
+<div class="hero-badge">⚡ Nền tảng tài chính hiện đại cho khách hàng cá nhân</div>
+<h1>Tăng tốc dịch vụ tài chính cùng <span>TECHMONEY</span></h1>
+<p>
+Nền tảng hỗ trợ nhiều dịch vụ tiện lợi như vay iCloud iPhone, rút ví trả sau, đáo hạn thẻ tín dụng, nạp rút số dư và nhiều tiện ích khác. Giao diện hiện đại, hỗ trợ nhanh, bảo mật tốt và tối ưu trải nghiệm trên cả điện thoại lẫn máy tính.
+</p>
 
-  <div class="subtitle">Professional TM Services</div>
+<div class="hero-actions">
+<a href="login.html" class="btn btn-primary">🚀 Đăng nhập / Đăng ký</a>
+<a href="about.html" class="btn btn-secondary">📘 Tìm hiểu thêm</a>
+</div>
 
-  <div class="hero-buttons">
-    <a href="login.html" class="btn btn-outline">Bắt Đầu Ngay →</a>
-    <a href="about.html" class="btn btn-outline">Tìm Hiểu Thêm</a>
-  </div>
+<div class="hero-stats">
+<div class="stat">
+<b>24/7</b>
+<span>Hỗ trợ liên tục</span>
+</div>
+<div class="stat">
+<b>Nhanh</b>
+<span>Xử lý linh hoạt</span>
+</div>
+<div class="stat">
+<b>Bảo mật</b>
+<span>Thông tin an toàn</span>
+</div>
+</div>
+</div>
 
-  <div class="stats">
-    <div class="stat">
-      <h2>50K+</h2>
-      <p>Đơn Vay</p>
-    </div>
-    <div class="stat">
-      <h2>10K+</h2>
-      <p>Khách Hàng</p>
-    </div>
-    <div class="stat">
-      <h2>99.9%</h2>
-      <p>Hoạt Động</p>
-    </div>
-    <div class="stat">
-      <h2>24/7</h2>
-      <p>Hỗ Trợ</p>
-    </div>
-  </div>
+<div class="hero-card">
+<h3>Dịch vụ nổi bật</h3>
+<div class="service-list">
+<div class="service-item">
+<b>📱 Vay iCloud iPhone</b>
+<p>Ước tính khoản vay nhanh theo dòng máy, thời gian linh hoạt.</p>
+</div>
+<div class="service-item">
+<b>💳 Rút ví trả sau</b>
+<p>Hỗ trợ tạo yêu cầu tiện lợi, theo dõi rõ phí và tiến trình xử lý.</p>
+</div>
+<div class="service-item">
+<b>🏦 Nạp / Rút số dư</b>
+<p>Quản lý giao dịch rõ ràng, tiện cho người dùng và admin duyệt.</p>
+</div>
+<div class="service-item">
+<b>🔄 Đáo hạn thẻ tín dụng</b>
+<p>Gửi yêu cầu nhanh, giao diện gọn gàng, dễ theo dõi.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 
-<section class="why">
-  <h2>Tại Sao Chọn Chúng Tôi?</h2>
-  <p>TECHMONEY cung cấp dịch vụ vay chất lượng cao với giá cạnh tranh nhất</p>
+<section class="section">
+<div class="container">
+<div class="section-title">
+<h2>Tại sao khách hàng chọn TECHMONEY?</h2>
+<p>Chúng tôi tập trung vào trải nghiệm mượt mà, hỗ trợ nhanh và giao diện dễ dùng để khách hàng có thể thao tác thuận tiện ngay từ lần đầu truy cập.</p>
+</div>
 
-  <div class="cards">
-    <div class="card">
-      <h3>Tốc Độ Cao</h3>
-      <p>Xử lý đơn hàng nhanh chóng và tự động.</p>
-    </div>
-    <div class="card">
-      <h3>Giá Tốt</h3>
-      <p>Mức giá cạnh tranh phù hợp mọi nhu cầu.</p>
-    </div>
-    <div class="card">
-      <h3>Hỗ Trợ 24/7</h3>
-      <p>Đội ngũ hỗ trợ chuyên nghiệp mọi lúc.</p>
-    </div>
-  </div>
+<div class="cards">
+<div class="card">
+<div class="icon">⚡</div>
+<h3>Xử lý nhanh</h3>
+<p>Giao diện tối ưu giúp khách hàng gửi yêu cầu dễ dàng, giảm thao tác rườm rà và tăng tốc độ tiếp nhận.</p>
+</div>
+
+<div class="card">
+<div class="icon">🔒</div>
+<h3>Bảo mật tốt</h3>
+<p>Thông tin tài khoản và lịch sử giao dịch được quản lý rõ ràng, phù hợp định hướng tài chính hiện đại.</p>
+</div>
+
+<div class="card">
+<div class="icon">📱</div>
+<h3>Tương thích mobile</h3>
+<p>Khách hàng có thể truy cập tốt trên điện thoại, thao tác dễ nhìn, không bị rối giao diện.</p>
+</div>
+
+<div class="card">
+<div class="icon">💬</div>
+<h3>Hỗ trợ liên tục</h3>
+<p>Hệ thống luôn có nút hỗ trợ nổi để khách hàng liên hệ nhanh qua Zalo, Messenger, Telegram hoặc điện thoại.</p>
+</div>
+
+<div class="card">
+<div class="icon">📊</div>
+<h3>Quản lý rõ ràng</h3>
+<p>Từ đăng nhập, dashboard, nạp rút đến admin đều được đồng bộ phong cách, giúp vận hành mượt hơn.</p>
+</div>
+
+<div class="card">
+<div class="icon">✨</div>
+<h3>Hiện đại, đồng bộ</h3>
+<p>Thiết kế mang cảm giác fintech chuyên nghiệp, tạo niềm tin tốt hơn khi khách hàng vừa vào website.</p>
+</div>
+</div>
+</div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
+<section class="section">
+<div class="container feature-wrap">
+<div class="feature-box">
+<h3>Dành cho khách hàng</h3>
+<ul>
+<li>Đăng nhập và quản lý tài khoản thuận tiện</li>
+<li>Nạp tiền, rút tiền, theo dõi lịch sử rõ ràng</li>
+<li>Gửi yêu cầu dịch vụ nhanh, ít thao tác</li>
+<li>Hỗ trợ tốt trên cả máy tính và điện thoại</li>
+</ul>
+</div>
 
+<div class="feature-box">
+<h3>Dành cho hệ thống quản trị</h3>
+<ul>
+<li>Admin quản lý người dùng, role, trạng thái, số dư</li>
+<li>Duyệt giao dịch nhanh và trực quan</li>
+<li>Giao diện đồng bộ với toàn bộ web</li>
+<li>Dễ mở rộng thêm nhiều chức năng sau này</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="cta">
+<div class="container">
+<div class="cta-box">
+<div>
+<h3>Sẵn sàng bắt đầu với TECHMONEY?</h3>
+<p>Đăng nhập để trải nghiệm dashboard tài chính hiện đại, theo dõi giao dịch và sử dụng các dịch vụ phù hợp với nhu cầu của bạn.</p>
+</div>
+
+<div class="hero-actions" style="margin:0">
+<a href="login.html" class="btn btn-primary">🚀 Vào ngay</a>
+<a href="about.html" class="btn btn-secondary">📘 Xem thêm</a>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+© 2026 TECHMONEY. Giao diện tài chính hiện đại, hỗ trợ khách hàng nhanh chóng và trực quan.
+</div>
+</footer>
+
+<div class="support-fixed">
+<div class="support-wrap">
+<div class="support-tip">Zalo</div>
+<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Messenger</div>
+<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Gọi điện</div>
+<a class="support-btn" href="tel:0387676061">
+<svg viewBox="0 0 24 24" fill="white">
+<path d="M6.6 10.8a15.5 15.5 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C9.4 22 2 14.6 2 5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1l-2.2 2.2z"/>
+</svg>
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Telegram</div>
+<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
+</div>
+
+<script>
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+let w, h, particles = [];
+
+function resizeCanvas(){
+w = canvas.width = window.innerWidth;
+h = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+for(let i=0;i<65;i++){
+particles.push({
+x:Math.random()*w,
+y:Math.random()*h,
+r:Math.random()*2+1,
+dx:(Math.random()-.5)*0.45,
+dy:(Math.random()-.5)*0.45
+});
+}
+
+function draw(){
+ctx.clearRect(0,0,w,h);
+ctx.fillStyle = "rgba(56,189,248,.55)";
+particles.forEach(p=>{
+p.x += p.dx;
+p.y += p.dy;
+
+if(p.x < 0 || p.x > w) p.dx *= -1;
+if(p.y < 0 || p.y > h) p.dy *= -1;
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+});
+
+for(let i=0;i<particles.length;i++){
+for(let j=i+1;j<particles.length;j++){
+const a = particles[i];
+const b = particles[j];
+const dist = Math.hypot(a.x-b.x,a.y-b.y);
+if(dist < 120){
+ctx.strokeStyle = `rgba(56,189,248,${0.12 - dist/1200})`;
+ctx.lineWidth = 1;
+ctx.beginPath();
+ctx.moveTo(a.x,a.y);
+ctx.lineTo(b.x,b.y);
+ctx.stroke();
+}
+}
+}
+requestAnimationFrame(draw);
+}
+draw();
+</script>
 </body>
 </html>

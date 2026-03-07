@@ -4,407 +4,143 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TECHMONEY - Vay iCloud iPhone</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-a{color:inherit}
-html,body{max-width:100%;overflow-x:hidden;}
-
-body{
-  display:flex;
-  min-height:100vh;
-  background:#0f172a;
-  color:#fff;
-  transition:.3s;
-}
-
-/* LIGHT */
-body.light{background:#f1f5f9;color:#0f172a;}
-body.light .sidebar{background:#ffffff;}
-body.light .menu a{color:#0f172a;background:rgba(15,23,42,0.05);}
-body.light .menu a:hover{color:#fff;}
-body.light .topbar{background:rgba(255,255,255,.85);border-color:rgba(15,23,42,.08);}
-body.light .icon-btn{background:rgba(15,23,42,0.06);}
-body.light .form-box{background:rgba(15,23,42,0.04);}
-body.light input, body.light select{background:#fff;color:#0f172a;border:1px solid rgba(15,23,42,.12);}
-body.light .promo{background:#e0ecff;color:#0f172a;}
-body.light .warning{background:#ffe6e6;}
-body.light .overlay{background:rgba(0,0,0,.35);}
-
-/* SIDEBAR (desktop) */
-.sidebar{
-  width:240px;
-  background:#111827;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  height:100vh;
-  position:sticky;
-  top:0;
-}
-
-.logo{
-  font-size:20px;
-  font-weight:700;
-  margin-bottom:18px;
-  color:#38bdf8;
-  white-space:nowrap;
-}
-
-.menu a{
-  display:block;
-  padding:12px;
-  margin-bottom:10px;
-  border-radius:10px;
-  text-decoration:none;
-  color:#fff;
-  background:rgba(255,255,255,0.06);
-  transition:.25s;
-  white-space:nowrap;
-}
-
-.menu a:hover{
-  background:linear-gradient(90deg,#2563eb,#3b82f6);
-}
-
-.main{
-  flex:1;
-  padding:18px;
-  overflow:auto;
-  min-width:0;
-}
-
-/* TOPBAR (duy nhất) */
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:50;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-
-  padding:12px 14px;
-  margin-bottom:14px;
-  border-radius:14px;
-  background:rgba(15,23,42,0.55);
-  border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
-}
-
-.left-actions{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.icon-btn{
-  border:none;
-  background:rgba(255,255,255,0.08);
-  color:inherit;
-  padding:10px 12px;
-  border-radius:12px;
-  cursor:pointer;
-  font-weight:600;
-  white-space:nowrap;
-  transition:.2s;
-}
-.icon-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.12);}
-
-.logout{
-  background:#ef4444;
-  border:none;
-  padding:10px 14px;
-  border-radius:12px;
-  color:#fff;
-  cursor:pointer;
-  font-weight:700;
-  white-space:nowrap;
-  transition:.2s;
-}
-.logout:hover{transform:translateY(-1px);filter:brightness(1.05);}
-
-.promo{
-  background:#1e3a8a;
-  padding:14px;
-  border-radius:12px;
-  margin-bottom:14px;
-  border:1px solid rgba(255,255,255,0.10);
-}
-
-.loan-layout{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:14px;
-}
-
-.form-box{
-  background:rgba(255,255,255,0.06);
-  padding:18px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,0.08);
-}
-
-input,select{
-  width:100%;
-  padding:10px 12px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.10);
-  background:#111827;
-  color:#fff;
-  margin-top:8px;
-  margin-bottom:14px;
-  outline:none;
-}
-
-button.action{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  background:#2563eb;
-  color:white;
-  cursor:pointer;
-  margin-top:6px;
-  font-weight:700;
-  transition:.2s;
-}
-button.action:hover{transform:translateY(-1px);filter:brightness(1.05);}
-
-.result{
-  background:#0f5132;
-  padding:14px;
-  border-radius:12px;
-  margin-top:12px;
-  border:1px solid rgba(255,255,255,0.10);
-}
-
-.warning{
-  background:#3b1d1d;
-  border:1px solid #ef4444;
-  padding:18px;
-  border-radius:14px;
-}
-.warning h3{margin-bottom:10px;}
-.warning ul{padding-left:18px;line-height:1.6;font-size:14px;}
-
-/* ===== MOBILE DRAWER ===== */
-.mobile-only{display:none;}
-.overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.45);
-  z-index:90;
-}
-.sidebar.drawer{
-  display:none;
-  position:fixed;
-  left:-280px;
-  top:0;
-  height:100vh;
-  z-index:100;
-  transition:left .25s ease;
-  box-shadow:0 20px 50px rgba(0,0,0,.35);
-}
-.sidebar.drawer.open{left:0;}
-.overlay.show{display:block;}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .sidebar{display:none;}          /* ẩn sidebar desktop */
-  .sidebar.drawer{display:flex;}  /* bật drawer */
-  .mobile-only{display:inline-flex;}
-  .loan-layout{grid-template-columns:1fr;}
-  .main{padding:14px;}
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#0f172a;color:#fff;min-height:100vh;padding:24px}
+.wrap{max-width:1000px;margin:auto}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.logo{font-size:30px;font-weight:800;color:#38bdf8}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:none;background:#2563eb;color:#fff;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:700}
+.btn.red{background:#ef4444}
+.box{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.title{font-size:24px;font-weight:800;margin-bottom:8px}
+.sub{color:#94a3b8;margin-bottom:18px;font-size:14px;line-height:1.7}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.full{grid-column:1/-1}
+label{font-size:14px;display:block;margin-bottom:6px}
+input,select,textarea{width:100%;padding:12px 14px;border:none;outline:none;border-radius:12px;background:#1f2937;color:#fff}
+textarea{resize:vertical;min-height:100px}
+.result{margin-top:18px;padding:18px;border-radius:16px;background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid rgba(56,189,248,.25);line-height:1.8}
+.note{margin-top:14px;color:#38bdf8;font-size:14px;min-height:20px}
+.support-fixed{position:fixed;right:14px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:50}
+.support-wrap{position:relative}
+.support-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e3a8a,#2563eb);box-shadow:0 0 18px rgba(37,99,235,.40);border:1px solid rgba(255,255,255,.14)}
+.support-btn img{width:24px;height:24px}
+.support-tip{position:absolute;right:62px;top:50%;transform:translateY(-50%);background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:7px 10px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s}
+.support-wrap:hover .support-tip{opacity:1}
+@media(max-width:768px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
-
-<!-- overlay cho drawer -->
-<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
-
-<!-- SIDEBAR dạng drawer (mobile) -->
-<div class="sidebar drawer" id="drawer">
-  <div>
-    <div class="logo">TECHMONEY</div>
-    <div class="menu">
-      <a href="home.html">🏠 Trang chủ</a>
-      <a href="naptien.html">💰 Nạp tiền</a>
-      <a href="vayip.html">📱 Vay iCloud iPhone</a>
-      <a href="thongtin.html">👤 Thông tin cá nhân</a>
-    </div>
-  </div>
+<div class="wrap">
+<div class="topbar">
+<div class="logo">TECHMONEY</div>
+<div class="actions">
+<button class="btn" onclick="location.href='home.html'">Trang chủ</button>
+<button class="btn" onclick="location.href='dashboard.html'">Dashboard</button>
+<button class="btn red" onclick="logout()">Đăng xuất</button>
+</div>
 </div>
 
-<!-- SIDEBAR desktop -->
-<div class="sidebar">
-  <div>
-    <div class="logo">TECHMONEY</div>
-    <div class="menu">
-      <a href="home.html">🏠 Trang chủ</a>
-      <a href="naptien.html">💰 Nạp tiền</a>
-      <a href="vayip.html">📱 Vay iCloud iPhone</a>
-      <a href="thongtin.html">👤 Thông tin cá nhân</a>
-      <a href="lichsu.html">📜 Lịch sử</a>
-      <a href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
-      <a href="daohan.html">🔄 ĐH thẻ tín dụng</a>
-      <a href="gachthecao.html">📱 Gạch thẻ cào</a>
+<div class="box">
+<div class="title">Vay iCloud iPhone</div>
+<div class="sub">Ước tính khoản vay theo dòng máy và thời gian vay. Sau khi gửi yêu cầu, nhân viên sẽ liên hệ xác nhận.</div>
 
-    </div>
-  </div>
+<div class="grid">
+<div>
+<label>Dòng iPhone</label>
+<select id="iphone">
+<option value="5000000">iPhone X</option>
+<option value="7000000">iPhone 11</option>
+<option value="10000000">iPhone 12</option>
+<option value="13000000">iPhone 13</option>
+<option value="17000000">iPhone 14</option>
+<option value="21000000">iPhone 15</option>
+<option value="26000000">iPhone 16 Pro Max</option>
+</select>
 </div>
 
-<div class="main">
-
-  <!-- TOPBAR duy nhất -->
-  <div class="topbar">
-    <div class="left-actions">
-      <button class="icon-btn mobile-only" type="button" onclick="openDrawer()">☰ Menu</button>
-      <button class="icon-btn" type="button" onclick="window.location.href='home.html'">← Dashboard</button>
-      <button class="icon-btn" type="button" onclick="toggleTheme()" id="themeBtn">🌙 Giao diện</button>
-    </div>
-
-    <button class="logout" type="button" onclick="logout()">Đăng xuất</button>
-  </div>
-
-  <div class="promo">
-    📱 Hỗ trợ vay tối đa <b>60% giá trị máy</b> – duyệt nhanh trong ngày
-  </div>
-
-  <div class="loan-layout">
-
-    <div class="form-box">
-      <label>Chọn dòng iPhone</label>
-      <select id="iphone">
-        <option value="5000000">iPhone X</option>
-        <option value="6000000">iPhone XR</option>
-        <option value="6500000">iPhone XS</option>
-        <option value="7500000">iPhone 11</option>
-        <option value="9000000">iPhone 11 Pro</option>
-        <option value="10000000">iPhone 12</option>
-        <option value="12000000">iPhone 12 Pro</option>
-        <option value="14000000">iPhone 13</option>
-        <option value="16000000">iPhone 13 Pro</option>
-        <option value="18000000">iPhone 14</option>
-        <option value="20000000">iPhone 14 Pro</option>
-        <option value="22000000">iPhone 15</option>
-        <option value="25000000">iPhone 15 Pro Max</option>
-        <option value="27000000">iPhone 16</option>
-        <option value="29000000">iPhone 16 Pro Max</option>
-        <option value="30000000">iPhone 17 Pro Max</option>
-      </select>
-
-      <label>Thời gian vay</label>
-      <select id="month">
-        <option value="1">1 tháng</option>
-        <option value="3">3 tháng</option>
-        <option value="6">6 tháng</option>
-        <option value="12">12 tháng</option>
-        <option value="24">24 tháng</option>
-        <option value="36">36 tháng</option>
-      </select>
-
-      <button class="action" type="button" onclick="calculate()">Ước tính khoản vay</button>
-
-      <div class="result" id="result" style="display:none;"></div>
-
-      <button class="action" type="button" onclick="sendRequest()">Gửi yêu cầu vay</button>
-    </div>
-
-    <div class="warning">
-      <h3>⚠ Lưu ý quan trọng</h3>
-      <ul>
-        <li>IP không dính iCloud ẩn</li>
-        <li>Máy hoạt động bình thường</li>
-        <li>Giá vay thực tế có thể thấp hơn dự kiến</li>
-        <li>Phụ thuộc vào tình trạng máy khi kiểm tra</li>
-      </ul>
-    </div>
-
-  </div>
+<div>
+<label>Thời gian vay</label>
+<select id="month">
+<option value="1">1 tháng</option>
+<option value="3">3 tháng</option>
+<option value="6">6 tháng</option>
+<option value="12">12 tháng</option>
+</select>
 </div>
 
+<div>
+<label>Họ và tên</label>
+<input id="fullname" placeholder="Nhập họ tên của bạn">
+</div>
+
+<div>
+<label>Số điện thoại</label>
+<input id="phone" placeholder="Nhập số điện thoại">
+</div>
+
+<div class="full">
+<label>Ghi chú thêm</label>
+<textarea id="note" placeholder="Ví dụ: Máy zin, không lỗi, cần hỗ trợ nhanh"></textarea>
+</div>
+</div>
+
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+<button class="btn" onclick="calculateLoan()">Ước tính khoản vay</button>
+<button class="btn" onclick="sendLoan()">Gửi yêu cầu</button>
+</div>
+
+<div class="result" id="resultBox">
+Chọn dòng máy và thời gian vay để xem ước tính.
+</div>
+
+<div class="note" id="msg"></div>
+</div>
+</div>
+
+<div class="support-fixed">
+<div class="support-wrap"><div class="support-tip">Zalo</div><a class="support-btn" href="https://zalo.me/0387676061" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt=""></a></div>
+<div class="support-wrap"><div class="support-tip">Messenger</div><a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt=""></a></div>
+<div class="support-wrap"><div class="support-tip">Telegram</div><a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt=""></a></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 <script>
-/* CHECK LOGIN */
-let user = localStorage.getItem("currentUser");
-if(!user){
-  window.location.href="index.html";
+function calculateLoan(){
+const value = Number(document.getElementById("iphone").value || 0);
+const month = Number(document.getElementById("month").value || 1);
+const loan = Math.round(value * 0.6);
+const interest = Math.round(loan * 0.02 * month);
+const total = loan + interest;
+
+document.getElementById("resultBox").innerHTML = `
+<b>Số tiền có thể vay:</b> ${loan.toLocaleString("vi-VN")}đ<br>
+<b>Lãi suất:</b> 2% / tháng<br>
+<b>Tổng lãi:</b> ${interest.toLocaleString("vi-VN")}đ<br>
+<b>Tổng phải trả:</b> ${total.toLocaleString("vi-VN")}đ
+`;
 }
 
-/* LOGOUT */
-function logout(){
-  localStorage.removeItem("currentUser");
-  window.location.href="index.html";
+function sendLoan(){
+const fullname = document.getElementById("fullname").value.trim();
+const phone = document.getElementById("phone").value.trim();
+if(!fullname || !phone){
+document.getElementById("msg").textContent = "Vui lòng nhập họ tên và số điện thoại.";
+return;
+}
+document.getElementById("msg").textContent = "Đã gửi yêu cầu vay iPhone. Nhân viên sẽ liên hệ bạn sớm.";
 }
 
-/* THEME (lưu localStorage) */
-const themeBtn = document.getElementById("themeBtn");
-
-function applyTheme(){
-  const theme = localStorage.getItem("theme");
-  if(theme === "light"){
-    document.body.classList.add("light");
-    themeBtn.innerText = "☀️ Giao diện";
-  }else{
-    document.body.classList.remove("light");
-    themeBtn.innerText = "🌙 Giao diện";
-  }
-}
-applyTheme();
-
-function toggleTheme(){
-  document.body.classList.toggle("light");
-  localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
-  applyTheme();
+async function logout(){
+await sb.auth.signOut();
+location.href = "login.html";
 }
 
-/* CALC */
-function calculate(){
-  let value = parseInt(document.getElementById("iphone").value);
-  let month = parseInt(document.getElementById("month").value);
-
-  let loan = value * 0.6;
-  let interestRate = 0.02; // 2%/tháng
-  let interest = loan * interestRate * month;
-  let total = loan + interest;
-
-  let box = document.getElementById("result");
-  box.style.display="block";
-  box.innerHTML = `
-    <b>Số tiền có thể vay:</b> ${loan.toLocaleString()} VNĐ<br>
-    <b>Lãi suất:</b> 2% / tháng<br>
-    <b>Tổng lãi:</b> ${interest.toLocaleString()} VNĐ<br>
-    <b>Tổng phải trả:</b> ${total.toLocaleString()} VNĐ
-  `;
-}
-
-/* SEND */
-function sendRequest(){
-  alert("✅ Yêu cầu vay đã được gửi. Nhân viên sẽ liên hệ bạn!");
-}
-
-/* DRAWER */
-const drawer = document.getElementById("drawer");
-const overlay = document.getElementById("overlay");
-
-function openDrawer(){
-  drawer.classList.add("open");
-  overlay.classList.add("show");
-}
-function closeDrawer(){
-  drawer.classList.remove("open");
-  overlay.classList.remove("show");
-}
-window.addEventListener("resize", () => {
-  if(window.innerWidth > 900) closeDrawer();
-});
+calculateLoan();
 </script>
-
 </body>
 </html>

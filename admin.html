@@ -1,286 +1,1209 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TECHMONEY - Admin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    *{box-sizing:border-box;font-family:Poppins,sans-serif}
-    body{margin:0;background:#0f172a;color:#fff;padding:16px}
-    .wrap{max-width:1100px;margin:auto}
-    .top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px}
-    .pill{padding:6px 10px;border-radius:999px;background:rgba(59,130,246,.18);border:1px solid rgba(59,130,246,.25)}
-    .btn{border:0;border-radius:10px;padding:10px 12px;color:#fff;cursor:pointer;font-weight:700}
-    .btn-red{background:#ef4444}
-    .btn-blue{background:#2563eb}
-    .btn-gray{background:rgba(255,255,255,.10)}
-    .card{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-top:12px}
-    h2,h3{margin:0 0 10px}
-    .tabs{display:flex;gap:8px;flex-wrap:wrap}
-    .tabs button{background:rgba(255,255,255,.08)}
-    .tabs button.active{background:#2563eb}
-    table{width:100%;border-collapse:collapse;margin-top:8px}
-    th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;font-size:13px}
-    .row-actions{display:flex;gap:8px;flex-wrap:wrap}
-    input,textarea,select{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#0b1220;color:#fff}
-    textarea{min-height:90px;resize:vertical}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    @media(max-width:800px){ .grid{grid-template-columns:1fr} }
-    .tag{padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.08);display:inline-block}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TECHMONEY - Admin Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+html,body{max-width:100%;overflow-x:hidden}
+body{
+background:#0f172a;
+color:#fff;
+min-height:100vh;
+}
+
+:root{
+--bg:#0f172a;
+--panel:#111827;
+--panel-2:#1f2937;
+--line:rgba(255,255,255,.08);
+--muted:#94a3b8;
+--blue:#2563eb;
+--blue-2:#38bdf8;
+--green:#22c55e;
+--red:#ef4444;
+--yellow:#facc15;
+--radius:18px;
+}
+
+.app{
+display:flex;
+min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+width:255px;
+background:#111827;
+border-right:1px solid var(--line);
+padding:18px 14px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+position:sticky;
+top:0;
+height:100vh;
+flex-shrink:0;
+}
+
+.logo{
+font-size:24px;
+font-weight:800;
+color:var(--blue-2);
+margin-bottom:14px;
+text-shadow:0 0 18px rgba(56,189,248,.25);
+}
+
+.admin-badge{
+display:inline-flex;
+gap:8px;
+align-items:center;
+padding:8px 12px;
+border-radius:999px;
+background:rgba(37,99,235,.16);
+border:1px solid rgba(56,189,248,.18);
+color:#bfdbfe;
+font-size:12px;
+font-weight:700;
+margin-bottom:18px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu-btn{
+border:none;
+background:#1f2937;
+color:#fff;
+min-height:48px;
+border-radius:14px;
+padding:12px 14px;
+font-weight:600;
+text-align:left;
+cursor:pointer;
+transition:.2s;
+border:1px solid rgba(255,255,255,.04);
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.menu-btn:hover,
+.menu-btn.active{
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+transform:translateX(2px);
+}
+
+.admin-box{
+margin-top:18px;
+background:linear-gradient(135deg,#2563eb,#3b82f6);
+border-radius:18px;
+padding:16px;
+box-shadow:0 16px 36px rgba(37,99,235,.22);
+}
+
+.admin-box small{
+display:block;
+color:#dbeafe;
+margin-bottom:4px;
+}
+
+.admin-box b{
+display:block;
+font-size:16px;
+margin-bottom:8px;
+}
+
+.admin-box p{
+color:#dbeafe;
+font-size:12px;
+line-height:1.6;
+}
+
+/* MAIN */
+.main{
+flex:1;
+min-width:0;
+padding:18px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:16px;
+padding:12px 14px;
+background:rgba(17,24,39,.86);
+border:1px solid var(--line);
+border-radius:18px;
+position:sticky;
+top:12px;
+z-index:20;
+backdrop-filter:blur(10px);
+}
+
+.top-left,.top-right{
+display:flex;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.btn{
+border:none;
+border-radius:12px;
+padding:10px 14px;
+font-weight:700;
+cursor:pointer;
+transition:.2s;
+color:#fff;
+}
+
+.btn:hover{transform:translateY(-1px);filter:brightness(1.05)}
+.btn.blue{background:var(--blue)}
+.btn.red{background:var(--red)}
+.btn.gray{background:#334155}
+.btn.green{background:var(--green)}
+.btn.yellow{background:#ca8a04}
+
+.hero{
+background:linear-gradient(135deg,#1e40af,#3b82f6);
+border:1px solid rgba(255,255,255,.1);
+border-radius:22px;
+padding:22px;
+margin-bottom:16px;
+box-shadow:0 18px 40px rgba(0,0,0,.18);
+}
+
+.hero h1{
+font-size:32px;
+margin-bottom:8px;
+line-height:1.2;
+}
+
+.hero p{
+color:#dbeafe;
+line-height:1.7;
+max-width:800px;
+font-size:14px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px;
+margin-bottom:16px;
+}
+
+.card{
+background:#111827;
+border:1px solid var(--line);
+border-radius:18px;
+padding:18px;
+box-shadow:0 14px 30px rgba(0,0,0,.14);
+}
+
+.card .label{
+color:var(--muted);
+font-size:13px;
+margin-bottom:8px;
+}
+
+.card .value{
+font-size:24px;
+font-weight:800;
+margin-bottom:6px;
+}
+
+.card .sub{
+font-size:12px;
+color:#38bdf8;
+}
+
+.section{
+display:none;
+animation:fade .2s ease;
+}
+
+.section.active{
+display:block;
+}
+
+@keyframes fade{
+from{opacity:.4;transform:translateY(4px)}
+to{opacity:1;transform:none}
+}
+
+.grid{
+display:grid;
+grid-template-columns:1.15fr .85fr;
+gap:16px;
+margin-bottom:16px;
+}
+
+.panel{
+background:#111827;
+border:1px solid var(--line);
+border-radius:18px;
+padding:18px;
+overflow:auto;
+box-shadow:0 14px 30px rgba(0,0,0,.14);
+}
+
+.panel h2{
+font-size:20px;
+margin-bottom:8px;
+}
+
+.panel-sub{
+color:var(--muted);
+font-size:14px;
+line-height:1.7;
+margin-bottom:14px;
+}
+
+.toolbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:12px;
+}
+
+.toolbar-left,.toolbar-right{
+display:flex;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.search-input,
+.filter-select,
+.field-input,
+.field-select{
+background:#1f2937;
+border:none;
+outline:none;
+border-radius:10px;
+color:#fff;
+padding:10px 12px;
+min-height:40px;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.search-input{min-width:250px}
+.filter-select{min-width:170px}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:1100px;
+}
+
+th,td{
+padding:12px;
+text-align:left;
+border-bottom:1px solid rgba(255,255,255,.08);
+vertical-align:middle;
+font-size:14px;
+}
+
+th{
+color:#38bdf8;
+font-size:13px;
+white-space:nowrap;
+}
+
+td input,td select{
+width:100%;
+background:#1f2937;
+border:none;
+outline:none;
+border-radius:10px;
+color:#fff;
+padding:9px 10px;
+min-width:100px;
+}
+
+.mini-btn{
+border:none;
+border-radius:10px;
+padding:8px 12px;
+cursor:pointer;
+font-weight:700;
+color:#fff;
+white-space:nowrap;
+transition:.2s;
+margin-right:6px;
+margin-bottom:4px;
+}
+
+.mini-btn:hover{filter:brightness(1.05)}
+.mini-save{background:#2563eb}
+.mini-approve{background:#16a34a}
+.mini-reject{background:#ef4444}
+.mini-view{background:#475569}
+
+.tag{
+display:inline-flex;
+align-items:center;
+gap:6px;
+border-radius:999px;
+padding:5px 10px;
+font-size:12px;
+font-weight:700;
+}
+
+.tag.user{
+background:rgba(59,130,246,.14);
+color:#93c5fd;
+border:1px solid rgba(59,130,246,.22);
+}
+
+.tag.admin{
+background:rgba(239,68,68,.14);
+color:#fca5a5;
+border:1px solid rgba(239,68,68,.22);
+}
+
+.status-active{color:#22c55e;font-weight:700}
+.status-banned{color:#ef4444;font-weight:700}
+.status-pending{color:#facc15;font-weight:700}
+.status-approved{color:#22c55e;font-weight:700}
+.status-rejected{color:#ef4444;font-weight:700}
+
+.list{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.list-item{
+display:flex;
+justify-content:space-between;
+gap:10px;
+padding:14px;
+border-radius:14px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.06);
+}
+
+.log-time{
+color:#94a3b8;
+font-size:12px;
+margin-top:4px;
+}
+
+.empty{
+color:#94a3b8;
+padding:12px 0;
+}
+
+.chart-wrap{
+height:320px;
+position:relative;
+}
+
+.mobile-only{display:none}
+.overlay{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.45);
+z-index:80;
+}
+
+.drawer{
+display:none;
+position:fixed;
+left:-280px;
+top:0;
+width:255px;
+height:100vh;
+background:#111827;
+z-index:90;
+padding:18px 14px;
+border-right:1px solid var(--line);
+transition:left .25s ease;
+}
+
+.drawer.open{left:0}
+.overlay.show{display:block}
+
+@media(max-width:1200px){
+.stats{grid-template-columns:repeat(2,1fr)}
+.grid{grid-template-columns:1fr}
+}
+
+@media(max-width:900px){
+.sidebar{display:none}
+.drawer{display:block}
+.mobile-only{display:inline-flex}
+}
+
+@media(max-width:700px){
+.main{padding:14px}
+.hero h1{font-size:22px}
+.stats{grid-template-columns:1fr}
+.search-input{min-width:unset;width:100%}
+.filter-select{min-width:unset;width:100%}
+}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="top">
-      <div class="pill" id="me">Đang tải...</div>
-      <div class="tabs">
-        <button class="btn btn-gray active" id="tabUsers" onclick="showTab('users')">👥 Users</button>
-        <button class="btn btn-gray" id="tabTopups" onclick="showTab('topups')">💰 Nạp tiền</button>
-        <button class="btn btn-gray" id="tabLoans" onclick="showTab('loans')">📱 Vay iCloud</button>
-        <button class="btn btn-gray" id="tabNews" onclick="showTab('news')">📢 Thông báo</button>
-      </div>
-      <button class="btn btn-red" onclick="logout()">Đăng xuất</button>
-    </div>
 
-    <div class="card" id="panelUsers">
-      <h3>Danh sách tài khoản</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Email</th><th>Tên</th><th>Role</th><th>Status</th><th>Số dư</th><th>Thao tác</th>
-          </tr>
-        </thead>
-        <tbody id="usersRows"></tbody>
-      </table>
-    </div>
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
 
-    <div class="card" id="panelTopups" style="display:none">
-      <h3>Yêu cầu nạp tiền</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>User</th><th>Số tiền</th><th>Ghi chú</th><th>Trạng thái</th><th>Thao tác</th>
-          </tr>
-        </thead>
-        <tbody id="topupRows"></tbody>
-      </table>
-    </div>
+<div class="drawer" id="drawer">
+<div class="logo">TECHMONEY</div>
+<div class="admin-badge">🛡️ Admin Pro</div>
+<div class="menu">
+<button class="menu-btn active" onclick="showSection('overview', this)">📊 Tổng quan</button>
+<button class="menu-btn" onclick="showSection('users', this)">👥 Quản lý user</button>
+<button class="menu-btn" onclick="showSection('transactions', this)">💸 Giao dịch</button>
+<button class="menu-btn" onclick="showSection('logs', this)">🧾 Nhật ký</button>
+<button class="menu-btn" onclick="exportUsersCSV()">📤 Xuất users CSV</button>
+<button class="menu-btn" onclick="exportTransactionsCSV()">📤 Xuất giao dịch CSV</button>
+<button class="menu-btn" onclick="reloadAll()">🔄 Làm mới</button>
+<button class="menu-btn" onclick="location.href='home.html'">🏠 Về trang chủ</button>
+<button class="menu-btn" onclick="logout()">🚪 Đăng xuất</button>
+</div>
+</div>
 
-    <div class="card" id="panelLoans" style="display:none">
-      <h3>Yêu cầu vay iCloud</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>User</th><th>Máy</th><th>Tháng</th><th>Ước tính vay</th><th>Trạng thái</th><th>Thao tác</th>
-          </tr>
-        </thead>
-        <tbody id="loanRows"></tbody>
-      </table>
-    </div>
+<div class="app">
 
-    <div class="card" id="panelNews" style="display:none">
-      <h3>Tạo thông báo mới</h3>
-      <div class="grid">
-        <div>
-          <label>Tiêu đề</label>
-          <input id="newsTitle" placeholder="VD: Cập nhật hệ thống 06/03" />
-        </div>
-        <div>
-          <label>Ghim lên đầu</label>
-          <select id="newsPinned">
-            <option value="false">Không</option>
-            <option value="true">Có</option>
-          </select>
-        </div>
-      </div>
-      <label style="display:block;margin-top:10px">Nội dung</label>
-      <textarea id="newsContent" placeholder="Nội dung thông báo..."></textarea>
-      <button class="btn btn-blue" style="margin-top:10px" onclick="createNews()">Đăng thông báo</button>
+<aside class="sidebar">
+<div>
+<div class="logo">TECHMONEY</div>
+<div class="admin-badge">🛡️ Admin Pro</div>
 
-      <h3 style="margin-top:18px">Danh sách thông báo</h3>
-      <div id="newsList"></div>
-    </div>
-  </div>
+<div class="menu">
+<button class="menu-btn active" onclick="showSection('overview', this)">📊 Tổng quan</button>
+<button class="menu-btn" onclick="showSection('users', this)">👥 Quản lý user</button>
+<button class="menu-btn" onclick="showSection('transactions', this)">💸 Giao dịch</button>
+<button class="menu-btn" onclick="showSection('logs', this)">🧾 Nhật ký</button>
+<button class="menu-btn" onclick="exportUsersCSV()">📤 Xuất users CSV</button>
+<button class="menu-btn" onclick="exportTransactionsCSV()">📤 Xuất giao dịch CSV</button>
+<button class="menu-btn" onclick="reloadAll()">🔄 Làm mới</button>
+<button class="menu-btn" onclick="location.href='home.html'">🏠 Về trang chủ</button>
+<button class="menu-btn" onclick="logout()">🚪 Đăng xuất</button>
+</div>
+</div>
 
-  <script src="supabase.js"></script>
-  <script>
-    let ADMIN_ID = null;
+<div class="admin-box">
+<small>Quản trị viên</small>
+<b id="adminName">Đang tải...</b>
+<p>Quản lý tài khoản, duyệt giao dịch, theo dõi thống kê và hoạt động của hệ thống.</p>
+</div>
+</aside>
 
-    function showTab(name){
-      const map = {users:"panelUsers", topups:"panelTopups", loans:"panelLoans", news:"panelNews"};
-      for(const k in map){
-        document.getElementById(map[k]).style.display = (k===name) ? "block" : "none";
-        document.getElementById("tab"+k.charAt(0).toUpperCase()+k.slice(1)).classList.toggle("active", k===name);
-      }
-    }
+<main class="main">
 
-    async function guardAdmin(){
-      const { data: { user } } = await sb.auth.getUser();
-      if(!user) return location.href="login.html";
-      ADMIN_ID = user.id;
+<div class="topbar">
+<div class="top-left">
+<button class="btn gray mobile-only" onclick="openDrawer()">☰ Menu</button>
+<button class="btn blue" onclick="reloadAll()">🔄 Làm mới</button>
+</div>
+<div class="top-right">
+<button class="btn gray" onclick="location.href='home.html'">🏠 Trang chủ</button>
+<button class="btn red" onclick="logout()">Đăng xuất</button>
+</div>
+</div>
 
-      const { data: prof, error } = await sb.from("profiles").select("role,email").eq("id", user.id).single();
-      if(error) return alert(error.message);
+<section class="hero">
+<h1>Trang quản trị TECHMONEY</h1>
+<p>Gộp toàn bộ quản lý tài khoản, duyệt giao dịch, thống kê hệ thống, xuất dữ liệu CSV và nhật ký thao tác trên một giao diện admin đẹp hơn, gọn hơn và nhiều chức năng hơn.</p>
+</section>
 
-      document.getElementById("me").textContent = prof.email + " (" + prof.role + ")";
-      if(prof.role !== "admin"){
-        alert("Bạn không có quyền admin!");
-        return location.href="home.html";
-      }
+<section class="stats">
+<div class="card">
+<div class="label">Tổng người dùng</div>
+<div class="value" id="totalUsers">0</div>
+<div class="sub">Tài khoản đã đăng ký</div>
+</div>
+<div class="card">
+<div class="label">Tổng admin</div>
+<div class="value" id="totalAdmins">0</div>
+<div class="sub">Người có quyền quản trị</div>
+</div>
+<div class="card">
+<div class="label">Giao dịch chờ duyệt</div>
+<div class="value" id="totalPending">0</div>
+<div class="sub">Pending hiện tại</div>
+</div>
+<div class="card">
+<div class="label">Tổng số dư hệ thống</div>
+<div class="value" id="totalBalance">0đ</div>
+<div class="sub">Tính từ bảng users</div>
+</div>
+</section>
 
-      await loadUsers();
-      await loadTopups();
-      await loadLoans();
-      await loadNews();
-    }
+<!-- OVERVIEW -->
+<section class="section active" id="section-overview">
+<div class="grid">
+<div class="panel">
+<h2>Biểu đồ giao dịch</h2>
+<div class="panel-sub">Theo dõi nhanh số lượng giao dịch nạp, rút và trạng thái hiện tại.</div>
+<div class="chart-wrap">
+<canvas id="txChart"></canvas>
+</div>
+</div>
 
-    async function logout(){
-      await sb.auth.signOut();
-      location.href="login.html";
-    }
+<div class="panel">
+<h2>Thống kê nhanh</h2>
+<div class="list" id="overviewList">
+<div class="list-item">
+<div>
+<b>Nạp tiền đã duyệt</b>
+<div class="log-time">Tổng giao dịch deposit approved</div>
+</div>
+<div id="approvedDepositCount">0</div>
+</div>
+<div class="list-item">
+<div>
+<b>Rút tiền đã duyệt</b>
+<div class="log-time">Tổng giao dịch withdraw approved</div>
+</div>
+<div id="approvedWithdrawCount">0</div>
+</div>
+<div class="list-item">
+<div>
+<b>Giao dịch bị từ chối</b>
+<div class="log-time">Rejected toàn hệ thống</div>
+</div>
+<div id="rejectedCount">0</div>
+</div>
+<div class="list-item">
+<div>
+<b>User bị khóa</b>
+<div class="log-time">Status banned</div>
+</div>
+<div id="bannedUsersCount">0</div>
+</div>
+</div>
+</div>
+</div>
 
-    // ===== USERS =====
-    async function loadUsers(){
-      const { data, error } = await sb.from("profiles")
-        .select("id,email,full_name,role,status,balance,created_at")
-        .order("created_at",{ascending:false});
-      if(error) return alert(error.message);
+<div class="panel">
+<h2>5 giao dịch gần nhất</h2>
+<div class="panel-sub">Xem nhanh các giao dịch vừa phát sinh trong hệ thống.</div>
+<div class="list" id="recentTxList">
+<div class="empty">Đang tải...</div>
+</div>
+</div>
+</section>
 
-      const rows = data.map(u => `
-        <tr>
-          <td>${u.email||""}</td>
-          <td>${u.full_name||""}</td>
-          <td><span class="tag">${u.role}</span></td>
-          <td><span class="tag">${u.status}</span></td>
-          <td>${Number(u.balance||0).toLocaleString()} đ</td>
-          <td>
-            <div class="row-actions">
-              <button class="btn btn-gray" onclick="toggleBan('${u.id}','${u.status}')">${u.status==='banned'?'Mở khóa':'Khóa'}</button>
-              <button class="btn btn-blue" onclick="addBalance('${u.id}')">+ Số dư</button>
-            </div>
-          </td>
-        </tr>
-      `).join("");
+<!-- USERS -->
+<section class="section" id="section-users">
+<div class="panel">
+<h2>Quản lý tài khoản</h2>
+<div class="panel-sub">Sửa tên, đổi role admin/user, khóa tài khoản hoặc chỉnh số dư trực tiếp.</div>
 
-      document.getElementById("usersRows").innerHTML = rows || `<tr><td colspan="6">Chưa có user</td></tr>`;
-    }
+<div class="toolbar">
+<div class="toolbar-left">
+<input id="searchUser" class="search-input" placeholder="Tìm email hoặc tên..." oninput="renderUsersTable()">
+<select id="filterRole" class="filter-select" onchange="renderUsersTable()">
+<option value="">Tất cả role</option>
+<option value="user">user</option>
+<option value="admin">admin</option>
+</select>
+<select id="filterUserStatus" class="filter-select" onchange="renderUsersTable()">
+<option value="">Tất cả trạng thái</option>
+<option value="active">active</option>
+<option value="banned">banned</option>
+</select>
+</div>
 
-    async function toggleBan(userId, currentStatus){
-      const next = currentStatus === "banned" ? "active" : "banned";
-      // admin update: cách đơn giản nhất là dùng Supabase Dashboard sửa,
-      // còn muốn update bằng web thì cần policy update_admin (mình sẽ thêm ở dưới nếu bạn muốn).
-      alert("Tính năng Khóa/Mở qua giao diện web cần policy admin update. Nói mình để mình thêm policy + code update an toàn.");
-    }
+<div class="toolbar-right">
+<button class="btn blue" onclick="loadUsers()">Tải lại users</button>
+</div>
+</div>
 
-    async function addBalance(userId){
-      const amount = prompt("Nhập số tiền cộng (vd 100000):");
-      if(!amount) return;
-      alert("Cộng số dư bằng web cũng cần policy admin update + log. Nói mình để mình bật full luôn.");
-    }
+<table>
+<thead>
+<tr>
+<th>Email</th>
+<th>Tên</th>
+<th>Role</th>
+<th>Trạng thái</th>
+<th>Số dư</th>
+<th>Lưu</th>
+</tr>
+</thead>
+<tbody id="userTable"></tbody>
+</table>
+</div>
+</section>
 
-    // ===== TOPUPS =====
-    async function loadTopups(){
-      const { data, error } = await sb.from("topups")
-        .select("id,amount,note,status,created_at,user_id, profiles!topups_user_id_fkey(email)")
-        .order("created_at",{ascending:false});
-      if(error) return alert(error.message);
+<!-- TRANSACTIONS -->
+<section class="section" id="section-transactions">
+<div class="panel">
+<h2>Duyệt giao dịch</h2>
+<div class="panel-sub">Approve / reject nhanh. Khi approved, hệ thống tự cộng hoặc trừ số dư.</div>
 
-      const rows = data.map(t => `
-        <tr>
-          <td>${t.profiles?.email || t.user_id}</td>
-          <td>${Number(t.amount).toLocaleString()} đ</td>
-          <td>${t.note||""}</td>
-          <td><span class="tag">${t.status}</span></td>
-          <td>
-            <div class="row-actions">
-              <button class="btn btn-blue" onclick="approveTopup(${t.id})">Duyệt</button>
-              <button class="btn btn-red" onclick="rejectTopup(${t.id})">Từ chối</button>
-            </div>
-          </td>
-        </tr>
-      `).join("");
+<div class="toolbar">
+<div class="toolbar-left">
+<input id="searchTx" class="search-input" placeholder="Tìm email / account / bank..." oninput="renderTransactionsTable()">
+<select id="filterTxStatus" class="filter-select" onchange="renderTransactionsTable()">
+<option value="">Tất cả trạng thái</option>
+<option value="pending">pending</option>
+<option value="approved">approved</option>
+<option value="rejected">rejected</option>
+</select>
+<select id="filterTxType" class="filter-select" onchange="renderTransactionsTable()">
+<option value="">Tất cả loại</option>
+<option value="deposit">deposit</option>
+<option value="withdraw">withdraw</option>
+</select>
+</div>
 
-      document.getElementById("topupRows").innerHTML = rows || `<tr><td colspan="5">Chưa có yêu cầu</td></tr>`;
-    }
+<div class="toolbar-right">
+<button class="btn blue" onclick="loadTransactions()">Tải lại giao dịch</button>
+</div>
+</div>
 
-    async function approveTopup(id){
-      alert("Duyệt nạp tiền chuẩn cần 'admin action' (cộng số dư + đổi status + log) nên phải dùng Supabase Edge Function để an toàn. Nói mình để mình viết luôn.");
-    }
-    async function rejectTopup(id){
-      alert("Từ chối nạp tiền cũng nên làm bằng Edge Function để an toàn. Nói mình để mình viết luôn.");
-    }
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Email</th>
+<th>Loại</th>
+<th>Phương thức</th>
+<th>Số tiền</th>
+<th>Người nhận/gửi</th>
+<th>Số TK / MoMo</th>
+<th>Ngân hàng</th>
+<th>Ghi chú</th>
+<th>Trạng thái</th>
+<th>Hành động</th>
+</tr>
+</thead>
+<tbody id="txTable"></tbody>
+</table>
+</div>
+</section>
 
-    // ===== LOANS =====
-    async function loadLoans(){
-      const { data, error } = await sb.from("loans")
-        .select("id,iphone_model,months,estimated_loan,status,created_at,user_id, profiles!loans_user_id_fkey(email)")
-        .order("created_at",{ascending:false});
-      if(error) return alert(error.message);
+<!-- LOGS -->
+<section class="section" id="section-logs">
+<div class="panel">
+<h2>Nhật ký hoạt động</h2>
+<div class="panel-sub">Lưu local trên trình duyệt admin này để tiện theo dõi thao tác vừa thực hiện.</div>
+<div class="toolbar">
+<div class="toolbar-left">
+<button class="btn red" onclick="clearLogs()">Xóa nhật ký</button>
+</div>
+</div>
+<div class="list" id="logsList">
+<div class="empty">Chưa có nhật ký nào.</div>
+</div>
+</div>
+</section>
 
-      const rows = data.map(l => `
-        <tr>
-          <td>${l.profiles?.email || l.user_id}</td>
-          <td>${l.iphone_model}</td>
-          <td>${l.months}</td>
-          <td>${Number(l.estimated_loan).toLocaleString()} đ</td>
-          <td><span class="tag">${l.status}</span></td>
-          <td>
-            <div class="row-actions">
-              <button class="btn btn-blue" onclick="approveLoan(${l.id})">Duyệt</button>
-              <button class="btn btn-red" onclick="rejectLoan(${l.id})">Từ chối</button>
-            </div>
-          </td>
-        </tr>
-      `).join("");
+</main>
+</div>
 
-      document.getElementById("loanRows").innerHTML = rows || `<tr><td colspan="6">Chưa có yêu cầu</td></tr>`;
-    }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script>
+let chart;
+let currentAdmin = null;
+let allUsers = [];
+let allTransactions = [];
+let txEmailMap = {};
 
-    async function approveLoan(id){
-      alert("Duyệt vay nên làm bằng Edge Function để set status + log. Nói mình để mình viết luôn.");
-    }
-    async function rejectLoan(id){
-      alert("Từ chối vay nên làm bằng Edge Function. Nói mình để mình viết luôn.");
-    }
+function money(x){
+return Number(x || 0).toLocaleString("vi-VN") + "đ";
+}
 
-    // ===== NEWS =====
-    async function createNews(){
-      const title = document.getElementById("newsTitle").value.trim();
-      const content = document.getElementById("newsContent").value.trim();
-      const pinned = document.getElementById("newsPinned").value === "true";
-      if(!title || !content) return alert("Nhập đủ tiêu đề + nội dung");
+function nowText(){
+return new Date().toLocaleString("vi-VN");
+}
 
-      const { error } = await sb.from("announcements").insert({
-        title, content, is_pinned: pinned, created_by: ADMIN_ID
-      });
-      if(error) return alert(error.message);
+function addLog(action, detail){
+const logs = JSON.parse(localStorage.getItem("tm_admin_logs") || "[]");
+logs.unshift({
+action,
+detail,
+time: nowText()
+});
+localStorage.setItem("tm_admin_logs", JSON.stringify(logs.slice(0, 100)));
+renderLogs();
+}
 
-      document.getElementById("newsTitle").value="";
-      document.getElementById("newsContent").value="";
-      await loadNews();
-      alert("✅ Đã đăng thông báo");
-    }
+function renderLogs(){
+const logs = JSON.parse(localStorage.getItem("tm_admin_logs") || "[]");
+const box = document.getElementById("logsList");
+if(!logs.length){
+box.innerHTML = `<div class="empty">Chưa có nhật ký nào.</div>`;
+return;
+}
 
-    async function loadNews(){
-      const { data, error } = await sb.from("announcements")
-        .select("id,title,content,is_pinned,created_at")
-        .order("is_pinned",{ascending:false})
-        .order("created_at",{ascending:false});
-      if(error) return alert(error.message);
+box.innerHTML = "";
+logs.forEach(log => {
+const div = document.createElement("div");
+div.className = "list-item";
+div.innerHTML = `
+<div>
+<b>${log.action}</b>
+<div class="log-time">${log.detail || ""}</div>
+</div>
+<div class="log-time">${log.time}</div>
+`;
+box.appendChild(div);
+});
+}
 
-      document.getElementById("newsList").innerHTML = (data||[]).map(n=>`
-        <div class="card" style="margin-top:10px">
-          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
-            <b>${n.is_pinned ? "📌 " : ""}${n.title}</b>
-            <span class="tag">${new Date(n.created_at).toLocaleString()}</span>
-          </div>
-          <div style="margin-top:8px;color:rgba(255,255,255,.85)">${n.content}</div>
-        </div>
-      `).join("") || `<div class="tag">Chưa có thông báo</div>`;
-    }
+function clearLogs(){
+localStorage.removeItem("tm_admin_logs");
+renderLogs();
+}
 
-    guardAdmin();
-  </script>
+async function checkAdmin(){
+const { data:{ user } } = await sb.auth.getUser();
+if(!user){
+location.href = "login.html";
+return null;
+}
+
+const { data, error } = await sb
+.from("users")
+.select("*")
+.eq("user_id", user.id)
+.single();
+
+if(error || !data || data.role !== "admin"){
+alert("Bạn không có quyền admin.");
+location.href = "home.html";
+return null;
+}
+
+currentAdmin = data;
+document.getElementById("adminName").textContent = data.name || data.email || "Admin";
+return user;
+}
+
+function showSection(name, el){
+document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+document.getElementById("section-" + name).classList.add("active");
+
+document.querySelectorAll(".menu-btn").forEach(b => b.classList.remove("active"));
+if(el) el.classList.add("active");
+
+closeDrawer();
+}
+
+async function loadUsers(){
+const adminUser = await checkAdmin();
+if(!adminUser) return;
+
+const { data, error } = await sb
+.from("users")
+.select("*")
+.order("id", { ascending:false });
+
+if(error){
+alert("Lỗi tải users: " + error.message);
+return;
+}
+
+allUsers = data || [];
+updateUserStats();
+renderUsersTable();
+}
+
+function updateUserStats(){
+let adminCount = 0;
+let balance = 0;
+let banned = 0;
+
+allUsers.forEach(u => {
+if(u.role === "admin") adminCount++;
+if(u.status === "banned") banned++;
+balance += Number(u.balance || 0);
+});
+
+document.getElementById("totalUsers").textContent = allUsers.length;
+document.getElementById("totalAdmins").textContent = adminCount;
+document.getElementById("totalBalance").textContent = money(balance);
+document.getElementById("bannedUsersCount").textContent = banned;
+}
+
+function renderUsersTable(){
+const keyword = (document.getElementById("searchUser").value || "").toLowerCase();
+const roleFilter = document.getElementById("filterRole").value;
+const statusFilter = document.getElementById("filterUserStatus").value;
+
+const tbody = document.getElementById("userTable");
+tbody.innerHTML = "";
+
+const filtered = allUsers.filter(u => {
+const text = `${u.email || ""} ${u.name || ""}`.toLowerCase();
+const okKeyword = !keyword || text.includes(keyword);
+const okRole = !roleFilter || u.role === roleFilter;
+const okStatus = !statusFilter || u.status === statusFilter;
+return okKeyword && okRole && okStatus;
+});
+
+if(!filtered.length){
+tbody.innerHTML = `<tr><td colspan="6" class="empty">Không có user phù hợp.</td></tr>`;
+return;
+}
+
+filtered.forEach(u => {
+const tr = document.createElement("tr");
+tr.innerHTML = `
+<td>${u.email || ""}</td>
+<td><input value="${u.name || ""}" id="name-${u.id}"></td>
+<td>
+<select id="role-${u.id}">
+<option value="user" ${u.role==="user"?"selected":""}>user</option>
+<option value="admin" ${u.role==="admin"?"selected":""}>admin</option>
+</select>
+</td>
+<td>
+<select id="status-${u.id}">
+<option value="active" ${u.status==="active"?"selected":""}>active</option>
+<option value="banned" ${u.status==="banned"?"selected":""}>banned</option>
+</select>
+</td>
+<td><input type="number" value="${u.balance || 0}" id="balance-${u.id}"></td>
+<td><button class="mini-btn mini-save" onclick="saveUser(${u.id})">Lưu</button></td>
+`;
+tbody.appendChild(tr);
+});
+}
+
+async function saveUser(id){
+const name = document.getElementById("name-" + id).value;
+const role = document.getElementById("role-" + id).value;
+const status = document.getElementById("status-" + id).value;
+const balance = Number(document.getElementById("balance-" + id).value || 0);
+
+const { error } = await sb
+.from("users")
+.update({ name, role, status, balance })
+.eq("id", id);
+
+if(error){
+alert("Lỗi cập nhật user: " + error.message);
+return;
+}
+
+const u = allUsers.find(x => x.id === id);
+addLog("Cập nhật user", `${u?.email || ""} | role=${role}, status=${status}, balance=${balance}`);
+alert("Đã cập nhật user.");
+loadUsers();
+}
+
+async function loadTransactions(){
+const adminUser = await checkAdmin();
+if(!adminUser) return;
+
+const { data, error } = await sb
+.from("transactions")
+.select("*")
+.order("id", { ascending:false });
+
+if(error){
+alert("Lỗi tải transactions: " + error.message);
+return;
+}
+
+allTransactions = data || [];
+txEmailMap = {};
+
+for(const tx of allTransactions){
+const { data:userRow } = await sb
+.from("users")
+.select("email")
+.eq("user_id", tx.user_id)
+.maybeSingle();
+txEmailMap[tx.id] = userRow?.email || "";
+}
+
+updateTransactionStats();
+renderTransactionsTable();
+renderRecentTransactions();
+drawChart();
+}
+
+function updateTransactionStats(){
+let pending = 0;
+let approvedDeposit = 0;
+let approvedWithdraw = 0;
+let rejected = 0;
+
+allTransactions.forEach(tx => {
+if(tx.status === "pending") pending++;
+if(tx.status === "rejected") rejected++;
+if(tx.status === "approved" && tx.type === "deposit") approvedDeposit++;
+if(tx.status === "approved" && tx.type === "withdraw") approvedWithdraw++;
+});
+
+document.getElementById("totalPending").textContent = pending;
+document.getElementById("approvedDepositCount").textContent = approvedDeposit;
+document.getElementById("approvedWithdrawCount").textContent = approvedWithdraw;
+document.getElementById("rejectedCount").textContent = rejected;
+}
+
+function renderRecentTransactions(){
+const box = document.getElementById("recentTxList");
+const recent = allTransactions.slice(0, 5);
+
+if(!recent.length){
+box.innerHTML = `<div class="empty">Chưa có giao dịch nào.</div>`;
+return;
+}
+
+box.innerHTML = "";
+recent.forEach(tx => {
+const div = document.createElement("div");
+div.className = "list-item";
+div.innerHTML = `
+<div>
+<b>${tx.type} - ${String(tx.method || "").toUpperCase()}</b>
+<div class="log-time">${txEmailMap[tx.id] || ""} • ${money(tx.amount)}</div>
+</div>
+<div class="status-${tx.status}">${tx.status}</div>
+`;
+box.appendChild(div);
+});
+}
+
+function renderTransactionsTable(){
+const keyword = (document.getElementById("searchTx").value || "").toLowerCase();
+const statusFilter = document.getElementById("filterTxStatus").value;
+const typeFilter = document.getElementById("filterTxType").value;
+
+const tbody = document.getElementById("txTable");
+tbody.innerHTML = "";
+
+const filtered = allTransactions.filter(tx => {
+const email = txEmailMap[tx.id] || "";
+const text = `${email} ${tx.account_name || ""} ${tx.account_number || ""} ${tx.bank_name || ""} ${tx.note || ""}`.toLowerCase();
+const okKeyword = !keyword || text.includes(keyword);
+const okStatus = !statusFilter || tx.status === statusFilter;
+const okType = !typeFilter || tx.type === typeFilter;
+return okKeyword && okStatus && okType;
+});
+
+if(!filtered.length){
+tbody.innerHTML = `<tr><td colspan="11" class="empty">Không có giao dịch phù hợp.</td></tr>`;
+return;
+}
+
+filtered.forEach(tx => {
+const email = txEmailMap[tx.id] || "";
+const tr = document.createElement("tr");
+tr.innerHTML = `
+<td>${tx.id}</td>
+<td>${email}</td>
+<td>${tx.type}</td>
+<td>${String(tx.method || "").toUpperCase()}</td>
+<td>${money(tx.amount)}</td>
+<td>${tx.account_name || ""}</td>
+<td>${tx.account_number || ""}</td>
+<td>${tx.bank_name || ""}</td>
+<td>${tx.note || ""}</td>
+<td class="status-${tx.status}">${tx.status}</td>
+<td>
+<button class="mini-btn mini-approve" onclick="approveTx(${tx.id}, '${tx.user_id}', '${tx.type}', ${tx.amount}, '${tx.status}')">Approve</button>
+<button class="mini-btn mini-reject" onclick="rejectTx(${tx.id}, '${tx.status}')">Reject</button>
+</td>
+`;
+tbody.appendChild(tr);
+});
+}
+
+function drawChart(){
+const pending = allTransactions.filter(t => t.status === "pending").length;
+const approved = allTransactions.filter(t => t.status === "approved").length;
+const rejected = allTransactions.filter(t => t.status === "rejected").length;
+const deposit = allTransactions.filter(t => t.type === "deposit").length;
+const withdraw = allTransactions.filter(t => t.type === "withdraw").length;
+
+const ctx = document.getElementById("txChart");
+if(chart) chart.destroy();
+
+chart = new Chart(ctx, {
+type: 'bar',
+data: {
+labels: ['Deposit', 'Withdraw', 'Pending', 'Approved', 'Rejected'],
+datasets: [{
+label: 'Số lượng',
+data: [deposit, withdraw, pending, approved, rejected]
+}]
+},
+options: {
+responsive:true,
+maintainAspectRatio:false,
+plugins:{
+legend:{labels:{color:'#fff'}}
+},
+scales:{
+x:{ticks:{color:'#cbd5e1'},grid:{color:'rgba(255,255,255,.06)'}},
+y:{ticks:{color:'#cbd5e1'},grid:{color:'rgba(255,255,255,.06)'},beginAtZero:true}
+}
+}
+});
+}
+
+async function approveTx(id, userId, type, amount, oldStatus){
+if(oldStatus === "approved"){
+alert("Giao dịch này đã approved rồi.");
+return;
+}
+
+const { error } = await sb
+.from("transactions")
+.update({ status: "approved" })
+.eq("id", id);
+
+if(error){
+alert("Lỗi approve: " + error.message);
+return;
+}
+
+if(oldStatus !== "approved"){
+const { data: profile } = await sb
+.from("users")
+.select("*")
+.eq("user_id", userId)
+.single();
+
+if(profile){
+let newBalance = Number(profile.balance || 0);
+
+if(type === "deposit") newBalance += Number(amount);
+if(type === "withdraw"){
+newBalance -= Number(amount);
+if(newBalance < 0) newBalance = 0;
+}
+
+await sb
+.from("users")
+.update({ balance: newBalance })
+.eq("user_id", userId);
+}
+}
+
+addLog("Approve giao dịch", `ID=${id} | ${type} | amount=${amount}`);
+alert("Đã approve giao dịch.");
+reloadAll();
+}
+
+async function rejectTx(id, oldStatus){
+if(oldStatus === "rejected"){
+alert("Giao dịch này đã rejected rồi.");
+return;
+}
+
+const { error } = await sb
+.from("transactions")
+.update({ status: "rejected" })
+.eq("id", id);
+
+if(error){
+alert("Lỗi reject: " + error.message);
+return;
+}
+
+addLog("Reject giao dịch", `ID=${id}`);
+alert("Đã reject giao dịch.");
+reloadAll();
+}
+
+function downloadCSV(filename, rows){
+const process = rows.map(row =>
+row.map(v => {
+const cell = String(v ?? "").replace(/"/g, '""');
+return `"${cell}"`;
+}).join(",")
+).join("\n");
+
+const blob = new Blob([process], { type: "text/csv;charset=utf-8;" });
+const link = document.createElement("a");
+link.href = URL.createObjectURL(blob);
+link.download = filename;
+link.click();
+}
+
+function exportUsersCSV(){
+const rows = [
+["Email", "Name", "Role", "Status", "Balance"]
+];
+
+allUsers.forEach(u => {
+rows.push([u.email, u.name, u.role, u.status, u.balance]);
+});
+
+downloadCSV("techmoney-users.csv", rows);
+addLog("Xuất users CSV", `Tổng ${allUsers.length} users`);
+}
+
+function exportTransactionsCSV(){
+const rows = [
+["ID", "Email", "Type", "Method", "Amount", "Account Name", "Account Number", "Bank", "Note", "Status"]
+];
+
+allTransactions.forEach(tx => {
+rows.push([
+tx.id,
+txEmailMap[tx.id] || "",
+tx.type,
+tx.method,
+tx.amount,
+tx.account_name,
+tx.account_number,
+tx.bank_name,
+tx.note,
+tx.status
+]);
+});
+
+downloadCSV("techmoney-transactions.csv", rows);
+addLog("Xuất giao dịch CSV", `Tổng ${allTransactions.length} giao dịch`);
+}
+
+async function reloadAll(){
+await loadUsers();
+await loadTransactions();
+renderLogs();
+}
+
+async function logout(){
+await sb.auth.signOut();
+location.href = "login.html";
+}
+
+const drawer = document.getElementById("drawer");
+const overlay = document.getElementById("overlay");
+
+function openDrawer(){
+drawer.classList.add("open");
+overlay.classList.add("show");
+}
+
+function closeDrawer(){
+drawer.classList.remove("open");
+overlay.classList.remove("show");
+}
+
+window.addEventListener("resize", ()=>{
+if(window.innerWidth > 900) closeDrawer();
+});
+
+reloadAll();
+</script>
+
 </body>
 </html>

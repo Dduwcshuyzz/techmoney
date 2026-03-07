@@ -1,130 +1,458 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TECHMONEY - Giới thiệu</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECHMONEY - Tìm hiểu thêm</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-html,body{max-width:100%;overflow-x:hidden;}
-body{min-height:100vh;background:#0f172a;color:#fff;transition:.3s;}
-a{text-decoration:none;color:inherit}
 
-/* light */
-body.light{background:#f1f5f9;color:#0f172a;}
-body.light header{background:rgba(255,255,255,.9);border-color:rgba(15,23,42,.08);}
-body.light .card{background:#fff;border-color:rgba(15,23,42,.12);}
-body.light .muted{color:#475569;}
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0f172a;
+color:#fff;
+min-height:100vh;
+}
+
+a{
+text-decoration:none;
+color:inherit;
+}
+
+.container{
+width:min(1180px, calc(100% - 32px));
+margin:auto;
+}
 
 header{
-  position:sticky;top:0;z-index:50;
-  display:flex;justify-content:space-between;align-items:center;gap:12px;
-  padding:14px 16px;
-  background:rgba(15,23,42,0.65);
-  border-bottom:1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
+position:sticky;
+top:0;
+z-index:50;
+backdrop-filter:blur(12px);
+background:rgba(15,23,42,.72);
+border-bottom:1px solid rgba(255,255,255,.07);
 }
-.logo{font-weight:900;color:#38bdf8;letter-spacing:.4px;}
-.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
-.btn{
-  border:none;background:rgba(255,255,255,0.08);color:inherit;
-  padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:800;
-  transition:.2s;white-space:nowrap;
-}
-.btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.12);}
-.primary{background:#2563eb;}
-.primary:hover{filter:brightness(1.05);}
 
-.wrap{max-width:980px;margin:0 auto;padding:22px 16px;}
+.nav{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:16px;
+padding:14px 0;
+flex-wrap:wrap;
+}
+
+.logo{
+font-size:28px;
+font-weight:800;
+color:#38bdf8;
+text-shadow:0 0 18px rgba(56,189,248,.22);
+}
+
+.nav-links{
+display:flex;
+gap:12px;
+align-items:center;
+flex-wrap:wrap;
+}
+
+.nav-links a{
+padding:10px 14px;
+border-radius:12px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.05);
+font-weight:600;
+transition:.2s;
+}
+
+.nav-links a:hover{
+background:rgba(255,255,255,.10);
+}
+
+.nav-links .primary{
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+border:none;
+}
+
 .hero{
-  padding:24px 16px;border-radius:18px;
-  background:linear-gradient(135deg,#1e3a8a,#2563eb);
-  border:1px solid rgba(255,255,255,0.12);
+padding:56px 0 24px;
 }
-.hero h1{font-size:26px;margin-bottom:8px;}
-.muted{opacity:.88;font-size:14px;line-height:1.6;}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+
+.hero-box{
+background:linear-gradient(135deg,#1e40af,#2563eb);
+border-radius:26px;
+padding:30px;
+border:1px solid rgba(255,255,255,.10);
+box-shadow:0 20px 50px rgba(0,0,0,.18);
+}
+
+.hero-box h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+.hero-box p{
+color:#dbeafe;
+line-height:1.8;
+max-width:820px;
+}
+
+.section{
+padding:20px 0;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
 .card{
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:16px;padding:16px;
+background:#111827;
+border:1px solid rgba(255,255,255,.08);
+border-radius:22px;
+padding:22px;
+box-shadow:0 14px 30px rgba(0,0,0,.14);
 }
-.card h2{font-size:16px;margin-bottom:8px;}
-.list{padding-left:18px;line-height:1.7;font-size:14px;opacity:.92;}
-@media(max-width:800px){ .grid{grid-template-columns:1fr;} }
+
+.card h2{
+font-size:22px;
+margin-bottom:10px;
+}
+
+.card p{
+color:#cbd5e1;
+line-height:1.8;
+font-size:14px;
+}
+
+.list{
+list-style:none;
+display:grid;
+gap:12px;
+}
+
+.list li{
+padding:13px 14px;
+border-radius:14px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.05);
+color:#cbd5e1;
+line-height:1.7;
+}
+
+.timeline{
+display:grid;
+gap:12px;
+}
+
+.step{
+background:#111827;
+border:1px solid rgba(255,255,255,.08);
+border-radius:18px;
+padding:18px;
+}
+
+.step b{
+display:block;
+margin-bottom:6px;
+font-size:17px;
+}
+
+.step span{
+color:#94a3b8;
+line-height:1.7;
+font-size:14px;
+}
+
+.cta{
+padding:26px 0 50px;
+}
+
+.cta-box{
+background:linear-gradient(135deg,#1d4ed8,#2563eb);
+border-radius:24px;
+padding:26px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+flex-wrap:wrap;
+box-shadow:0 20px 50px rgba(37,99,235,.20);
+}
+
+.cta-box h3{
+font-size:28px;
+margin-bottom:8px;
+}
+
+.cta-box p{
+color:#dbeafe;
+line-height:1.8;
+max-width:720px;
+}
+
+.hero-actions{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:13px 18px;
+border-radius:14px;
+font-weight:700;
+transition:.2s;
+display:inline-flex;
+align-items:center;
+gap:8px;
+}
+
+.btn-primary{
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+}
+
+.btn-secondary{
+background:rgba(255,255,255,.10);
+border:1px solid rgba(255,255,255,.14);
+}
+
+.btn:hover{
+transform:translateY(-2px);
+}
+
+footer{
+border-top:1px solid rgba(255,255,255,.07);
+background:#0b1220;
+padding:22px 0;
+color:#94a3b8;
+font-size:14px;
+}
+
+.support-fixed{
+position:fixed;
+right:14px;
+bottom:20px;
+display:flex;
+flex-direction:column;
+gap:12px;
+z-index:60;
+}
+
+.support-wrap{
+position:relative;
+}
+
+.support-btn{
+width:52px;
+height:52px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#1e3a8a,#2563eb);
+box-shadow:0 0 18px rgba(37,99,235,.40);
+border:1px solid rgba(255,255,255,.14);
+transition:.2s;
+}
+
+.support-btn:hover{
+transform:scale(1.08);
+}
+
+.support-btn img,
+.support-btn svg{
+width:24px;
+height:24px;
+}
+
+.support-tip{
+position:absolute;
+right:62px;
+top:50%;
+transform:translateY(-50%);
+background:rgba(15,23,42,.94);
+color:#fff;
+border:1px solid rgba(255,255,255,.10);
+border-radius:10px;
+padding:7px 10px;
+font-size:12px;
+white-space:nowrap;
+opacity:0;
+pointer-events:none;
+transition:.2s;
+}
+
+.support-wrap:hover .support-tip{
+opacity:1;
+}
+
+@media(max-width:900px){
+.grid{
+grid-template-columns:1fr;
+}
+
+.hero-box h1{
+font-size:30px;
+}
+}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">TECHMONEY</div>
-  <div class="actions">
-    <button class="btn" type="button" onclick="location.href='index.html'">← Trang chủ</button>
-    <button class="btn" type="button" onclick="toggleTheme()" id="themeBtn">🌙 Giao diện</button>
-    <button class="btn primary" type="button" onclick="location.href='login.html'">Đăng nhập</button>
-  </div>
+<div class="container nav">
+<div class="logo">TECHMONEY</div>
+
+<div class="nav-links">
+<a href="index.html">Trang chủ</a>
+<a href="about.html">Tìm hiểu thêm</a>
+<a href="login.html">Đăng nhập</a>
+<a href="login.html" class="primary">Bắt đầu ngay</a>
+</div>
+</div>
 </header>
 
-<div class="wrap">
-  <div class="hero">
-    <h1>Giới thiệu TECHMONEY</h1>
-    <div class="muted">
-      TECHMONEY là nền tảng hỗ trợ dịch vụ tài chính nhanh: vay iCloud iPhone, rút ví trả sau, đáo hạn thẻ tín dụng, gạch thẻ cào và nhiều tiện ích khác.
-      Mục tiêu của chúng tôi là xử lý nhanh – minh bạch – bảo mật thông tin khách hàng.
-    </div>
-  </div>
+<section class="hero">
+<div class="container">
+<div class="hero-box">
+<h1>Tìm hiểu thêm về TECHMONEY</h1>
+<p>
+TECHMONEY được xây dựng theo hướng hiện đại, đồng bộ và dễ dùng, giúp khách hàng tiếp cận các dịch vụ tài chính nhanh hơn, còn người quản trị có thể vận hành hệ thống rõ ràng hơn.
+</p>
+</div>
+</div>
+</section>
 
-  <div class="grid">
-    <div class="card">
-      <h2>✅ Dịch vụ chính</h2>
-      <ul class="list">
-        <li>Vay iCloud iPhone (ước tính theo giá trị máy)</li>
-        <li>Rút ví trả sau (tính phí tự động)</li>
-        <li>Đáo hạn thẻ tín dụng / vay tín chấp / vay thế chấp</li>
-        <li>Thuê Oto, xe máy (tuỳ khu vực)</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h2>🔒 Cam kết</h2>
-      <ul class="list">
-        <li>Thông tin khách hàng được bảo mật</li>
-        <li>Chống gian lận, chống rửa tiền</li>
-        <li>Hỗ trợ 24/7 qua Zalo / Messenger / Telegram</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h2>⚡ Quy trình</h2>
-      <ul class="list">
-        <li>Khách tạo tài khoản → đăng nhập</li>
-        <li>Chọn dịch vụ → nhập thông tin</li>
-        <li>Gửi yêu cầu → nhân viên xác nhận</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h2>📌 Lưu ý</h2>
-      <ul class="list">
-        <li>Không cung cấp thông tin sai sự thật</li>
-        <li>Không hỗ trợ hành vi rửa tiền</li>
-        <li>Giá trị vay phụ thuộc tình trạng máy / hồ sơ</li>
-      </ul>
-    </div>
-  </div>
+<section class="section">
+<div class="container grid">
+<div class="card">
+<h2>TECHMONEY là gì?</h2>
+<p>
+Đây là nền tảng tài chính được thiết kế với phong cách fintech, hỗ trợ nhiều chức năng như nạp tiền, rút tiền, theo dõi lịch sử, gửi yêu cầu dịch vụ và quản lý tài khoản trực quan. Hệ thống hướng đến trải nghiệm mượt mà, dễ hiểu, hợp với cả khách hàng mới lẫn quản trị viên.
+</p>
 </div>
 
-<script>
-const themeBtn = document.getElementById("themeBtn");
-function applyTheme(){
-  const t = localStorage.getItem("theme");
-  if(t==="light"){document.body.classList.add("light"); themeBtn.innerText="☀️ Giao diện";}
-  else{document.body.classList.remove("light"); themeBtn.innerText="🌙 Giao diện";}
-}
-applyTheme();
-function toggleTheme(){
-  document.body.classList.toggle("light");
-  localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
-  applyTheme();
-}
-</script>
+<div class="card">
+<h2>Điểm nổi bật</h2>
+<ul class="list">
+<li>Giao diện hiện đại, đồng bộ từ trang chủ đến dashboard và admin.</li>
+<li>Thiết kế hỗ trợ tốt trên điện thoại và máy tính.</li>
+<li>Có hệ thống đăng nhập, hồ sơ, lịch sử và quản lý giao dịch.</li>
+<li>Nút hỗ trợ nổi giúp khách hàng liên hệ nhanh khi cần.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="container grid">
+<div class="card">
+<h2>Các dịch vụ chính</h2>
+<ul class="list">
+<li>📱 Vay iCloud iPhone</li>
+<li>💳 Rút ví trả sau</li>
+<li>🔄 Đáo hạn thẻ tín dụng</li>
+<li>📱 Gạch thẻ cào</li>
+<li>💰 Nạp tiền / 🏦 Rút tiền</li>
+<li>👥 Giới thiệu bạn bè</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Phù hợp với ai?</h2>
+<p>
+Phù hợp với người dùng cần một hệ thống tài chính đơn giản, dễ theo dõi và có hỗ trợ nhanh. Đồng thời cũng phù hợp với bên vận hành muốn quản lý người dùng, số dư và giao dịch trên một admin panel tập trung, dễ nhìn.
+</p>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+<div class="card">
+<h2>Quy trình trải nghiệm</h2>
+<div class="timeline">
+<div class="step">
+<b>1. Truy cập trang chủ</b>
+<span>Khách hàng vào `index.html`, xem tổng quan dịch vụ và bấm bắt đầu.</span>
+</div>
+<div class="step">
+<b>2. Đăng nhập / đăng ký</b>
+<span>Người dùng vào `login.html`, tạo tài khoản hoặc đăng nhập vào hệ thống.</span>
+</div>
+<div class="step">
+<b>3. Vào home và dashboard</b>
+<span>Sau khi đăng nhập, người dùng được chuyển vào giao diện chính để thao tác.</span>
+</div>
+<div class="step">
+<b>4. Sử dụng dịch vụ</b>
+<span>Khách có thể nạp tiền, rút tiền, theo dõi lịch sử hoặc gửi yêu cầu các dịch vụ khác.</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="cta">
+<div class="container">
+<div class="cta-box">
+<div>
+<h3>Bắt đầu với TECHMONEY ngay hôm nay</h3>
+<p>Đăng nhập để vào hệ thống, quản lý tài khoản, theo dõi số dư và sử dụng các chức năng tài chính thuận tiện hơn.</p>
+</div>
+
+<div class="hero-actions">
+<a href="login.html" class="btn btn-primary">🚀 Đăng nhập ngay</a>
+<a href="index.html" class="btn btn-secondary">🏠 Về trang chủ</a>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+© 2026 TECHMONEY. Thiết kế đồng bộ, hiện đại và tối ưu trải nghiệm người dùng.
+</div>
+</footer>
+
+<div class="support-fixed">
+<div class="support-wrap">
+<div class="support-tip">Zalo</div>
+<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Messenger</div>
+<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Gọi điện</div>
+<a class="support-btn" href="tel:0387676061">
+<svg viewBox="0 0 24 24" fill="white">
+<path d="M6.6 10.8a15.5 15.5 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C9.4 22 2 14.6 2 5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1l-2.2 2.2z"/>
+</svg>
+</a>
+</div>
+
+<div class="support-wrap">
+<div class="support-tip">Telegram</div>
+<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
+</div>
+
 </body>
 </html>

@@ -9,203 +9,163 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 html,body{max-width:100%;overflow-x:hidden;}
-
 body{
-  min-height:100vh;
-  display:flex;
-  background:#0f172a;
-  color:#fff;
-  transition:.3s;
+min-height:100vh;
+display:flex;
+background:#0f172a;
+color:#fff;
+transition:.3s;
 }
-
-/* LIGHT */
 body.light{background:#f1f5f9;color:#0f172a;}
 body.light .right{background:#ffffff;}
 body.light .glass{background:#f8fafc;border-color:rgba(15,23,42,.12);}
-body.light input{background:#fff;color:#0f172a;border-color:rgba(15,23,42,.15);}
+body.light input,body.light select{background:#fff;color:#0f172a;border-color:rgba(15,23,42,.15);}
 body.light .muted{color:#475569;}
 body.light .theme-toggle{color:#0f172a;}
 body.light .contact-btn{background:linear-gradient(135deg,#0ea5e9,#2563eb);}
 
-/* LEFT */
 .left{
-  width:50%;
-  background:linear-gradient(135deg,#1e3a8a,#2563eb);
-  padding:60px;
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  gap:14px;
+width:50%;
+background:linear-gradient(135deg,#1e3a8a,#2563eb);
+padding:60px;
+position:relative;
+display:flex;
+flex-direction:column;
+justify-content:center;
+gap:14px;
 }
 .left .brand{
-  position:absolute;
-  top:26px; left:40px;
-  font-weight:800;
-  font-size:20px;
-  letter-spacing:.5px;
-  color:#e0f2fe;
-  text-shadow:0 0 18px rgba(56,189,248,.35);
+position:absolute;
+top:26px; left:40px;
+font-weight:800;
+font-size:20px;
+letter-spacing:.5px;
+color:#e0f2fe;
+text-shadow:0 0 18px rgba(56,189,248,.35);
 }
 .left h2{font-size:30px;line-height:1.2;margin-top:18px;}
 .feature{
-  background:rgba(255,255,255,0.12);
-  padding:14px 14px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.16);
+background:rgba(255,255,255,0.12);
+padding:14px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.16);
 }
 .feature b{display:block;margin-bottom:4px;}
 .left p{opacity:.9;font-size:14px;line-height:1.6;}
 
-/* RIGHT */
 .right{
-  width:50%;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  background:#0f172a;
+width:50%;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:24px;
+background:#0f172a;
 }
 
-/* theme toggle */
 .theme-toggle{
-  position:absolute;
-  top:18px;
-  right:18px;
-  border:none;
-  background:rgba(255,255,255,0.08);
-  color:#fff;
-  padding:10px 12px;
-  border-radius:12px;
-  cursor:pointer;
-  font-weight:700;
-  transition:.2s;
+position:absolute;
+top:18px;
+right:18px;
+border:none;
+background:rgba(255,255,255,0.08);
+color:#fff;
+padding:10px 12px;
+border-radius:12px;
+cursor:pointer;
+font-weight:700;
+transition:.2s;
 }
 .theme-toggle:hover{transform:translateY(-1px);background:rgba(255,255,255,0.12);}
 
 .glass{
-  width:min(420px, 100%);
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.10);
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 20px 50px rgba(0,0,0,0.35);
+width:min(430px,100%);
+background:rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.10);
+border-radius:18px;
+padding:22px;
+box-shadow:0 20px 50px rgba(0,0,0,0.35);
 }
 
-.title{
-  font-size:22px;
-  font-weight:800;
-  margin-bottom:6px;
-}
-.muted{
-  color:#9ca3af;
-  font-size:13px;
-  margin-bottom:16px;
-}
-
-.input-group{margin-bottom:12px; position:relative;}
-label{font-size:13px; opacity:.9;}
+.title{font-size:22px;font-weight:800;margin-bottom:6px;}
+.muted{color:#9ca3af;font-size:13px;margin-bottom:16px;}
+.input-group{margin-bottom:12px;position:relative;}
+label{font-size:13px;opacity:.9;}
 input{
-  width:100%;
-  padding:12px 12px;
-  margin-top:6px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.12);
-  background:#111827;
-  color:#fff;
-  outline:none;
+width:100%;
+padding:12px;
+margin-top:6px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.12);
+background:#111827;
+color:#fff;
+outline:none;
 }
 input:focus{border-color:#38bdf8;}
 .show-pass{
-  position:absolute;
-  right:12px;
-  top:38px;
-  cursor:pointer;
-  opacity:.85;
-  user-select:none;
+position:absolute;
+right:12px;
+top:38px;
+cursor:pointer;
+opacity:.85;
+user-select:none;
 }
 
 .btn{
-  width:100%;
-  padding:12px 14px;
-  border:none;
-  border-radius:12px;
-  background:linear-gradient(90deg,#2563eb,#3b82f6);
-  color:#fff;
-  font-weight:800;
-  cursor:pointer;
-  margin-top:6px;
-  transition:.2s;
+width:100%;
+padding:12px 14px;
+border:none;
+border-radius:12px;
+background:linear-gradient(90deg,#2563eb,#3b82f6);
+color:#fff;
+font-weight:800;
+cursor:pointer;
+margin-top:6px;
+transition:.2s;
 }
 .btn:hover{transform:translateY(-1px);filter:brightness(1.05);}
 
 .links{
-  margin-top:12px;
-  font-size:13px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+margin-top:12px;
+font-size:13px;
+display:flex;
+flex-direction:column;
+gap:8px;
 }
-.links a{
-  color:#38bdf8;
-  text-decoration:none;
-  cursor:pointer;
-}
-.back{
-  margin-top:6px;
-  font-size:12px;
-}
+.links a{color:#38bdf8;text-decoration:none;cursor:pointer;}
+.back{margin-top:6px;font-size:12px;}
+.note{margin-top:10px;font-size:13px;min-height:20px;color:#38bdf8;}
 
-.note{
-  margin-top:10px;
-  font-size:13px;
-  min-height:20px;
-  color:#38bdf8;
-}
-
-/* CONTACT */
 .contact-fixed{
-  position:fixed;
-  right:14px;
-  top:50%;
-  transform:translateY(-50%);
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  z-index:999;
+position:fixed;
+right:14px;
+top:50%;
+transform:translateY(-50%);
+display:flex;
+flex-direction:column;
+gap:12px;
+z-index:999;
 }
-
 .contact-btn{
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#1e3a8a,#2563eb);
-  box-shadow:0 10px 25px rgba(0,0,0,0.25);
-  transition:.2s;
+width:48px;height:48px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,#1e3a8a,#2563eb);
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
+transition:.2s;
 }
 .contact-btn img{width:24px;height:24px;}
 .contact-btn:hover{transform:scale(1.1);}
 
 @media (max-width:900px){
-  body{display:block;}
-  .left{display:none;}
-  .right{width:100%; min-height:100vh;}
+body{display:block;}
+.left{display:none;}
+.right{width:100%;min-height:100vh;}
 }
-
 @media (max-width:520px){
-  .contact-fixed{
-    top:auto;
-    bottom:18px;
-    right:12px;
-    transform:none;
-    gap:10px;
-  }
-  .contact-btn{width:44px;height:44px;}
-  .theme-toggle{right:12px;}
+.contact-fixed{
+top:auto;bottom:18px;right:12px;transform:none;gap:10px;
+}
+.contact-btn{width:44px;height:44px;}
 }
 </style>
 </head>
@@ -213,279 +173,262 @@ input:focus{border-color:#38bdf8;}
 <body>
 
 <div class="contact-fixed">
-  <a class="contact-btn" href="https://zalo.me/0900000000" target="_blank" title="Zalo">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
-  </a>
-  <a class="contact-btn" href="https://m.me/yourfacebook" target="_blank" title="Messenger">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
-  </a>
-  <a class="contact-btn" href="https://t.me/yourtelegram" target="_blank" title="Telegram">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
-  </a>
-  <a class="contact-btn" href="tel:0900000000" title="Gọi điện">
-    <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Phone">
-  </a>
+<a class="contact-btn" href="https://zalo.me/0387676061" target="_blank" title="Zalo">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+<a class="contact-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank" title="Messenger">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+<a class="contact-btn" href="https://t.me/dduwcshuyy" target="_blank" title="Telegram">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+<a class="contact-btn" href="tel:0387676061" title="Gọi điện">
+<img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Phone">
+</a>
 </div>
 
 <div class="left">
-  <div class="brand">TECHMONEY</div>
-  <h2>Dịch vụ tài chính<br>nhanh chóng & an toàn</h2>
-  <p>Vay iCloud iPhone, rút ví trả sau, đáo hạn thẻ tín dụng và nhiều dịch vụ khác.</p>
-
-  <div class="feature"><b>⚡ Duyệt nhanh</b>Hỗ trợ xử lý trong ngày.</div>
-  <div class="feature"><b>🔒 Bảo mật</b>Thông tin khách hàng được bảo vệ.</div>
-  <div class="feature"><b>💬 Hỗ trợ 24/7</b>Nhân viên tư vấn mọi lúc.</div>
+<div class="brand">TECHMONEY</div>
+<h2>Dịch vụ tài chính<br>nhanh chóng & an toàn</h2>
+<p>Vay iCloud iPhone, rút ví trả sau, đáo hạn thẻ tín dụng, nạp rút số dư và nhiều dịch vụ khác.</p>
+<div class="feature"><b>⚡ Duyệt nhanh</b>Hỗ trợ xử lý trong ngày.</div>
+<div class="feature"><b>🔒 Bảo mật</b>Thông tin khách hàng được bảo vệ.</div>
+<div class="feature"><b>💬 Hỗ trợ 24/7</b>Nhân viên tư vấn mọi lúc.</div>
 </div>
 
 <div class="right">
-  <button id="themeToggle" class="theme-toggle" type="button">🌙</button>
+<button id="themeToggle" class="theme-toggle" type="button">🌙</button>
 
-  <div class="glass">
+<div class="glass">
+<div id="loginForm">
+<div class="title">Chào mừng trở lại</div>
+<div class="muted">Đăng nhập để tiếp tục</div>
 
-    <!-- LOGIN -->
-    <div id="loginForm">
-      <div class="title">Chào mừng trở lại</div>
-      <div class="muted">Đăng nhập để tiếp tục</div>
+<div class="input-group">
+<label>Email</label>
+<input id="loginEmail" type="email" placeholder="Nhập email">
+</div>
 
-      <div class="input-group">
-        <label>Email</label>
-        <input id="loginEmail" type="email" placeholder="Nhập email">
-      </div>
+<div class="input-group">
+<label>Mật khẩu</label>
+<input id="loginPass" type="password" placeholder="Nhập mật khẩu">
+<span class="show-pass" onclick="togglePass('loginPass')">👁</span>
+</div>
 
-      <div class="input-group">
-        <label>Mật khẩu</label>
-        <input id="loginPass" type="password" placeholder="Nhập mật khẩu">
-        <span class="show-pass" onclick="togglePass('loginPass')">👁</span>
-      </div>
+<button class="btn" type="button" onclick="login()">Đăng nhập →</button>
 
-      <button class="btn" type="button" onclick="login()">Đăng nhập →</button>
+<div class="links">
+<a onclick="showRegister()">Chưa có tài khoản? Đăng ký ngay</a>
+<a onclick="forgotPassword()">Quên mật khẩu?</a>
+<div class="back">← <a href="index.html">Quay lại trang chủ</a></div>
+</div>
+</div>
 
-      <div class="links">
-        <a onclick="showRegister()">Chưa có tài khoản? Đăng ký ngay</a>
-        <a onclick="forgotPassword()">Quên mật khẩu?</a>
-        <div class="back">← <a href="index.html">Quay lại trang chủ</a></div>
-      </div>
-    </div>
+<div id="registerForm" style="display:none;">
+<div class="title">Tạo tài khoản</div>
+<div class="muted">Đăng ký để bắt đầu sử dụng</div>
 
-    <!-- REGISTER -->
-    <div id="registerForm" style="display:none;">
-      <div class="title">Tạo tài khoản</div>
-      <div class="muted">Đăng ký để bắt đầu sử dụng</div>
+<div class="input-group">
+<label>Tên hiển thị</label>
+<input id="regName" type="text" placeholder="VD: Nguyễn Văn A">
+</div>
 
-      <div class="input-group">
-        <label>Tên hiển thị</label>
-        <input id="regName" type="text" placeholder="VD: Nguyễn Văn A">
-      </div>
+<div class="input-group">
+<label>Email</label>
+<input id="regEmail" type="email" placeholder="VD: abc@gmail.com">
+</div>
 
-      <div class="input-group">
-        <label>Email</label>
-        <input id="regEmail" type="email" placeholder="VD: abc@gmail.com">
-      </div>
+<div class="input-group">
+<label>Mật khẩu</label>
+<input id="regPass" type="password" placeholder="Tạo mật khẩu">
+<span class="show-pass" onclick="togglePass('regPass')">👁</span>
+</div>
 
-      <div class="input-group">
-        <label>Mật khẩu</label>
-        <input id="regPass" type="password" placeholder="Tạo mật khẩu">
-        <span class="show-pass" onclick="togglePass('regPass')">👁</span>
-      </div>
+<div class="input-group">
+<label>Xác nhận mật khẩu</label>
+<input id="regConfirm" type="password" placeholder="Nhập lại mật khẩu">
+<span class="show-pass" onclick="togglePass('regConfirm')">👁</span>
+</div>
 
-      <div class="input-group">
-        <label>Xác nhận mật khẩu</label>
-        <input id="regConfirm" type="password" placeholder="Nhập lại mật khẩu">
-        <span class="show-pass" onclick="togglePass('regConfirm')">👁</span>
-      </div>
+<button class="btn" type="button" onclick="register()">Đăng ký →</button>
 
-      <button class="btn" type="button" onclick="register()">Đăng ký →</button>
+<div class="links">
+<a onclick="showLogin()">Đã có tài khoản? Đăng nhập</a>
+</div>
+</div>
 
-      <div class="links">
-        <a onclick="showLogin()">Đã có tài khoản? Đăng nhập</a>
-      </div>
-    </div>
-
-    <div id="note" class="note"></div>
-
-  </div>
+<div id="note" class="note"></div>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
-
 <script>
 const note = document.getElementById("note");
-
-/* THEME */
 const themeToggle = document.getElementById("themeToggle");
+
 function applyTheme(){
-  const t = localStorage.getItem("theme");
-  if(t==="light"){
-    document.body.classList.add("light");
-    themeToggle.textContent="☀️";
-  }else{
-    document.body.classList.remove("light");
-    themeToggle.textContent="🌙";
-  }
+const t = localStorage.getItem("theme");
+if(t==="light"){
+document.body.classList.add("light");
+themeToggle.textContent="☀️";
+}else{
+document.body.classList.remove("light");
+themeToggle.textContent="🌙";
+}
 }
 applyTheme();
 
 themeToggle.addEventListener("click", ()=>{
-  const isLight = document.body.classList.toggle("light");
-  localStorage.setItem("theme", isLight ? "light" : "dark");
-  applyTheme();
+const isLight = document.body.classList.toggle("light");
+localStorage.setItem("theme", isLight ? "light" : "dark");
+applyTheme();
 });
 
-function showMessage(text){
-  note.textContent = text;
-}
-
-/* UI SWITCH */
+function showMessage(text){ note.textContent = text; }
 function showRegister(){
-  document.getElementById("loginForm").style.display="none";
-  document.getElementById("registerForm").style.display="block";
-  showMessage("");
+document.getElementById("loginForm").style.display="none";
+document.getElementById("registerForm").style.display="block";
+showMessage("");
 }
 function showLogin(){
-  document.getElementById("registerForm").style.display="none";
-  document.getElementById("loginForm").style.display="block";
-  showMessage("");
+document.getElementById("registerForm").style.display="none";
+document.getElementById("loginForm").style.display="block";
+showMessage("");
 }
 function togglePass(id){
-  const input=document.getElementById(id);
-  input.type = input.type==="password" ? "text" : "password";
+const input=document.getElementById(id);
+input.type = input.type==="password" ? "text" : "password";
 }
 
-/* REGISTER */
 async function register(){
-  const name = document.getElementById("regName").value.trim();
-  const email = document.getElementById("regEmail").value.trim();
-  const password = document.getElementById("regPass").value;
-  const confirm = document.getElementById("regConfirm").value;
+const name = document.getElementById("regName").value.trim();
+const email = document.getElementById("regEmail").value.trim();
+const password = document.getElementById("regPass").value;
+const confirm = document.getElementById("regConfirm").value;
 
-  if(!name || !email || !password || !confirm){
-    showMessage("Vui lòng nhập đầy đủ thông tin.");
-    return;
-  }
-
-  if(password !== confirm){
-    showMessage("Mật khẩu xác nhận không khớp.");
-    return;
-  }
-
-  showMessage("Đang tạo tài khoản...");
-
-  const { data, error } = await sb.auth.signUp({
-    email: email,
-    password: password
-  });
-
-  if(error){
-    showMessage("Lỗi đăng ký: " + error.message);
-    return;
-  }
-
-  const user = data.user;
-  if(!user){
-    showMessage("Tạo tài khoản xong. Hãy kiểm tra email xác nhận.");
-    return;
-  }
-
-  const { error: insertError } = await sb.from("users").insert({
-    user_id: user.id,
-    email: email,
-    name: name,
-    role: "user",
-    balance: 0,
-    status: "active"
-  });
-
-  if(insertError){
-    showMessage("Đăng ký auth thành công nhưng lỗi tạo hồ sơ: " + insertError.message);
-    return;
-  }
-
-  showMessage("Đăng ký thành công! Đang chuyển sang đăng nhập...");
-  setTimeout(() => {
-    showLogin();
-    document.getElementById("loginEmail").value = email;
-  }, 1200);
+if(!name || !email || !password || !confirm){
+showMessage("Vui lòng nhập đầy đủ thông tin.");
+return;
+}
+if(password !== confirm){
+showMessage("Mật khẩu xác nhận không khớp.");
+return;
 }
 
-/* LOGIN */
+showMessage("Đang tạo tài khoản...");
+
+try{
+const { data, error } = await sb.auth.signUp({ email, password });
+
+if(error){
+showMessage("Lỗi đăng ký: " + error.message);
+return;
+}
+
+const user = data.user;
+if(!user){
+showMessage("Tạo tài khoản thành công, hãy đăng nhập.");
+return;
+}
+
+const { data: existedProfile } = await sb
+.from("users")
+.select("id")
+.eq("user_id", user.id)
+.maybeSingle();
+
+if(!existedProfile){
+const { error: insertError } = await sb.from("users").insert({
+user_id: user.id,
+email: email,
+name: name,
+role: "user",
+balance: 0,
+status: "active"
+});
+
+if(insertError){
+showMessage("Tạo tài khoản thành công nhưng lỗi lưu hồ sơ: " + insertError.message);
+return;
+}
+}
+
+showMessage("Đăng ký thành công! Đang chuyển sang đăng nhập...");
+setTimeout(() => {
+showLogin();
+document.getElementById("loginEmail").value = email;
+}, 1200);
+
+}catch(err){
+showMessage("Lỗi hệ thống: " + err.message);
+}
+}
+
 async function login(){
-  const email = document.getElementById("loginEmail").value.trim();
-  const password = document.getElementById("loginPass").value;
+const email = document.getElementById("loginEmail").value.trim();
+const password = document.getElementById("loginPass").value;
 
-  if(!email || !password){
-    showMessage("Vui lòng nhập email và mật khẩu.");
-    return;
-  }
-
-  showMessage("Đang đăng nhập...");
-
-  const { data, error } = await sb.auth.signInWithPassword({
-    email: email,
-    password: password
-  });
-
-  if(error){
-    showMessage("Sai email hoặc mật khẩu.");
-    return;
-  }
-
-  const userId = data.user.id;
-
-  const { data: rows, error: profileError } = await sb
-    .from("users")
-    .select("role,status,name")
-    .eq("user_id", userId)
-    .limit(1);
-
-  if(profileError){
-    showMessage("Đăng nhập được nhưng lỗi đọc hồ sơ: " + profileError.message);
-    return;
-  }
-
-  if(!rows || rows.length === 0){
-    showMessage("Không tìm thấy hồ sơ người dùng.");
-    return;
-  }
-
-  const me = rows[0];
-
-  if(me.status !== "active"){
-    await sb.auth.signOut();
-    showMessage("Tài khoản của bạn đang bị khóa.");
-    return;
-  }
-
-  localStorage.setItem("currentUser", me.name || email);
-
-  if(me.role === "admin"){
-    window.location.href = "admin.html";
-  }else{
-    window.location.href = "home.html";
-  }
+if(!email || !password){
+showMessage("Vui lòng nhập email và mật khẩu.");
+return;
 }
 
-/* FORGOT PASSWORD */
+showMessage("Đang đăng nhập...");
+
+const { data, error } = await sb.auth.signInWithPassword({ email, password });
+
+if(error){
+showMessage("Sai email hoặc mật khẩu.");
+return;
+}
+
+const user = data.user;
+
+const { data: profile, error: profileError } = await sb
+.from("users")
+.select("*")
+.eq("user_id", user.id)
+.single();
+
+if(profileError){
+showMessage("Lỗi đọc hồ sơ: " + profileError.message);
+return;
+}
+
+if(profile.status !== "active"){
+await sb.auth.signOut();
+showMessage("Tài khoản của bạn đang bị khóa.");
+return;
+}
+
+localStorage.setItem("currentUser", profile.name || profile.email);
+
+if(profile.role === "admin"){
+window.location = "admin.html";
+}else{
+window.location = "home.html";
+}
+}
+
 async function forgotPassword(){
-  const email = document.getElementById("loginEmail").value.trim();
+const email = document.getElementById("loginEmail").value.trim();
+if(!email){
+showMessage("Nhập email trước để đặt lại mật khẩu.");
+return;
+}
 
-  if(!email){
-    showMessage("Nhập email trước để đặt lại mật khẩu.");
-    return;
-  }
+const { error } = await sb.auth.resetPasswordForEmail(email, {
+redirectTo: window.location.origin + "/login.html"
+});
 
-  const { error } = await sb.auth.resetPasswordForEmail(email, {
-    redirectTo: window.location.origin + "/login.html"
-  });
+if(error){
+showMessage("Lỗi gửi email khôi phục: " + error.message);
+return;
+}
 
-  if(error){
-    showMessage("Lỗi gửi email khôi phục: " + error.message);
-    return;
-  }
-
-  showMessage("Đã gửi email khôi phục mật khẩu. Hãy kiểm tra hộp thư.");
+showMessage("Đã gửi email khôi phục mật khẩu.");
 }
 </script>
-
 </body>
 </html>

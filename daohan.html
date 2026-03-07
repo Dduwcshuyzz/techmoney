@@ -1,263 +1,119 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TECHMONEY - Đáo hạn thẻ tín dụng</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-html,body{max-width:100%;overflow-x:hidden;}
-body{display:flex;min-height:100vh;background:#0f172a;color:#fff;transition:.3s;}
-a{color:inherit;text-decoration:none}
-
-/* LIGHT */
-body.light{background:#f1f5f9;color:#0f172a;}
-body.light .sidebar{background:#fff;}
-body.light .menu a{color:#0f172a;background:rgba(15,23,42,0.05);}
-body.light .menu a:hover{color:#fff;}
-body.light .topbar{background:rgba(255,255,255,.85);border-color:rgba(15,23,42,.08);}
-body.light .icon-btn{background:rgba(15,23,42,0.06);}
-body.light .panel{background:rgba(15,23,42,0.04);border-color:rgba(15,23,42,0.08);}
-body.light input,body.light select{background:#fff;color:#0f172a;border-color:rgba(15,23,42,.15);}
-body.light .warning{background:#ffe6e6;}
-body.light .overlay{background:rgba(0,0,0,.35);}
-
-/* SIDEBAR */
-.sidebar{width:240px;background:#111827;padding:20px;display:flex;flex-direction:column;justify-content:space-between;height:100vh;position:sticky;top:0;}
-.logo{font-size:20px;font-weight:800;margin-bottom:18px;color:#38bdf8;}
-.menu a{display:block;padding:12px;margin-bottom:10px;border-radius:10px;background:rgba(255,255,255,0.06);transition:.25s;white-space:nowrap;}
-.menu a:hover{background:linear-gradient(90deg,#2563eb,#3b82f6);}
-.sep{margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,.12);}
-.bottom-box{background:linear-gradient(135deg,#2563eb,#3b82f6);padding:14px;border-radius:12px;text-align:center;font-size:14px;}
-.bottom-box b{font-size:15px}
-
-/* MAIN */
-.main{flex:1;padding:14px;overflow:auto;min-width:0;}
-.topbar{
-  position:sticky;top:0;z-index:50;
-  display:flex;justify-content:space-between;align-items:center;gap:10px;
-  padding:12px 14px;margin-bottom:14px;border-radius:14px;
-  background:rgba(15,23,42,0.55);border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
-}
-.left-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.icon-btn{
-  border:none;background:rgba(255,255,255,0.08);color:inherit;
-  padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:700;
-  white-space:nowrap;transition:.2s;
-}
-.icon-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.12);}
-.logout{background:#ef4444;border:none;padding:10px 14px;border-radius:12px;color:#fff;cursor:pointer;font-weight:800;white-space:nowrap;transition:.2s;}
-.logout:hover{transform:translateY(-1px);filter:brightness(1.05);}
-
-.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;}
-.panel{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:16px;}
-.panel h2{font-size:18px;margin-bottom:8px}
-.muted{opacity:.85;font-size:13px;line-height:1.55}
-
-label{font-size:13px;opacity:.9}
-input,select{
-  width:100%;padding:11px 12px;border-radius:12px;outline:none;
-  border:1px solid rgba(255,255,255,0.12);background:#111827;color:#fff;
-  margin-top:6px;margin-bottom:12px;
-}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.primary{
-  width:100%;padding:12px;border:none;border-radius:12px;
-  background:#2563eb;color:#fff;font-weight:800;cursor:pointer;transition:.2s;
-}
-.primary:hover{transform:translateY(-1px);filter:brightness(1.05);}
-.result{
-  margin-top:10px;padding:12px;border-radius:12px;
-  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);
-}
-.success{
-  display:none;margin-top:12px;padding:12px;border-radius:12px;
-  background:#065f46;border:1px solid rgba(255,255,255,0.12);font-weight:800;
-}
-.warning{background:#3b1d1d;border:1px solid #ef4444;padding:16px;border-radius:16px;}
-.warning ul{padding-left:18px;line-height:1.6;font-size:14px}
-
-/* drawer */
-.mobile-only{display:none;}
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:90;}
-.sidebar.drawer{display:none;position:fixed;left:-280px;top:0;height:100vh;z-index:100;transition:left .25s ease;box-shadow:0 20px 50px rgba(0,0,0,.35);}
-.sidebar.drawer.open{left:0;}
-.overlay.show{display:block;}
-@media(max-width:900px){
-  .sidebar{display:none;}
-  .sidebar.drawer{display:flex;}
-  .mobile-only{display:inline-flex;}
-  .grid{grid-template-columns:1fr;}
-  .row{grid-template-columns:1fr;}
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#0f172a;color:#fff;min-height:100vh;padding:24px}
+.wrap{max-width:900px;margin:auto}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.logo{font-size:30px;font-weight:800;color:#38bdf8}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:none;background:#2563eb;color:#fff;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:700}
+.btn.red{background:#ef4444}
+.box{background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.title{font-size:24px;font-weight:800;margin-bottom:8px}
+.sub{color:#94a3b8;margin-bottom:18px;font-size:14px;line-height:1.7}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.full{grid-column:1/-1}
+label{font-size:14px;display:block;margin-bottom:6px}
+input,select,textarea{width:100%;padding:12px 14px;border:none;outline:none;border-radius:12px;background:#1f2937;color:#fff}
+textarea{resize:vertical;min-height:100px}
+.note{margin-top:14px;color:#38bdf8;font-size:14px;min-height:20px}
+.support-fixed{position:fixed;right:14px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:50}
+.support-wrap{position:relative}
+.support-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e3a8a,#2563eb);box-shadow:0 0 18px rgba(37,99,235,.40);border:1px solid rgba(255,255,255,.14)}
+.support-btn img{width:24px;height:24px}
+.support-tip{position:absolute;right:62px;top:50%;transform:translateY(-50%);background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:7px 10px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s}
+.support-wrap:hover .support-tip{opacity:1}
+@media(max-width:768px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
-<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
-
-<div class="sidebar drawer" id="drawer">
-  <div>
-    <div class="logo">TECHMONEY</div>
-    <div class="menu">
-      <a href="home.html">🏠 Trang chủ</a>
-      <a href="vayip.html">📱 Vay iCloud iPhone</a>
-      <a href="rutvi.html">💳 Rút ví trả sau</a>
-      <a href="daohan.html">🔄 ĐH thẻ tín dụng</a>
-      <a href="gachthecao.html">📱 Gạch thẻ cào</a>
-      <a href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
-      <a href="naptien.html">💰 Nạp tiền</a>
-      <a href="thongtin.html">👤 Thông tin cá nhân</a>
-      <a href="lichsu.html">📜 Lịch sử</a>
-    </div>
-  </div>
+<div class="wrap">
+<div class="topbar">
+<div class="logo">TECHMONEY</div>
+<div class="actions">
+<button class="btn" onclick="location.href='home.html'">Trang chủ</button>
+<button class="btn" onclick="location.href='dashboard.html'">Dashboard</button>
+<button class="btn red" onclick="logout()">Đăng xuất</button>
+</div>
 </div>
 
-<div class="sidebar">
-  <div>
-    <div class="logo">TECHMONEY</div>
-    <div class="menu">
-      <a href="home.html">🏠 Trang chủ</a>
-      <a href="vayip.html">📱 Vay iCloud iPhone</a>
-      <a href="rutvi.html">💳 Rút ví trả sau</a>
-      <a href="daohan.html">🔄 ĐH thẻ tín dụng</a>
-      <a href="gachthecao.html">📱 Gạch thẻ cào</a>
-      <a href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
-      <a href="naptien.html">💰 Nạp tiền</a>
-      <hr class="sep">
-      <a href="thongtin.html">👤 Thông tin cá nhân</a>
-      <a href="lichsu.html">📜 Lịch sử</a>
-    </div>
-  </div>
-  <div class="bottom-box">
-    Xin chào<br><b id="userDisplay"></b><br><br>
-    Số dư: <b id="balanceText">0đ</b>
-  </div>
+<div class="box">
+<div class="title">Đáo hạn thẻ tín dụng</div>
+<div class="sub">Điền thông tin cơ bản để gửi yêu cầu hỗ trợ đáo hạn. Nhân viên sẽ kiểm tra và liên hệ lại.</div>
+
+<div class="grid">
+<div>
+<label>Ngân hàng phát hành thẻ</label>
+<select>
+<option>Vietcombank</option>
+<option>Techcombank</option>
+<option>MB Bank</option>
+<option>BIDV</option>
+<option>ACB</option>
+<option>VPBank</option>
+<option>TPBank</option>
+<option>Sacombank</option>
+</select>
 </div>
 
-<div class="main">
-  <div class="topbar">
-    <div class="left-actions">
-      <button class="icon-btn mobile-only" type="button" onclick="openDrawer()">☰ Menu</button>
-      <button class="icon-btn" type="button" onclick="location.href='home.html'">← Dashboard</button>
-      <button class="icon-btn" type="button" onclick="toggleTheme()" id="themeBtn">🌙 Giao diện</button>
-    </div>
-    <button class="logout" type="button" onclick="logout()">Đăng xuất</button>
-  </div>
-
-  <div class="grid">
-    <div class="panel">
-      <h2>🔄 Đáo hạn thẻ tín dụng</h2>
-      <div class="muted">Phí dịch vụ (tạm tính): <b>2.5%</b> • Nhân viên sẽ xác nhận lại trước khi xử lý.</div>
-
-      <label>Ngân hàng phát hành</label>
-      <select id="bank">
-        <option>Vietcombank</option>
-        <option>Techcombank</option>
-        <option>MB Bank</option>
-        <option>ACB</option>
-        <option>VPBank</option>
-        <option>Sacombank</option>
-        <option>TPBank</option>
-      </select>
-
-      <div class="row">
-        <div>
-          <label>Chủ thẻ</label>
-          <input id="owner" type="text" placeholder="VD: Nguyễn Văn A">
-        </div>
-        <div>
-          <label>4 số cuối thẻ</label>
-          <input id="last4" type="text" placeholder="VD: 1234" maxlength="4">
-        </div>
-      </div>
-
-      <label>Số tiền cần đáo hạn (VNĐ)</label>
-      <input id="amount" type="number" placeholder="VD: 10000000" min="100000">
-
-      <div class="result" id="calcBox">Phí dự kiến: <b>0đ</b> • Tổng cần chuẩn bị: <b>0đ</b></div>
-
-      <button class="primary" type="button" onclick="sendRequest()">Gửi yêu cầu</button>
-      <div class="success" id="successBox">✅ Đã gửi yêu cầu đáo hạn cho nhân viên!</div>
-    </div>
-
-    <div class="warning">
-      <h3>⚠ Chú ý</h3>
-      <ul>
-        <li>Thông tin chủ thẻ phải chính xác.</li>
-        <li>Nghiêm cấm hành vi rửa tiền → ban tài khoản và giam tiền.</li>
-        <li>Nhân viên có thể yêu cầu xác minh khi cần.</li>
-      </ul>
-    </div>
-  </div>
+<div>
+<label>Hạn mức thẻ</label>
+<input placeholder="Ví dụ: 50000000">
 </div>
 
+<div>
+<label>Họ và tên</label>
+<input id="fullname" placeholder="Nhập họ tên">
+</div>
+
+<div>
+<label>Số điện thoại</label>
+<input id="phone" placeholder="Nhập số điện thoại">
+</div>
+
+<div class="full">
+<label>Ghi chú thêm</label>
+<textarea placeholder="Ví dụ: Cần xử lý gấp trước ngày đến hạn"></textarea>
+</div>
+</div>
+
+<div style="margin-top:18px">
+<button class="btn" onclick="sendReq()">Gửi yêu cầu</button>
+</div>
+
+<div class="note" id="msg"></div>
+</div>
+</div>
+
+<div class="support-fixed">
+<div class="support-wrap"><div class="support-tip">Zalo</div><a class="support-btn" href="https://zalo.me/0387676061" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt=""></a></div>
+<div class="support-wrap"><div class="support-tip">Messenger</div><a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt=""></a></div>
+<div class="support-wrap"><div class="support-tip">Telegram</div><a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt=""></a></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 <script>
-const user = localStorage.getItem("currentUser");
-if(!user) location.href="index.html";
-document.getElementById("userDisplay").innerText = user;
-
-/* BALANCE */
-function getBalance(){ return parseInt(localStorage.getItem("balance_"+user) || "0"); }
-document.getElementById("balanceText").innerText = getBalance().toLocaleString()+"đ";
-
-/* THEME */
-const themeBtn = document.getElementById("themeBtn");
-function applyTheme(){
-  const t = localStorage.getItem("theme");
-  if(t==="light"){document.body.classList.add("light"); themeBtn.innerText="☀️ Giao diện";}
-  else{document.body.classList.remove("light"); themeBtn.innerText="🌙 Giao diện";}
+function sendReq(){
+const fullname = document.getElementById("fullname").value.trim();
+const phone = document.getElementById("phone").value.trim();
+if(!fullname || !phone){
+document.getElementById("msg").textContent = "Vui lòng nhập họ tên và số điện thoại.";
+return;
 }
-applyTheme();
-function toggleTheme(){
-  document.body.classList.toggle("light");
-  localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
-  applyTheme();
+document.getElementById("msg").textContent = "Đã gửi yêu cầu đáo hạn thẻ tín dụng.";
 }
 
-/* DRAWER */
-const drawer = document.getElementById("drawer");
-const overlay = document.getElementById("overlay");
-function openDrawer(){drawer.classList.add("open");overlay.classList.add("show");}
-function closeDrawer(){drawer.classList.remove("open");overlay.classList.remove("show");}
-window.addEventListener("resize", ()=>{ if(window.innerWidth>900) closeDrawer(); });
-
-/* TX */
-function addTx(type, amount, note){
-  const key = "tx_"+user;
-  const list = JSON.parse(localStorage.getItem(key) || "[]");
-  list.unshift({time:new Date().toISOString(), type, amount, note});
-  localStorage.setItem(key, JSON.stringify(list));
+async function logout(){
+await sb.auth.signOut();
+location.href = "login.html";
 }
-
-/* CALC */
-const amountEl = document.getElementById("amount");
-function recalc(){
-  const a = parseInt(amountEl.value || "0");
-  const fee = Math.round(a * 0.025);
-  const total = a + fee;
-  document.getElementById("calcBox").innerHTML =
-    `Phí dự kiến: <b>${fee.toLocaleString()}đ</b> • Tổng cần chuẩn bị: <b>${total.toLocaleString()}đ</b>`;
-}
-amountEl.addEventListener("input", recalc);
-recalc();
-
-function sendRequest(){
-  const bank = document.getElementById("bank").value;
-  const owner = document.getElementById("owner").value.trim();
-  const last4 = document.getElementById("last4").value.trim();
-  const amount = parseInt(document.getElementById("amount").value || "0");
-  if(!owner){ alert("Vui lòng nhập chủ thẻ"); return; }
-  if(last4.length !== 4 || !/^\d{4}$/.test(last4)){ alert("4 số cuối thẻ phải là 4 chữ số"); return; }
-  if(amount < 100000){ alert("Số tiền tối thiểu 100.000đ"); return; }
-
-  addTx("Đáo hạn thẻ tín dụng", 0, `${bank} | Chủ thẻ: ${owner} | **** ${last4} | Số tiền: ${amount.toLocaleString()}đ`);
-  document.getElementById("successBox").style.display="block";
-}
-
-function logout(){ localStorage.removeItem("currentUser"); location.href="index.html"; }
 </script>
 </body>
 </html>

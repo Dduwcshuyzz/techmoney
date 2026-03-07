@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TECHMONEY - Nạp tiền</title>
+  <title>TECHMONEY - Rút tiền</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
@@ -44,15 +44,14 @@
       color:#fff;
     }
     textarea{resize:vertical;min-height:100px;}
-    .pay-box{
+    .balance-box{
       margin-top:18px;
       padding:18px;
       border-radius:14px;
       background:linear-gradient(135deg,#1e293b,#0f172a);
       border:1px solid rgba(56,189,248,.25);
     }
-    .pay-box h3{margin-bottom:10px;color:#38bdf8;}
-    .pay-info{line-height:1.9;color:#e2e8f0;}
+    .balance-box h3{margin-bottom:10px;color:#38bdf8;}
     .note{margin-top:14px;color:#38bdf8;font-size:14px;min-height:20px;}
     @media(max-width:768px){
       .grid{grid-template-columns:1fr;}
@@ -71,10 +70,15 @@
     </div>
 
     <div class="box">
-      <div class="title">Nạp tiền</div>
-      <div class="sub">Tạo yêu cầu nạp tiền qua MoMo hoặc chuyển khoản ngân hàng. Admin duyệt xong số dư sẽ tự cộng.</div>
+      <div class="title">Rút tiền</div>
+      <div class="sub">Tạo yêu cầu rút tiền qua MoMo hoặc ngân hàng. Admin duyệt xong số dư sẽ tự trừ.</div>
 
-      <div class="grid">
+      <div class="balance-box">
+        <h3>Số dư hiện tại</h3>
+        <div id="balanceText">Đang tải...</div>
+      </div>
+
+      <div class="grid" style="margin-top:18px;">
         <div>
           <label>Phương thức</label>
           <select id="method" onchange="changeMethod()">
@@ -84,13 +88,13 @@
         </div>
 
         <div>
-          <label>Số tiền</label>
+          <label>Số tiền rút</label>
           <input id="amount" type="number" placeholder="Ví dụ: 500000">
         </div>
 
         <div>
-          <label>Tên người gửi</label>
-          <input id="accountName" placeholder="Nhập tên của bạn">
+          <label>Tên người nhận</label>
+          <input id="accountName" placeholder="Nhập tên người nhận">
         </div>
 
         <div>
@@ -104,21 +108,13 @@
         </div>
 
         <div class="full">
-          <label>Nội dung / ghi chú</label>
-          <textarea id="note" placeholder="Ví dụ: Nap tien Techmoney"></textarea>
-        </div>
-      </div>
-
-      <div class="pay-box">
-        <h3>Thông tin nhận tiền của TECHMONEY</h3>
-        <div class="pay-info" id="payInfo">
-          MoMo: 0900000000 - TECHMONEY<br>
-          Nội dung: NAPTIEN + EMAIL CUA BAN
+          <label>Ghi chú</label>
+          <textarea id="note" placeholder="Nhập ghi chú thêm nếu có"></textarea>
         </div>
       </div>
 
       <div style="margin-top:18px;">
-        <button class="btn" onclick="createDeposit()">Gửi yêu cầu nạp tiền</button>
+        <button class="btn" onclick="createWithdraw()">Gửi yêu cầu rút tiền</button>
       </div>
 
       <div class="note" id="msg"></div>
@@ -129,32 +125,38 @@
   <script src="supabase.js"></script>
   <script>
     const msg = document.getElementById("msg");
+    let currentBalance = 0;
 
     function setMsg(t){ msg.textContent = t || ""; }
 
     function changeMethod(){
       const method = document.getElementById("method").value;
-      const bankWrap = document.getElementById("bankWrap");
-      const payInfo = document.getElementById("payInfo");
-
-      if(method === "bank"){
-        bankWrap.style.display = "block";
-        payInfo.innerHTML = `
-          Ngân hàng: MB Bank<br>
-          STK: 0900000000<br>
-          Chủ TK: TECHMONEY<br>
-          Nội dung: NAPTIEN + EMAIL CUA BAN
-        `;
-      }else{
-        bankWrap.style.display = "none";
-        payInfo.innerHTML = `
-          MoMo: 0900000000 - TECHMONEY<br>
-          Nội dung: NAPTIEN + EMAIL CUA BAN
-        `;
-      }
+      document.getElementById("bankWrap").style.display = method === "bank" ? "block" : "none";
     }
 
-    async function createDeposit(){
+    async function loadBalance(){
+      const { data:{ user } } = await sb.auth.getUser();
+      if(!user){
+        location.href = "login.html";
+        return;
+      }
+
+      const { data, error } = await sb
+        .from("users")
+        .select("balance")
+        .eq("user_id", user.id)
+        .single();
+
+      if(error || !data){
+        document.getElementById("balanceText").textContent = "Không tải được số dư";
+        return;
+      }
+
+      currentBalance = Number(data.balance || 0);
+      document.getElementById("balanceText").textContent = currentBalance.toLocaleString() + "đ";
+    }
+
+    async function createWithdraw(){
       const { data:{ user } } = await sb.auth.getUser();
       if(!user){
         location.href = "login.html";
@@ -173,8 +175,13 @@
         return;
       }
 
+      if(amount > currentBalance){
+        setMsg("Số dư không đủ để rút.");
+        return;
+      }
+
       if(!accountName || !accountNumber){
-        setMsg("Vui lòng nhập đủ thông tin người gửi.");
+        setMsg("Vui lòng nhập đủ thông tin người nhận.");
         return;
       }
 
@@ -182,7 +189,7 @@
 
       const { error } = await sb.from("transactions").insert({
         user_id: user.id,
-        type: "deposit",
+        type: "withdraw",
         method,
         amount,
         account_name: accountName,
@@ -197,7 +204,7 @@
         return;
       }
 
-      setMsg("Đã gửi yêu cầu nạp tiền. Chờ admin duyệt.");
+      setMsg("Đã gửi yêu cầu rút tiền. Chờ admin duyệt.");
       document.getElementById("amount").value = "";
       document.getElementById("accountName").value = "";
       document.getElementById("accountNumber").value = "";
@@ -211,6 +218,7 @@
     }
 
     changeMethod();
+    loadBalance();
   </script>
 </body>
 </html>

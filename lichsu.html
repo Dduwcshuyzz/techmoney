@@ -1,194 +1,168 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TECHMONEY - Lịch sử</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECHMONEY - Lịch sử giao dịch</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-html,body{max-width:100%;overflow-x:hidden;}
-body{display:flex;min-height:100vh;background:#0f172a;color:#fff;transition:.3s;}
-a{color:inherit;text-decoration:none}
-body.light{background:#f1f5f9;color:#0f172a;}
-body.light .sidebar{background:#fff;}
-body.light .menu a{color:#0f172a;background:rgba(15,23,42,0.05);}
-body.light .menu a:hover{color:#fff;}
-body.light .topbar{background:rgba(255,255,255,.85);border-color:rgba(15,23,42,.08);}
-body.light .icon-btn{background:rgba(15,23,42,0.06);}
-body.light .card{background:#fff;border-color:rgba(15,23,42,0.12);}
-body.light .overlay{background:rgba(0,0,0,.35);}
-
-.sidebar{width:240px;background:#111827;padding:20px;display:flex;flex-direction:column;justify-content:space-between;height:100vh;position:sticky;top:0;}
-.logo{font-size:20px;font-weight:800;margin-bottom:18px;color:#38bdf8;}
-.menu a{display:block;padding:12px;margin-bottom:10px;border-radius:10px;background:rgba(255,255,255,0.06);transition:.25s;white-space:nowrap;}
-.menu a:hover{background:linear-gradient(90deg,#2563eb,#3b82f6);}
-.sep{margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,.12);}
-.bottom-box{background:linear-gradient(135deg,#2563eb,#3b82f6);padding:14px;border-radius:12px;text-align:center;font-size:14px;}
-.bottom-box b{font-size:15px}
-
-.main{flex:1;padding:14px;overflow:auto;min-width:0;}
+body{background:#0f172a;color:#fff;min-height:100vh;padding:24px;}
+.wrap{max-width:1200px;margin:auto;}
 .topbar{
-  position:sticky;top:0;z-index:50;
-  display:flex;justify-content:space-between;align-items:center;gap:10px;
-  padding:12px 14px;margin-bottom:14px;border-radius:14px;
-  background:rgba(15,23,42,0.55);border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
+display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;
 }
-.left-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.icon-btn{
-  border:none;background:rgba(255,255,255,0.08);color:inherit;
-  padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:700;
-  white-space:nowrap;transition:.2s;
+.logo{font-size:30px;font-weight:800;color:#38bdf8;}
+.top-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.btn{
+border:none;background:#2563eb;color:#fff;padding:10px 16px;border-radius:12px;
+cursor:pointer;font-weight:700;transition:.2s;
 }
-.icon-btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.12);}
-.logout{background:#ef4444;border:none;padding:10px 14px;border-radius:12px;color:#fff;cursor:pointer;font-weight:800;white-space:nowrap;transition:.2s;}
-.logout:hover{transform:translateY(-1px);filter:brightness(1.05);}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.05);}
+.btn.red{background:#ef4444;}
 
-.card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:14px;}
-.row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);margin-top:10px;}
-.badge{padding:6px 10px;border-radius:999px;background:rgba(56,189,248,0.18);border:1px solid rgba(56,189,248,0.35);font-weight:800;font-size:12px;white-space:nowrap;}
-.amount{font-weight:900;white-space:nowrap;}
-.small{opacity:.85;font-size:12px;line-height:1.4}
-.empty{opacity:.85;text-align:center;padding:26px;}
-
-/* drawer */
-.mobile-only{display:none;}
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:90;}
-.sidebar.drawer{display:none;position:fixed;left:-280px;top:0;height:100vh;z-index:100;transition:left .25s ease;box-shadow:0 20px 50px rgba(0,0,0,.35);}
-.sidebar.drawer.open{left:0;}
-.overlay.show{display:block;}
-@media(max-width:900px){
-  .sidebar{display:none;}
-  .sidebar.drawer{display:flex;}
-  .mobile-only{display:inline-flex;}
+.box{
+background:#111827;border:1px solid rgba(255,255,255,.08);border-radius:22px;
+padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.25);overflow:auto;
 }
+h2{margin-bottom:12px;}
+table{width:100%;border-collapse:collapse;min-width:950px;}
+th,td{padding:12px;text-align:left;border-bottom:1px solid rgba(255,255,255,.08);font-size:14px;}
+th{color:#38bdf8;}
+.pending{color:#facc15;font-weight:700;}
+.approved{color:#22c55e;font-weight:700;}
+.rejected{color:#ef4444;font-weight:700;}
+
+.support-fixed{
+position:fixed;right:14px;bottom:20px;display:flex;flex-direction:column;gap:12px;z-index:50;
+}
+.support-wrap{position:relative;}
+.support-btn{
+width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,#1e3a8a,#2563eb);box-shadow:0 0 18px rgba(37,99,235,0.40);
+border:1px solid rgba(255,255,255,0.14);transition:.2s;
+}
+.support-btn:hover{transform:scale(1.08);}
+.support-btn img,.support-btn svg{width:24px;height:24px;}
+.support-tip{
+position:absolute;right:62px;top:50%;transform:translateY(-50%);
+background:rgba(15,23,42,0.92);color:#fff;border:1px solid rgba(255,255,255,0.10);
+border-radius:10px;padding:7px 10px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s;
+}
+.support-wrap:hover .support-tip{opacity:1;}
 </style>
 </head>
 <body>
-<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
-
-<div class="sidebar drawer" id="drawer">
-  <div>
-    <div class="logo">TECHMONEY</div>
-    <div class="menu">
-      <a href="home.html">🏠 Trang chủ</a>
-      <a href="naptien.html">💰 Nạp tiền</a>
-      <a href="vayip.html">📱 Vay iCloud iPhone</a>
-      <a href="rutvi.html">💳 Rút ví trả sau</a>
-      <a href="daohan.html">🔄 ĐH thẻ tín dụng</a>
-      <a href="gachthecao.html">📱 Gạch thẻ cào</a>
-      <a href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
-      <a href="thongtin.html">👤 Thông tin cá nhân</a>
-      <a href="lichsu.html">📜 Lịch sử</a>
-    </div>
-  </div>
+<div class="wrap">
+<div class="topbar">
+<div class="logo">TECHMONEY</div>
+<div class="top-actions">
+<button class="btn" onclick="location.href='home.html'">Trang chủ</button>
+<button class="btn" onclick="location.href='dashboard.html'">Dashboard</button>
+<button class="btn" onclick="location.href='naptien.html'">Nạp tiền</button>
+<button class="btn" onclick="location.href='ruttien.html'">Rút tiền</button>
+<button class="btn red" onclick="logout()">Đăng xuất</button>
+</div>
 </div>
 
-<div class="sidebar">
-  <div>
-    <div class="logo">TECHMONEY</div>
-    <div class="menu">
-      <a href="home.html">🏠 Trang chủ</a>
-      <a href="naptien.html">💰 Nạp tiền</a>
-      <a href="vayip.html">📱 Vay iCloud iPhone</a>
-      <a href="rutvi.html">💳 Rút ví trả sau</a>
-      <a href="daohan.html">🔄 ĐH thẻ tín dụng</a>
-      <a href="gachthecao.html">📱 Gạch thẻ cào</a>
-      <a href="gioithieubanbe.html">👥 Giới thiệu bạn bè</a>
-      <hr class="sep">
-      <a href="thongtin.html">👤 Thông tin cá nhân</a>
-      <a href="lichsu.html">📜 Lịch sử</a>
-    </div>
-  </div>
-  <div class="bottom-box">
-    Xin chào<br><b id="userDisplay"></b><br><br>
-    Số dư: <b id="balanceText">0đ</b>
-  </div>
+<div class="box">
+<h2>Lịch sử giao dịch</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Loại</th>
+<th>Phương thức</th>
+<th>Số tiền</th>
+<th>Thông tin nhận/gửi</th>
+<th>Ngân hàng</th>
+<th>Trạng thái</th>
+<th>Thời gian</th>
+</tr>
+</thead>
+<tbody id="historyTable"></tbody>
+</table>
+</div>
 </div>
 
-<div class="main">
-  <div class="topbar">
-    <div class="left-actions">
-      <button class="icon-btn mobile-only" type="button" onclick="openDrawer()">☰ Menu</button>
-      <button class="icon-btn" type="button" onclick="location.href='home.html'">← Dashboard</button>
-      <button class="icon-btn" type="button" onclick="toggleTheme()" id="themeBtn">🌙 Giao diện</button>
-      <button class="icon-btn" type="button" onclick="clearHistory()">🧹 Xóa lịch sử</button>
-    </div>
-    <button class="logout" type="button" onclick="logout()">Đăng xuất</button>
-  </div>
-
-  <div class="card">
-    <h2 style="font-size:18px;margin-bottom:6px;">📜 Lịch sử hoạt động</h2>
-    <div class="small">Dữ liệu lưu trên trình duyệt (LocalStorage) theo từng tài khoản.</div>
-    <div id="list"></div>
-  </div>
+<div class="support-fixed">
+<div class="support-wrap">
+<div class="support-tip">Zalo</div>
+<a class="support-btn" href="https://zalo.me/0387676061" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
+</a>
+</div>
+<div class="support-wrap">
+<div class="support-tip">Messenger</div>
+<a class="support-btn" href="https://www.facebook.com/share/1AsS2Kz2EB/?mibextid=wwXIfr" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+</div>
+<div class="support-wrap">
+<div class="support-tip">Gọi điện</div>
+<a class="support-btn" href="tel:0387676061">
+<img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Phone">
+</a>
+</div>
+<div class="support-wrap">
+<div class="support-tip">Telegram</div>
+<a class="support-btn" href="https://t.me/dduwcshuyy" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+</a>
+</div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 <script>
-const user = localStorage.getItem("currentUser");
-if(!user) location.href="index.html";
-document.getElementById("userDisplay").innerText = user;
-
-function getBalance(){ return parseInt(localStorage.getItem("balance_"+user) || "0"); }
-document.getElementById("balanceText").innerText = getBalance().toLocaleString()+"đ";
-
-/* theme */
-const themeBtn = document.getElementById("themeBtn");
-function applyTheme(){
-  const t = localStorage.getItem("theme");
-  if(t==="light"){document.body.classList.add("light"); themeBtn.innerText="☀️ Giao diện";}
-  else{document.body.classList.remove("light"); themeBtn.innerText="🌙 Giao diện";}
-}
-applyTheme();
-function toggleTheme(){
-  document.body.classList.toggle("light");
-  localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
-  applyTheme();
+async function loadHistory(){
+const { data:{ user } } = await sb.auth.getUser();
+if(!user){
+location.href = "login.html";
+return;
 }
 
-/* drawer */
-const drawer = document.getElementById("drawer");
-const overlay = document.getElementById("overlay");
-function openDrawer(){drawer.classList.add("open");overlay.classList.add("show");}
-function closeDrawer(){drawer.classList.remove("open");overlay.classList.remove("show");}
-window.addEventListener("resize", ()=>{ if(window.innerWidth>900) closeDrawer(); });
+const { data, error } = await sb
+.from("transactions")
+.select("*")
+.eq("user_id", user.id)
+.order("id", { ascending:false });
 
-function render(){
-  const key = "tx_"+user;
-  const list = JSON.parse(localStorage.getItem(key) || "[]");
-  const el = document.getElementById("list");
-  if(list.length===0){
-    el.innerHTML = `<div class="empty">Chưa có giao dịch nào.</div>`;
-    return;
-  }
-  el.innerHTML = list.map(tx=>{
-    const dt = new Date(tx.time);
-    const time = dt.toLocaleString();
-    const amount = (tx.amount||0);
-    const sign = amount>0?"+":"";
-    const color = amount>=0 ? "#22c55e" : "#f87171";
-    return `
-      <div class="row">
-        <div style="min-width:0">
-          <div class="badge">${tx.type}</div>
-          <div class="small" style="margin-top:6px;opacity:.9;">${tx.note || ""}</div>
-          <div class="small" style="margin-top:6px;">${time}</div>
-        </div>
-        <div class="amount" style="color:${color}">${sign}${amount.toLocaleString()}đ</div>
-      </div>
-    `;
-  }).join("");
-}
-render();
-
-function clearHistory(){
-  if(!confirm("Xóa toàn bộ lịch sử?")) return;
-  localStorage.removeItem("tx_"+user);
-  render();
+if(error){
+alert("Lỗi tải lịch sử: " + error.message);
+return;
 }
 
-function logout(){ localStorage.removeItem("currentUser"); location.href="index.html"; }
+const tbody = document.getElementById("historyTable");
+tbody.innerHTML = "";
+
+if(!data || data.length === 0){
+tbody.innerHTML = `<tr><td colspan="8">Chưa có giao dịch nào.</td></tr>`;
+return;
+}
+
+data.forEach(tx => {
+const tr = document.createElement("tr");
+tr.innerHTML = `
+<td>${tx.id}</td>
+<td>${tx.type === "deposit" ? "Nạp tiền" : "Rút tiền"}</td>
+<td>${String(tx.method || "").toUpperCase()}</td>
+<td>${Number(tx.amount || 0).toLocaleString("vi-VN")}đ</td>
+<td>${tx.account_name || ""}<br>${tx.account_number || ""}</td>
+<td>${tx.bank_name || ""}</td>
+<td class="${tx.status}">${tx.status}</td>
+<td>${new Date(tx.created_at).toLocaleString("vi-VN")}</td>
+`;
+tbody.appendChild(tr);
+});
+}
+
+async function logout(){
+await sb.auth.signOut();
+location.href = "login.html";
+}
+
+loadHistory();
 </script>
 </body>
 </html>
